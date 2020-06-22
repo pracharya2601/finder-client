@@ -1,26 +1,56 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
+import jwtDecode from 'jwt-decode';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Navbar from './components/Navbar';
+import AuthRoute from './util/AuthRoute';
+
+import Home from './components/Home';
+import Login from './components/Login';
+import Signup from './components/Signup';
+import ResetPassword from './components/ResetPassword';
+
+let authenticated;
+const token = localStorage.FBIdToken;
+if (token) {
+  const decodedToken = jwtDecode(token);
+  console.log(decodedToken);
+  if (decodedToken.exp * 1000 < Date.now()) {
+    window.location.href = '/login';
+    authenticated = false;
+  } else {
+    authenticated = true;
+  }
+}
+
+class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <Router>
+          <Navbar />
+          <div className="container">
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <AuthRoute
+                path="/login"
+                exact
+                component={Login}
+                authenticated={authenticated}
+              />
+              <AuthRoute path="/signup" exact component={Signup} />
+              <AuthRoute
+                path="/resetpassword"
+                exact
+                component={ResetPassword}
+              />
+            </Switch>
+          </div>
+        </Router>
+      </div>
+    );
+  }
 }
 
 export default App;
