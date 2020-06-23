@@ -1,15 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import AppIcon from '../images/icon.png';
-import axios from 'axios';
-import api from '../api/api';
 
 //redux
-// import { connect } from 'react-redux';
-// import { loginUser } from '../actions/userAction';
+import { connect } from 'react-redux';
+import { loginUser } from '../redux/actions/userAction';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import PropsTypes from 'prop-types';
 
 //Mui
 import Typography from '@material-ui/core/Typography';
@@ -73,34 +71,20 @@ class Login extends React.Component {
       email: '',
       password: '',
       errors: {},
-      loading: '',
     };
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.UI.errors) {
+      this.setState({ errors: nextProps.UI.errors });
+    }
   }
   handleSubmit = (event) => {
     event.preventDefault();
-    this.setState({
-      loading: true,
-    });
-    const loginUser = {
+    const userData = {
       email: this.state.email,
       password: this.state.password,
     };
-    api
-      .post('/login', loginUser)
-      .then((res) => {
-        localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
-        this.setState({
-          loading: false,
-        });
-        this.props.history.push('/');
-        console.log(res.data.token);
-      })
-      .catch((err) => {
-        this.setState({
-          errors: err.response.data,
-          loading: false,
-        });
-      });
+    this.props.loginUser(userData, this.props.history);
   };
 
   handleChange = (event) => {
@@ -112,9 +96,9 @@ class Login extends React.Component {
   render() {
     const {
       classes,
-      // UI: { loading },
+      UI: { loading },
     } = this.props;
-    const { errors, loading } = this.state;
+    const { errors } = this.state;
     return (
       <div className={classes.form}>
         <div className={classes.loginContainer}>
@@ -132,7 +116,6 @@ class Login extends React.Component {
               name="email"
               type="email"
               label="Email"
-              className={classes.TextField}
               value={this.state.email}
               onChange={this.handleChange}
               helperText={errors.email}
@@ -145,7 +128,6 @@ class Login extends React.Component {
               name="password"
               type="password"
               label="Password"
-              className={classes.TextField}
               value={this.state.password}
               onChange={this.handleChange}
               helperText={errors.password}
@@ -200,23 +182,17 @@ class Login extends React.Component {
 }
 
 Login.propsTypes = {
-  classes: PropsTypes.object.isRequired,
-  loginUser: PropsTypes.func.isRequired,
-  user: PropsTypes.func.isRequired,
-  UI: PropsTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+  loginUser: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  UI: PropTypes.object.isRequired,
 };
 
-// const mapStateToProps = (state) => ({
-//   user: state.user,
-//   UI: state.UI,
-// });
+const mapStateToProps = (state) => ({
+  user: state.user,
+  UI: state.UI,
+});
 
-// const mapActionsToProps = {
-//   loginUser,
-// };
-
-// export default connect(
-//   mapStateToProps,
-//   mapActionsToProps
-// )(withStyles(styles)(Login));
-export default withStyles(styles)(Login);
+export default connect(mapStateToProps, { loginUser })(
+  withStyles(styles)(Login)
+);

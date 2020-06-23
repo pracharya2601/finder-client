@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import AppIcon from '../images/icon.png';
-import axios from 'axios';
+
+//redux
+import { connect } from 'react-redux';
+import { resetPassword } from '../redux/actions/userAction';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import PropsTypes from 'prop-types';
@@ -54,9 +58,9 @@ const styles = {
   gotoSignup: {
     color: 'green',
   },
-  custonError: {
-    color: 'red',
-    fontSize: '0.8rem',
+  customMessage: {
+    color: 'green',
+    fontSize: '1rem',
     marginTop: '10px',
   },
 };
@@ -66,36 +70,24 @@ class ReserPassword extends React.Component {
     super();
     this.state = {
       email: '',
-      loading: false,
       errors: {},
+      message: '',
     };
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.UI.errors) {
+      this.setState({ errors: nextProps.UI.errors });
+    } else {
+      this.setState({ message: nextProps.UI.message });
+      this.setState({ email: '' });
+    }
   }
   handleSubmit = (event) => {
     event.preventDefault();
-    this.setState({
-      loading: true,
-    });
     const userEmail = {
       email: this.state.email,
     };
-    axios
-      .post(
-        'https://us-central1-cocoontechlab.cloudfunctions.net/api/resetpassword',
-        userEmail
-      )
-      .then((res) => {
-        this.setState({
-          loading: false,
-        });
-        this.props.history.push('/login');
-        alert(res.data.message);
-      })
-      .catch((err) => {
-        this.setState({
-          errors: err.response.data,
-          loading: false,
-        });
-      });
+    this.props.resetPassword(userEmail, this.props.history);
   };
 
   handleChange = (event) => {
@@ -105,8 +97,11 @@ class ReserPassword extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
-    const { errors, loading } = this.state;
+    const {
+      classes,
+      UI: { loading },
+    } = this.props;
+    const { errors, message } = this.state;
     return (
       <div className={classes.form}>
         <div className={classes.loginContainer}>
@@ -117,6 +112,11 @@ class ReserPassword extends React.Component {
           <Typography variant="body2" className={classes.loginTitle}>
             Enter your email address to reset your password.
           </Typography>
+          {message && (
+            <Typography variant="body2" className={classes.customMessage}>
+              {message}
+            </Typography>
+          )}
           <form
             className={classes.formcontainer}
             noValidate
@@ -127,7 +127,6 @@ class ReserPassword extends React.Component {
               name="email"
               type="email"
               label="Email"
-              className={classes.TextField}
               value={this.state.email}
               onChange={this.handleChange}
               helperText={errors.email}
@@ -182,7 +181,14 @@ class ReserPassword extends React.Component {
 }
 
 ReserPassword.propsTypes = {
-  classes: PropsTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
+  resetPassword: PropTypes.func.isRequired,
+  UI: PropTypes.object.isRequired,
 };
+const mapStateToProps = (state) => ({
+  UI: state.UI,
+});
 
-export default withStyles(styles)(ReserPassword);
+export default connect(mapStateToProps, { resetPassword })(
+  withStyles(styles)(ReserPassword)
+);

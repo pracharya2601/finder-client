@@ -10,35 +10,40 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import ResetPassword from './components/ResetPassword';
+import axios from 'axios';
 
-let authenticated;
+//redux
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import { SET_AUTHENTICATED } from './redux/types';
+import { logoutUser, getUserData } from './redux/actions/userAction';
+
+axios.defaults.baseURL =
+  'https://us-central1-cocoontechlab.cloudfunctions.net/api';
+
 const token = localStorage.FBIdToken;
 if (token) {
   const decodedToken = jwtDecode(token);
-  console.log(decodedToken);
   if (decodedToken.exp * 1000 < Date.now()) {
+    store.dispatch(logoutUser());
     window.location.href = '/login';
-    authenticated = false;
   } else {
-    authenticated = true;
+    store.dispatch({ type: SET_AUTHENTICATED });
+    axios.defaults.headers.common['Authorization'] = token;
+    store.dispatch(getUserData());
   }
 }
 
 class App extends React.Component {
   render() {
     return (
-      <div className="App">
+      <Provider store={store}>
         <Router>
           <Navbar />
           <div className="container">
             <Switch>
               <Route path="/" exact component={Home} />
-              <AuthRoute
-                path="/login"
-                exact
-                component={Login}
-                authenticated={authenticated}
-              />
+              <AuthRoute path="/login" exact component={Login} />
               <AuthRoute path="/signup" exact component={Signup} />
               <AuthRoute
                 path="/resetpassword"
@@ -48,7 +53,7 @@ class App extends React.Component {
             </Switch>
           </div>
         </Router>
-      </div>
+      </Provider>
     );
   }
 }

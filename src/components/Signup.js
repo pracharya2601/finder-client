@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AppIcon from '../images/icon.png';
-import axios from 'axios';
+
+//redux
+import { connect } from 'react-redux';
+import { signupUser } from '../redux/actions/userAction';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import PropsTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 //Mui
 import Typography from '@material-ui/core/Typography';
@@ -67,16 +70,20 @@ class Signup extends React.Component {
       contactNo: '',
       password: '',
       confirmPassword: '',
-      loading: false,
       errors: {},
     };
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.UI.errors) {
+      this.setState({ errors: nextProps.UI.errors });
+    }
   }
   handleSubmit = (event) => {
     event.preventDefault();
     this.setState({
       loading: true,
     });
-    const newUser = {
+    const newUserData = {
       fullName: this.state.fullName,
       email: this.state.email,
       handle: this.state.handle,
@@ -85,24 +92,7 @@ class Signup extends React.Component {
       password: this.state.password,
       confirmPassword: this.state.confirmPassword,
     };
-    axios
-      .post(
-        'https://us-central1-cocoontechlab.cloudfunctions.net/api/signup',
-        newUser
-      )
-      .then((res) => {
-        localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
-        this.setState({
-          loading: false,
-        });
-        this.props.history.push('/');
-      })
-      .catch((err) => {
-        this.setState({
-          errors: err.response.data,
-          loading: false,
-        });
-      });
+    this.props.signupUser(newUserData, this.props.history);
   };
 
   handleChange = (event) => {
@@ -112,8 +102,11 @@ class Signup extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
-    const { errors, loading } = this.state;
+    const {
+      classes,
+      UI: { loading },
+    } = this.props;
+    const { errors } = this.state;
     return (
       <div className={classes.form}>
         <div className={classes.loginContainer}>
@@ -131,7 +124,6 @@ class Signup extends React.Component {
               name="fullName"
               type="text"
               label="Your Full Name"
-              className={classes.TextField}
               value={this.state.fullName}
               onChange={this.handleChange}
               helperText={errors.fullName}
@@ -144,7 +136,6 @@ class Signup extends React.Component {
               name="email"
               type="email"
               label="Email"
-              className={classes.TextField}
               value={this.state.email}
               onChange={this.handleChange}
               helperText={errors.email}
@@ -157,7 +148,6 @@ class Signup extends React.Component {
               name="handle"
               type="text"
               label="Username"
-              className={classes.TextField}
               value={this.state.handle}
               onChange={this.handleChange}
               helperText={errors.handle}
@@ -170,7 +160,6 @@ class Signup extends React.Component {
               name="contactNo"
               type="number"
               label="Phone Number"
-              className={classes.TextField}
               value={this.state.contactNo}
               onChange={this.handleChange}
               helperText={errors.contactNo}
@@ -183,7 +172,6 @@ class Signup extends React.Component {
               name="age"
               type="number"
               label="age"
-              className={classes.TextField}
               value={this.state.age}
               onChange={this.handleChange}
               helperText={errors.age}
@@ -196,7 +184,6 @@ class Signup extends React.Component {
               name="password"
               type="password"
               label="Password"
-              className={classes.TextField}
               value={this.state.password}
               onChange={this.handleChange}
               helperText={errors.password}
@@ -209,7 +196,6 @@ class Signup extends React.Component {
               name="confirmPassword"
               type="password"
               label="Confirm Password"
-              className={classes.TextField}
               value={this.state.confirmPassword}
               onChange={this.handleChange}
               helperText={errors.confirmPassword}
@@ -257,7 +243,17 @@ class Signup extends React.Component {
 }
 
 Signup.propsTypes = {
-  classes: PropsTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  UI: PropTypes.object.isRequired,
+  signupUser: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(Signup);
+const mapStateToProps = (state) => ({
+  user: state.user,
+  UI: state.UI,
+});
+
+export default connect(mapStateToProps, { signupUser })(
+  withStyles(styles)(Signup)
+);
