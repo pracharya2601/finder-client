@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import './css/Home.css';
 
+import Loading from './loading/Loading';
+
 import Place from './places/Place.js';
 
 class Home extends React.Component {
@@ -24,7 +26,7 @@ class Home extends React.Component {
         <Place place={place} key={place.placeId} />
       ))
     ) : (
-      <p>Lodding ...</p>
+      <Loading />
     );
     return <div className="place_container">{recentPlace}</div>;
   }

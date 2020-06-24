@@ -7,6 +7,7 @@ import {
   LIKE_SCREAM,
   UNLIKE_SCREAM,
   MARK_NOTIFICATIONS_READ,
+  LOADING_UI,
 } from '../types';
 
 const INITIAL_STATE = {
@@ -31,6 +32,11 @@ export default (state = INITIAL_STATE, action) => {
         authenticated: true,
         loading: false,
         ...action.payload,
+      };
+    case LOADING_USER:
+      return {
+        ...state,
+        loading: true,
       };
     default:
       return state;

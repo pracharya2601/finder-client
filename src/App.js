@@ -7,9 +7,11 @@ import Navbar from './components/Navbar';
 import AuthRoute from './util/AuthRoute';
 
 import Home from './components/Home';
+import Profile from './components/profile/Profile';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import ResetPassword from './components/ResetPassword';
+
 import axios from 'axios';
 
 //redux
@@ -36,6 +38,7 @@ if (token) {
 
 class App extends React.Component {
   render() {
+    console.log(getUserData);
     return (
       <Provider store={store}>
         <Router>
@@ -43,6 +46,7 @@ class App extends React.Component {
           <div className="container">
             <Switch>
               <Route path="/" exact component={Home} />
+              <Route path="/user/:handle" exact component={Profile} />
               <AuthRoute path="/login" exact component={Login} />
               <AuthRoute path="/signup" exact component={Signup} />
               <AuthRoute

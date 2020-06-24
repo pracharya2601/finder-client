@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-import MenuIcon from './navItems/MenuIcon';
+import ResponsiveDrawer from './navItems/ResponsiveDrawer';
 
 //css import
 import './css/Navbar.css';
@@ -17,7 +16,7 @@ class Navbar extends React.Component {
       <AppBar>
         <ToolBar className="nav-container">
           <div className="navbar-items">
-            <MenuIcon />
+            <ResponsiveDrawer />
             <Button color="inherit" component={Link} to="/">
               Home
             </Button>

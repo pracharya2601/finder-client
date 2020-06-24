@@ -12,6 +12,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
 
 const styles = {
   card: {
@@ -27,6 +28,11 @@ const styles = {
     minWidth: 400,
     height: 300,
     objectFit: 'cover',
+  },
+  userShow: {
+    height: '30px',
+    display: 'flex',
+    alignItems: 'center',
   },
 };
 
@@ -45,6 +51,7 @@ class Place extends React.Component {
         placeId,
         priceRange,
         createdAt,
+        userImage,
         likeCount,
         commentCount,
         viewCount,
@@ -69,17 +76,15 @@ class Place extends React.Component {
           <Typography variant="body2" color="textSecondary">
             {dayjs(createdAt).fromNow()}
           </Typography>
-          <Typography
-            variant="body1"
-            color="textSecondary"
-            component={Link}
-            to={`/user/${userHandle}`}
-          >
-            Posted By: {userHandle}
-          </Typography>
           <Typography variant="body1" color="textSecondary">
             {description}
           </Typography>
+          <Link className={classes.userShow} to={`/user/${userHandle}`}>
+            <Avatar alt={userHandle} src={userImage} />
+            <Typography variant="body1" color="textSecondary">
+              Posted By: {userHandle}
+            </Typography>
+          </Link>
         </CardContent>
       </Card>
     );
