@@ -167,7 +167,11 @@ class Profile extends Component {
           </CardContent>
           <CardContent className={classes.cardHeader}>
             <Tooltip title="Logout" placement="top">
-              <IconButton onClick={this.handleLogout}>
+              <IconButton
+                onClick={this.handleLogout}
+                component={Link}
+                to={`/login`}
+              >
                 <ExitToAppIcon style={{ color: 'red' }} />
               </IconButton>
             </Tooltip>
