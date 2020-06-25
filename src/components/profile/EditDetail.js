@@ -13,7 +13,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = {};
 
@@ -28,8 +27,8 @@ class EditDetail extends React.Component {
   userDetailToState = (credentials) => {
     this.setState({
       bio: credentials.bio ? credentials.bio : '',
-      bio: credentials.website ? credentials.website : '',
-      bio: credentials.location ? credentials.location : '',
+      website: credentials.website ? credentials.website : '',
+      location: credentials.location ? credentials.location : '',
     });
   };
 
@@ -39,7 +38,7 @@ class EditDetail extends React.Component {
   }
 
   handleClickOpen = () => {
-    this.setState({ oprn: true });
+    this.setState({ open: true });
     this.userDetailToState(this.props.credentials);
   };
 
@@ -64,59 +63,64 @@ class EditDetail extends React.Component {
   };
 
   render() {
+    console.log(this.state.bio);
     return (
       <Fragment>
-        <Tooltip title="Edit detail">
-          <Button onClick={this.handleClickOpen}>edit detail</Button>
-          <Dialog onClose={this.handleClose} open={this.state.open}>
-            <DialogTitle>Edit your details</DialogTitle>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={this.handleClickOpen}
+        >
+          Edit
+        </Button>
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Edit your details</DialogTitle>
+          <form>
             <DialogContent>
-              <form>
-                <TextField
-                  name="bio"
-                  label="Bio"
-                  type="text"
-                  multiline
-                  rows="2"
-                  placeholder="Write short bio about yourself"
-                  value={this.state.bio}
-                  onChange={this.handleChange}
-                  fullWidth
-                />
-                <TextField
-                  name="website"
-                  label="Social Media account or personal website"
-                  type="text"
-                  placeholder="Your personal site"
-                  value={this.state.website}
-                  onChange={this.handleChange}
-                  fullWidth
-                />
-                <TextField
-                  name="location"
-                  label="Location"
-                  type="text"
-                  placeholder="Your adderess"
-                  value={this.state.location}
-                  onChange={this.handleChange}
-                  fullWidth
-                />
-              </form>
+              <TextField
+                name="bio"
+                label="Bio"
+                type="text"
+                multiline
+                rows="2"
+                placeholder="Write short bio about yourself"
+                fullWidth
+                value={this.state.bio}
+                onChange={this.handleChange}
+              />
+              <TextField
+                name="website"
+                label="Social Media account"
+                type="text"
+                placeholder="Your personal site"
+                fullWidth
+                value={this.state.website}
+                onChange={this.handleChange}
+              />
+              <TextField
+                name="location"
+                label="Your Location"
+                type="text"
+                placeholder="Your adderess"
+                fullWidth
+                value={this.state.location}
+                onChange={this.handleChange}
+              />
             </DialogContent>
-            <DialogActions>
-              <Button onClick={this.handleClose} color="primary">
-                Cancel
-              </Button>
-              <Button
-                onClick={this.handleClose}
-                onClick={this.handleSubmit}
-                color="primary"
-              >
-                Save
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </Tooltip>
+          </form>
+          <DialogActions>
+            <Button onClick={this.handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={this.handleSubmit} color="primary">
+              Save
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Fragment>
     );
   }

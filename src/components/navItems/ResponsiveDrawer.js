@@ -80,9 +80,11 @@ function ResponsiveDrawer(props) {
     <div>
       {['left'].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>
-            <MenuIcon className={classes.menuButton} fontSize="large" />
-          </Button>
+          <MenuIcon
+            onClick={toggleDrawer(anchor, true)}
+            className={classes.menuButton}
+            fontSize="large"
+          />
           <Drawer
             anchor={anchor}
             open={state[anchor]}

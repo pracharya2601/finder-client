@@ -14,11 +14,9 @@ import Loading from '../loading/Loading';
 
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
-import Buttom from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import Divider from '@material-ui/core/Divider';
 import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import MuiLink from '@material-ui/core/Link';
 import Avatar from '@material-ui/core/Avatar';
 import MyLocationIcon from '@material-ui/icons/MyLocation';
@@ -68,6 +66,11 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     margin: '5px 0 5px 0',
+  },
+  linkItem: {
+    width: '70%',
+    marginRight: '30px',
+    overfolw: 'hidden',
   },
 };
 
@@ -158,7 +161,7 @@ class Profile extends Component {
                 rel="noopener noreferrer"
               >
                 <LinkIcon />
-                <span>{credentials.website}</span>
+                <span className={classes.userItem}>{credentials.website}</span>
               </a>
             )}
           </CardContent>
