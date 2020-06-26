@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import './place.css';
 
-import MyButton from '../buttons/MyButton';
+//components
+import DeletePlace from './DeletePlace';
 
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -15,50 +17,46 @@ import { likePlace, unLikePlace } from '../../redux/actions/dataAction';
 //MUI
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardActions from '@material-ui/core/CardActions';
+import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
+import CardMedia from '@material-ui/core/CardMedia';
 import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
+
+//icons
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ChatIcon from '@material-ui/icons/Chat';
 import StarsIcon from '@material-ui/icons/Stars';
 import StarIcon from '@material-ui/icons/Star';
-import IconButton from '@material-ui/core/IconButton';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import ShareIcon from '@material-ui/icons/Share';
 
 const styles = {
   card: {
-    display: 'flex',
-    flexDirection: 'column',
-    minWidth: '345px',
+    minWidth: '320px',
     width: '100%',
     maxWidth: '500px',
-    marginBottom: 20,
-    height: 400,
+    marginTop: '10px',
   },
-  image: {
-    minWidth: 400,
-    height: 300,
-    objectFit: 'cover',
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
   },
-  descriptionPlace: {
-    maxHeight: '50px',
+  description: {
+    maxHeight: '40px',
+    minHeight: '40px',
     overflow: 'auto',
   },
-  userShow: {
-    height: '20px',
-    paddingTop: '10px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    color: 'green',
   },
-  userLikeShow: {
-    height: '10px',
-    paddingBottom: '10px',
+  dropdownContent: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
   },
 };
 
@@ -99,8 +97,14 @@ class Place extends React.Component {
         commentCount,
         viewCount,
       },
-      user: { authenticated },
+      user: {
+        authenticated,
+        credentials: { handle },
+      },
     } = this.props;
+
+    //header
+    const header = `${body} [${address}]`;
 
     const likeButton = !authenticated ? (
       <Tooltip title="Star" placement="top">
@@ -122,70 +126,71 @@ class Place extends React.Component {
       </Tooltip>
     );
 
+    const optionBtn =
+      authenticated && userHandle === handle ? (
+        <div className={classes.dropdownContent}>
+          <DeletePlace placeId={placeId} />
+          <DeletePlace placeId={placeId} />
+        </div>
+      ) : null;
+
+    const shareBtn = (
+      <div className={classes.dropdownContent}>
+        <Button color="primary">Share</Button>
+      </div>
+    );
+
     return (
       <Card className={classes.card}>
-        <CardMedia
-          image={placeImgUrl}
-          title="House image"
-          className={classes.image}
-        />
-        <CardContent className={classes.content}>
-          <div className={classes.userLikeShow}>
-            <div>
-              {likeButton}
-              <span>{likeCount} Star</span>
-              <Tooltip title="comments" placement="top">
-                <IconButton>
-                  <ChatIcon color="primary" />
-                </IconButton>
-              </Tooltip>
-              <span>{commentCount} Comments</span>
-            </div>
-            <div>
-              <IconButton>
-                <VisibilityIcon color="primary" />
-              </IconButton>
-              <span>{viewCount}</span>
-            </div>
-          </div>
-          <Divider />
-          <div className={classes.userShow}>
-            <Typography
-              variant="h5"
-              component={Link}
-              to={`/place/${placeId}`}
-              color="primary"
-            >
-              {body}
-            </Typography>
-            <Typography variant="body1" color="textSecondary">
-              Est.Amt: {priceRange}
-            </Typography>
-          </div>
-          <Typography variant="body2" color="textSecondary">
-            {dayjs(createdAt).fromNow()}
-          </Typography>
-          <Typography
-            className={classes.descriptionPlace}
-            variant="body1"
-            color="textSecondary"
-          >
-            {description}
-          </Typography>
-          <div className={classes.userShow}>
+        <CardHeader
+          avatar={
             <Avatar
+              aria-label="place_body"
               component={Link}
               to={`/user/${userHandle}`}
               alt={userHandle}
               src={userImage}
+              className={classes.avatar}
             />
-            <Tooltip title="need to add a link to copied" placement="top">
+          }
+          action={
+            <div aria-label="settings" className="dropDown">
               <IconButton>
-                <ShareIcon color="primary" />
+                <MoreVertIcon />
               </IconButton>
-            </Tooltip>
-          </div>
+              <div className="dropdown-content">
+                {optionBtn}
+                {shareBtn}
+              </div>
+            </div>
+          }
+          title={header}
+          subheader={dayjs(createdAt).fromNow()}
+        />
+        <CardMedia className={classes.media} image={placeImgUrl} title={body} />
+        <CardContent>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            component="p"
+            className={classes.description}
+          >
+            {description}
+          </Typography>
         </CardContent>
+        <CardActions disableSpacing>
+          {likeButton}
+          {likeCount}
+          <IconButton aria-label="share">
+            <ChatIcon />
+          </IconButton>
+          {commentCount}
+          <IconButton>
+            <VisibilityIcon />
+          </IconButton>
+          {viewCount}
+          <span className={classes.expand}>Est.Price: {priceRange}</span>
+        </CardActions>
       </Card>
     );
   }

@@ -1,4 +1,10 @@
-import { SET_PLACES, LOADING_DATA, LIKE_PLACE, UNLIKE_PLACE } from '../types';
+import {
+  SET_PLACES,
+  LOADING_DATA,
+  LIKE_PLACE,
+  UNLIKE_PLACE,
+  DELETE_PLACE,
+} from '../types';
 import axios from 'axios';
 
 // get all places
@@ -34,6 +40,18 @@ export const unLikePlace = (placeId) => (dispatch) => {
       dispatch({
         type: UNLIKE_PLACE,
         payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
+export const deletePlace = (placeId) => (dispatch) => {
+  axios
+    .delete(`/place/${placeId}`)
+    .then(() => {
+      dispatch({
+        type: DELETE_PLACE,
+        payload: placeId,
       });
     })
     .catch((err) => console.log(err));

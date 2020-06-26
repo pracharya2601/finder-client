@@ -17,3 +17,4 @@ export const SET_PLACES = 'SET_PLACES';
 export const SET_PLACE = 'SET_PLACE';
 export const LIKE_PLACE = 'LIKE_PLACE';
 export const UNLIKE_PLACE = 'UNLIKE_PLACE';
+export const DELETE_PLACE = 'DELETE_PLACE';
