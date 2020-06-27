@@ -35,7 +35,7 @@ class Navbar extends React.Component {
           {authenticated ? (
             <div className="navbar-items">
               <Tooltip title="add place">
-                <Button color="inherit">
+                <Button color="inherit" component={Link} to="/place/new">
                   <AddIcon />
                 </Button>
               </Tooltip>

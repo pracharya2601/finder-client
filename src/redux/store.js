@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
+import { reducer as formReducer } from 'redux-form';
 import userReducer from './reducers/userReducer';
 import dataReducer from './reducers/dataReducer';
 import uiReducer from './reducers/uiReducer';
@@ -10,6 +11,7 @@ const initialState = {};
 const middleware = [thunk];
 
 const reducers = combineReducers({
+  form: formReducer,
   user: userReducer,
   data: dataReducer,
   UI: uiReducer,

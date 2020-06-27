@@ -42,7 +42,6 @@ export default function (state = INITIAL_STATE, action) {
         ...state,
         loading: false,
       };
-
     default:
       return state;
   }

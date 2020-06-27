@@ -1,9 +1,11 @@
 import {
   SET_PLACES,
+  SET_PLACE,
   LIKE_PLACE,
   UNLIKE_PLACE,
   LOADING_DATA,
   DELETE_PLACE,
+  POST_PLACE,
 } from '../types';
 
 const INITIAL_STATE = {
@@ -18,6 +20,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, loading: true };
     case SET_PLACES:
       return { ...state, places: action.payload, loading: false };
+    case SET_PLACES:
+      return { ...state, places: action.payload };
     case LIKE_PLACE:
     case UNLIKE_PLACE:
       let index = state.places.findIndex(
@@ -32,6 +36,12 @@ export default (state = INITIAL_STATE, action) => {
         (place) => place.placeId === action.payload
       );
       state.places.splice(item, 1);
+    case POST_PLACE:
+      return {
+        ...state,
+        places: [action.payload, ...state.places],
+      };
+
     default:
       return state;
   }

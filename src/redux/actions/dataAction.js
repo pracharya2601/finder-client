@@ -1,9 +1,15 @@
 import {
   SET_PLACES,
+  SET_PLACE,
+  POST_PLACE,
   LOADING_DATA,
   LIKE_PLACE,
   UNLIKE_PLACE,
   DELETE_PLACE,
+  CLEAR_ERRORS,
+  SET_ERRORS,
+  LOADING_UI,
+  STOP_LOADING_UI,
 } from '../types';
 import axios from 'axios';
 
@@ -16,6 +22,40 @@ export const getPlaces = () => (dispatch) => {
       payload: res.data,
     });
   });
+};
+
+export const getPlace = (placeId) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .get(`/place/${placeId}`)
+    .then((res) => {
+      dispatch({
+        type: SET_PLACE,
+        payload: res.data,
+      });
+      dispatch({ type: STOP_LOADING_UI });
+    })
+    .catch((err) => console.log(err));
+};
+
+//post place
+export const postPlace = (placeData) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .post('/place', placeData)
+    .then((res) => {
+      dispatch({
+        type: POST_PLACE,
+        payload: res.data,
+      });
+      dispatch({ type: CLEAR_ERRORS });
+    })
+    .catch((err) => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data,
+      });
+    });
 };
 
 //like a place

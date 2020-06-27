@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import AuthRoute from './util/AuthRoute';
 
 import Home from './components/Home';
+import PostPlace from './components/places/PostPlace';
 import Profile from './components/profile/Profile';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -46,6 +47,7 @@ class App extends React.Component {
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/user/:handle" exact component={Profile} />
+              <Route path="/place/new" exact component={PostPlace} />
               <AuthRoute path="/login" exact component={Login} />
               <AuthRoute path="/signup" exact component={Signup} />
               <AuthRoute

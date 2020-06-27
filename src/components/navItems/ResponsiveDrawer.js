@@ -56,7 +56,7 @@ class ResponsiveDrawer extends React.Component {
   render() {
     const {
       classes,
-      user: { credentials, loading, authenticated },
+      user: { authenticated },
     } = this.props;
 
     const signedInList = (
