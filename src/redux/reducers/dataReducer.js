@@ -6,6 +6,7 @@ import {
   LOADING_DATA,
   DELETE_PLACE,
   POST_PLACE,
+  SUBMIT_COMMENT,
 } from '../types';
 
 const INITIAL_STATE = {
@@ -20,8 +21,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, loading: true };
     case SET_PLACES:
       return { ...state, places: action.payload, loading: false };
-    case SET_PLACES:
-      return { ...state, places: action.payload };
+    case SET_PLACE:
+      return { ...state, place: action.payload };
     case LIKE_PLACE:
     case UNLIKE_PLACE:
       let index = state.places.findIndex(
@@ -40,6 +41,14 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         places: [action.payload, ...state.places],
+      };
+    case SUBMIT_COMMENT:
+      return {
+        ...state,
+        place: {
+          ...state.place,
+          comments: [action.payload, ...state.place.comments],
+        },
       };
 
     default:

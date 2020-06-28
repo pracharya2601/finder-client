@@ -2,6 +2,7 @@ import {
   SET_USER,
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
+  GET_USER,
   LOADING_USER,
   LIKE_PLACE,
   UNLIKE_PLACE,
@@ -29,6 +30,11 @@ export default (state = INITIAL_STATE, action) => {
     case SET_USER:
       return {
         authenticated: true,
+        loading: false,
+        ...action.payload,
+      };
+    case GET_USER:
+      return {
         loading: false,
         ...action.payload,
       };

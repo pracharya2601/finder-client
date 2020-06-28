@@ -6,38 +6,78 @@ import CardHead from './CardHead';
 import ImageCard from './ImageCard';
 import Description from './Description';
 import LikeButton from './LikeButton';
+import Comments from './Comments';
+import CommentForm from './CommentForm';
 
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
+import Loading from '../loading/Loading';
+
 import withStyles from '@material-ui/core/styles/withStyles';
 
+import CardActions from '@material-ui/core/CardActions';
+import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
+import ChatIcon from '@material-ui/icons/Chat';
 
 //icon
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import CancelIcon from '@material-ui/icons/Cancel';
+import DialogContentText from '@material-ui/core/DialogContentText';
 //redux
 import { connect } from 'react-redux';
-import { getPlace } from '../../redux/actions/dataAction';
+import { getPlace, clearErrors } from '../../redux/actions/dataAction';
 
-const styles = {};
+const styles = {
+  loadingComponent: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  card: {
+    width: '100%',
+    maxWidth: '600px',
+    marginTop: '10px',
+    margin: 'auto',
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    color: 'green',
+  },
+};
 
 class PlaceDialog extends React.Component {
   state = {
     open: false,
+    oldPath: '',
+    newPath: '',
+    scroll: 'body',
   };
+  componentDidMount() {
+    if (this.props.openDialog) {
+      this.handleClickOpen();
+    }
+  }
   handleClickOpen = () => {
-    this.setState({ open: true });
+    let oldPath = window.location.pathname;
+
+    const { userHandle, placeId } = this.props;
+    const newPath = `/place/${placeId}`;
+
+    if (oldPath === newPath) oldPath = `/users/${userHandle}`;
+
+    window.history.pushState(null, null, newPath);
+
+    this.setState({ open: true, oldPath, newPath });
     this.props.getPlace(this.props.placeId);
   };
 
   handleClose = () => {
     this.setState({ open: false });
+    this.props.clearErrors();
   };
 
   render() {
@@ -56,13 +96,16 @@ class PlaceDialog extends React.Component {
         likeCount,
         commentCount,
         viewCount,
+        priceRange,
+        comments,
       },
       UI: { loading },
     } = this.props;
-    console.log(this.props);
 
     const markupContent = loading ? (
-      <p>Loading....</p>
+      <div className={classes.loadingComponent}>
+        <Loading />
+      </div>
     ) : (
       <Card className={classes.card}>
         <DialogTitle id="scroll-dialog-title">
@@ -75,21 +118,32 @@ class PlaceDialog extends React.Component {
             createdAt={createdAt}
           />
         </DialogTitle>
-        <DialogContent className={classes.dialogContent}>
+        <DialogContent>
           <ImageCard placeImgUrl={placeImgUrl} body={body} />
+          <Description description={description} />
+          <CardActions disableSpacing>
+            <LikeButton placeId={placeId} />
+            {likeCount}
+            <span className={classes.expand}>Est.Price: {priceRange}</span>
+          </CardActions>
+          <CommentForm placeId={placeId} />
+          <Comments comments={comments} />
         </DialogContent>
       </Card>
     );
 
     return (
-      <React.Fragment>
+      <div>
         <VisibilityIcon onClick={this.handleClickOpen}></VisibilityIcon>
         <Dialog
+          fullWidth
+          maxWidth="md"
           open={this.state.open}
           onClose={this.handleClose}
+          scroll={this.state.scroll}
           aria-labelledby="scroll-dialog-title"
           aria-describedby="scroll-dialog-description"
-          scroll="paper"
+          className={classes.dialogBox}
         >
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
@@ -97,13 +151,15 @@ class PlaceDialog extends React.Component {
             </Button>
           </DialogActions>
           {markupContent}
+          <DialogActions></DialogActions>
         </Dialog>
-      </React.Fragment>
+      </div>
     );
   }
 }
 
 PlaceDialog.propTypes = {
+  clearErrors: PropTypes.func.isRequired,
   getPlace: PropTypes.func.isRequired,
   placeId: PropTypes.string.isRequired,
   userHandle: PropTypes.string.isRequired,
@@ -115,6 +171,6 @@ const mapStateToProps = (state) => ({
   UI: state.UI,
 });
 
-export default connect(mapStateToProps, { getPlace })(
+export default connect(mapStateToProps, { getPlace, clearErrors })(
   withStyles(styles)(PlaceDialog)
 );

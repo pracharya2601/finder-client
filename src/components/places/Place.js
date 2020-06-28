@@ -92,7 +92,6 @@ class Place extends React.Component {
             />
           </IconButton>
           {viewCount}
-          {/* <span className={classes.expand}>Est.Price: {priceRange}</span> */}
         </CardActions>
       </Card>
     );

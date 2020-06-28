@@ -63,7 +63,7 @@ class ResponsiveDrawer extends React.Component {
       <div>
         <Divider />
         <List>
-          <ListItem button component={Link} to={`/user/:handle`}>
+          <ListItem button component={Link} to={`/user/profile`}>
             <ListItemIcon>
               <AccountCircleIcon />
             </ListItemIcon>

@@ -8,6 +8,7 @@ import {
   SET_UNAUTHENTICATED,
   LOADING_USER,
   ALERT_MESSAGE,
+  GET_USER,
   MARK_NOTIFICATIONS_READ,
 } from '../types';
 import axios from 'axios';
@@ -85,6 +86,22 @@ export const getUserData = () => (dispatch) => {
     })
     .catch((err) => console.log(err));
 };
+
+//fetch User
+
+export const fetchUserInfo = (userHandle) => (dispatch) => {
+  dispatch({ type: LOADING_USER });
+  axios
+    .get(`/user/${userHandle}`)
+    .then((res) => {
+      dispatch({
+        type: GET_USER,
+        payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
 export const uploadImage = (formData) => (dispatch) => {
   dispatch({ type: LOADING_USER });
   axios

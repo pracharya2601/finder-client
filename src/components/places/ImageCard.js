@@ -15,16 +15,20 @@ const styles = {
 class ImageCard extends React.Component {
   render() {
     const { classes, placeImgUrl, body } = this.props;
-    return (
-      <CardMedia className={classes.media} image={placeImgUrl} title={body} />
-    );
+
+    const image =
+      placeImgUrl && body ? (
+        <CardMedia className={classes.media} image={placeImgUrl} title={body} />
+      ) : (
+        <p>Loading</p>
+      );
+
+    return image;
   }
 }
 
 ImageCard.propTypes = {
   classes: PropTypes.object.isRequired,
-  body: PropTypes.string.isRequired,
-  placeImgUrl: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(ImageCard);

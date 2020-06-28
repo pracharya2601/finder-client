@@ -31,7 +31,6 @@ class Description extends React.Component {
   }
 }
 Description.propTypes = {
-  description: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

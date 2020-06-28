@@ -60,7 +60,7 @@ class CardHead extends React.Component {
           <Avatar
             aria-label="place_body"
             component={Link}
-            to={`/user/${userHandle}`}
+            to={`/user/profile/${userHandle}`}
             alt={userHandle}
             src={userImage}
             className={classes.avatar}
@@ -87,12 +87,6 @@ class CardHead extends React.Component {
 CardHead.propTypes = {
   user: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-  userHandle: PropTypes.string.isRequired,
-  userImage: PropTypes.string.isRequired,
-  body: PropTypes.string.isRequired,
-  placeId: PropTypes.string.isRequired,
-  address: PropTypes.string.isRequired,
-  createdAt: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({

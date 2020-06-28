@@ -2,12 +2,15 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import EditDetail from './EditDetail';
-
+//redux
 import { connect } from 'react-redux';
 import { logoutUser, uploadImage } from '../../redux/actions/userAction';
 
-import dayjs from 'dayjs';
+//component
+import EditDetail from './EditDetail';
+import Fullname from './Fullname';
+import CreatedAt from './CreatedAt';
+import DetailContent from './DetailContent';
 
 //loding page
 import Loading from '../loading/Loading';
@@ -17,13 +20,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Card from '@material-ui/core/Card';
 import Divider from '@material-ui/core/Divider';
 import CardContent from '@material-ui/core/CardContent';
-import MuiLink from '@material-ui/core/Link';
 import Avatar from '@material-ui/core/Avatar';
-import MyLocationIcon from '@material-ui/icons/MyLocation';
-import MailIcon from '@material-ui/icons/Mail';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import LinkIcon from '@material-ui/icons/Link';
-import PhoneIcon from '@material-ui/icons/Phone';
 import Tooltip from '@material-ui/core/Tooltip';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import IconButton from '@material-ui/core/IconButton';
@@ -46,31 +43,16 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
   },
-  userShow: {
-    height: '30px',
-    display: 'flex',
-    lineHeight: '30px',
-  },
   imageProfile: {
     height: '150px',
     width: '150px',
     objectFit: 'cover',
     marginBottom: '20px',
   },
-  content: {
-    margin: '10px 15% 0 15%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
   userItem: {
     display: 'flex',
     alignItems: 'center',
     margin: '5px 0 5px 0',
-  },
-  linkItem: {
-    width: '70%',
-    marginRight: '30px',
-    overfolw: 'hidden',
   },
 };
 
@@ -114,57 +96,25 @@ class Profile extends Component {
               hidden="hidden"
               onChange={this.handleImageChange}
             />
-
-            <MuiLink
-              variant="h5"
-              color="primary"
-              component={Link}
-              to={`/user/${credentials.handle}`}
-            >
-              {credentials.fullName}
-            </MuiLink>
+            <Fullname
+              fullName={credentials.fullName}
+              handle={credentials.handle}
+            />
             {credentials.bio && (
               <div className={classes.userItem}>{credentials.bio}</div>
             )}
-            <div className={classes.userItem}>
-              <CalendarTodayIcon color="primary" />
-              {''}
-              <span>
-                Joined {dayjs(credentials.createdAt).format('MMM YYYY')}
-              </span>
-            </div>
+            <CreatedAt createdAt={credentials.createdAt} />
             <div className={classes.userItem}>
               <EditDetail />
             </div>
           </CardContent>
           <Divider light />
-          <CardContent className={classes.content}>
-            {credentials.location && (
-              <div className={classes.userItem}>
-                <MyLocationIcon />
-                <span>{credentials.location}</span>
-              </div>
-            )}
-            <div className={classes.userItem}>
-              <PhoneIcon />
-              <span>{credentials.contactNo}</span>
-            </div>
-            <div className={classes.userItem}>
-              <MailIcon />
-              <span>{credentials.email}</span>
-            </div>
-            {credentials.website && (
-              <a
-                className={classes.userItem}
-                href={credentials.website}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <LinkIcon />
-                <span className={classes.userItem}>{credentials.website}</span>
-              </a>
-            )}
-          </CardContent>
+          <DetailContent
+            location={credentials.location}
+            contactNo={credentials.contactNo}
+            email={credentials.email}
+            website={credentials.website}
+          />
           <CardContent className={classes.cardHeader}>
             <Tooltip title="Logout" placement="top">
               <IconButton

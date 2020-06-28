@@ -10,6 +10,7 @@ import {
   SET_ERRORS,
   LOADING_UI,
   STOP_LOADING_UI,
+  SUBMIT_COMMENT,
 } from '../types';
 import axios from 'axios';
 
@@ -48,7 +49,7 @@ export const postPlace = (placeData) => (dispatch) => {
         type: POST_PLACE,
         payload: res.data,
       });
-      dispatch({ type: CLEAR_ERRORS });
+      dispatch(clearErrors());
     })
     .catch((err) => {
       dispatch({
@@ -85,6 +86,25 @@ export const unLikePlace = (placeId) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
+//submitcomment
+export const submitComment = (placeId, commentData) => (dispatch) => {
+  axios
+    .post(`/place/${placeId}/comment`, commentData)
+    .then((res) => {
+      dispatch({
+        type: SUBMIT_COMMENT,
+        payload: res.data,
+      });
+      dispatch(clearErrors());
+    })
+    .catch((err) => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data,
+      });
+    });
+};
+
 export const deletePlace = (placeId) => (dispatch) => {
   axios
     .delete(`/place/${placeId}`)
@@ -95,4 +115,26 @@ export const deletePlace = (placeId) => (dispatch) => {
       });
     })
     .catch((err) => console.log(err));
+};
+
+export const fetchUserData = (userHandle) => (dispatch) => {
+  dispatch({ type: LOADING_DATA });
+  axios
+    .get(`/user/${userHandle}`)
+    .then((res) => {
+      dispatch({
+        type: SET_PLACES,
+        payload: res.data.places,
+      });
+    })
+    .catch(() => {
+      dispatch({
+        type: SET_PLACES,
+        payload: null,
+      });
+    });
+};
+
+export const clearErrors = () => (dispatch) => {
+  dispatch({ type: CLEAR_ERRORS });
 };
