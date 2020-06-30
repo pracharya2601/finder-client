@@ -44,7 +44,6 @@ class CardHead extends React.Component {
       authenticated && userHandle === handle ? (
         <div className={classes.dropdownContent}>
           <DeletePlace placeId={placeId} />
-          <DeletePlace placeId={placeId} />
         </div>
       ) : null;
 

@@ -32,6 +32,7 @@ class User extends React.Component {
   };
   componentDidMount() {
     const handle = this.props.match.params.handle;
+
     this.props.fetchUserData(handle);
     axios
       .get(`/user/${handle}`)

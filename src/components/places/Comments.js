@@ -21,7 +21,6 @@ const styles = {};
 class Comments extends React.Component {
   render() {
     const { comments, classes } = this.props;
-    console.log(comments);
     dayjs.extend(relativeTime);
 
     const singleComment = comments.map((comment) => {

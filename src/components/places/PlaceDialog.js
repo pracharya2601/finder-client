@@ -60,6 +60,9 @@ class PlaceDialog extends React.Component {
     if (this.props.openDialog) {
       this.handleClickOpen();
     }
+    if (this.props.openForComment) {
+      this.handleClickOpen();
+    }
   }
   handleClickOpen = () => {
     let oldPath = window.location.pathname;
@@ -67,7 +70,7 @@ class PlaceDialog extends React.Component {
     const { userHandle, placeId } = this.props;
     const newPath = `/place/${placeId}`;
 
-    if (oldPath === newPath) oldPath = `/users/${userHandle}`;
+    if (oldPath === newPath) oldPath = `/users/profile/${userHandle}`;
 
     window.history.pushState(null, null, newPath);
 
@@ -76,6 +79,7 @@ class PlaceDialog extends React.Component {
   };
 
   handleClose = () => {
+    window.history.pushState(null, null, this.state.oldPath);
     this.setState({ open: false });
     this.props.clearErrors();
   };

@@ -36,9 +36,22 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
   },
+  description: {
+    maxHeight: '55px',
+    height: '55px',
+    overflow: 'auto',
+  },
 };
 
 class Place extends React.Component {
+  state = {
+    openDialog: false,
+  };
+
+  commentOpen = () => {
+    this.setState({ openDialog: true });
+  };
+
   render() {
     const {
       classes,
@@ -76,11 +89,13 @@ class Place extends React.Component {
           createdAt={createdAt}
         />
         <ImageCard placeImgUrl={placeImgUrl} body={body} />
-        <Description description={description} />
+        <div className={classes.description}>
+          <Description description={description} />
+        </div>
         <CardActions disableSpacing>
           <LikeButton placeId={placeId} />
           {likeCount}
-          <IconButton aria-label="share">
+          <IconButton aria-label="share" onClick={this.commentOpen}>
             <ChatIcon />
           </IconButton>
           {commentCount}
@@ -89,6 +104,7 @@ class Place extends React.Component {
               placeId={placeId}
               userHandle={userHandle}
               className={classes.expand}
+              openForComment={this.state.openDialog}
             />
           </IconButton>
           {viewCount}

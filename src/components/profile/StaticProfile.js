@@ -6,6 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Fullname from './Fullname';
 import CreatedAt from './CreatedAt';
 import DetailContent from './DetailContent';
+import Loading from '../loading/Loading';
 
 //MUI
 import Card from '@material-ui/core/Card';
@@ -39,7 +40,7 @@ const StaticProfile = (props) => {
 
   const staticMarkup =
     profile === null ? (
-      <p>loading</p>
+      <Loading />
     ) : (
       <Card className={classes.card}>
         <CardContent className={classes.cardHeader}>

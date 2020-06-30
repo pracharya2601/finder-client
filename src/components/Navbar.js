@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import ResponsiveDrawer from './navItems/ResponsiveDrawer';
+import Notifications from './navItems/Notifications';
 
 //css import
 import './css/Navbar.css';
@@ -15,7 +16,6 @@ import ToolBar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
-import Notifications from '@material-ui/icons/Notifications';
 import Tooltip from '@material-ui/core/Tooltip';
 
 class Navbar extends React.Component {
