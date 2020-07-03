@@ -65,7 +65,7 @@ class DeletePlace extends React.Component {
 DeletePlace.propTypes = {
   classes: PropTypes.object.isRequired,
   deletePlace: PropTypes.func.isRequired,
-  placeId: PropTypes.string.isRequired,
+  placeId: PropTypes.string,
 };
 
 export default connect(null, { deletePlace })(withStyles(styles)(DeletePlace));

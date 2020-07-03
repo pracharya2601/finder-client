@@ -60,7 +60,7 @@ LikeButton.propTypes = {
   likePlace: PropTypes.func.isRequired,
   unLikePlace: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
-  placeId: PropTypes.string.isRequired,
+  placeId: PropTypes.string,
 };
 const mapStateToProps = (state) => ({
   user: state.user,

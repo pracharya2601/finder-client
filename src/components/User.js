@@ -19,7 +19,6 @@ const styles = {
   },
   placeCard: {
     display: 'flex',
-    display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-around',

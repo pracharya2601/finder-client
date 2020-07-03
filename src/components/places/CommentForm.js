@@ -21,15 +21,15 @@ const styles = {
     marginTop: '20px',
   },
   formField: {
-    width: '100%',
-    maxWidth: '500px',
+    width: '90%',
+    maxWidth: '800px',
     marginTop: '10px',
   },
   button: {
     marginTop: '10px',
     marginBottom: '10px',
     position: 'relative',
-    marginLeft: 'auto',
+    marginLeft: '83%',
   },
   progess: {
     position: 'absolute',
@@ -111,7 +111,7 @@ CommentForm.propTypes = {
   submitComment: PropTypes.func.isRequired,
   UI: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-  placeId: PropTypes.string.isRequired,
+  placeId: PropTypes.string,
   authenticated: PropTypes.bool.isRequired,
 };
 

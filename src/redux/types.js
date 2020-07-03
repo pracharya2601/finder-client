@@ -21,3 +21,6 @@ export const LIKE_PLACE = 'LIKE_PLACE';
 export const UNLIKE_PLACE = 'UNLIKE_PLACE';
 export const DELETE_PLACE = 'DELETE_PLACE';
 export const SUBMIT_COMMENT = 'SUBMIT_COMMENT';
+
+//weather reducer type
+export const SET_WEATHER = 'SET_WEATHER';

@@ -37,6 +37,7 @@ export default (state = INITIAL_STATE, action) => {
         (place) => place.placeId === action.payload
       );
       state.places.splice(item, 1);
+
     case POST_PLACE:
       return {
         ...state,

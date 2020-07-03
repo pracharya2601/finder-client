@@ -22,7 +22,7 @@ class Description extends React.Component {
           variant="body2"
           color="textSecondary"
           component="p"
-          // className={classes.description}
+          className={classes.description}
         >
           {description}
         </Typography>

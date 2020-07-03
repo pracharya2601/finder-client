@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import jwtDecode from 'jwt-decode';
 
@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import AuthRoute from './util/AuthRoute';
 
 import Home from './components/Home';
+import SinglePlace from './components/places/SinglePlace';
 import PostPlace from './components/places/PostPlace';
 import Profile from './components/profile/Profile';
 import User from './components/User';
@@ -22,8 +23,7 @@ import store from './redux/store';
 import { SET_AUTHENTICATED } from './redux/types';
 import { logoutUser, getUserData } from './redux/actions/userAction';
 
-axios.defaults.baseURL =
-  'https://us-central1-cocoontechlab.cloudfunctions.net/api';
+axios.defaults.baseURL = process.env.REACT_APP_PLACE_API_KEY;
 
 const token = localStorage.FBIdToken;
 if (token) {
@@ -42,11 +42,12 @@ class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <Router>
+        <HashRouter>
           <Navbar />
           <div className="container">
             <Switch>
               <Route path="/" exact component={Home} />
+              <Route path="/place/:placeId" exact component={SinglePlace} />
               <Route path="/user/profile/:handle" exact component={User} />
               <Route path="/user/profile" exact component={Profile} />
               <Route path="/place/new" exact component={PostPlace} />
@@ -59,7 +60,7 @@ class App extends React.Component {
               />
             </Switch>
           </div>
-        </Router>
+        </HashRouter>
       </Provider>
     );
   }

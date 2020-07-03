@@ -7,7 +7,6 @@ import './place.css';
 import CardHead from './CardHead';
 import ImageCard from './ImageCard';
 import Description from './Description';
-import PlaceDialog from './PlaceDialog';
 import LikeButton from './LikeButton';
 
 //redux
@@ -19,6 +18,7 @@ import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 //icons
 import ChatIcon from '@material-ui/icons/Chat';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 const styles = {
   card: {
@@ -36,22 +36,9 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
   },
-  description: {
-    maxHeight: '55px',
-    height: '55px',
-    overflow: 'auto',
-  },
 };
 
 class Place extends React.Component {
-  state = {
-    openDialog: false,
-  };
-
-  commentOpen = () => {
-    this.setState({ openDialog: true });
-  };
-
   render() {
     const {
       classes,
@@ -60,19 +47,13 @@ class Place extends React.Component {
         description,
         placeImgUrl,
         address,
-        contactNo,
         userHandle,
         placeId,
-        priceRange,
         createdAt,
         userImage,
         likeCount,
         commentCount,
         viewCount,
-      },
-      user: {
-        authenticated,
-        credentials: { handle },
       },
     } = this.props;
 
@@ -89,24 +70,24 @@ class Place extends React.Component {
           createdAt={createdAt}
         />
         <ImageCard placeImgUrl={placeImgUrl} body={body} />
-        <div className={classes.description}>
+        <div>
           <Description description={description} />
         </div>
         <CardActions disableSpacing>
           <LikeButton placeId={placeId} />
           {likeCount}
-          <IconButton aria-label="share" onClick={this.commentOpen}>
-            <ChatIcon />
-          </IconButton>
+          <Link to={`/place/${placeId}`}>
+            <IconButton aria-label="share">
+              <ChatIcon />
+            </IconButton>
+          </Link>
           {commentCount}
-          <IconButton className={classes.expand}>
-            <PlaceDialog
-              placeId={placeId}
-              userHandle={userHandle}
-              className={classes.expand}
-              openForComment={this.state.openDialog}
-            />
-          </IconButton>
+
+          <Link to={`/place/${placeId}`} className={classes.expand}>
+            <IconButton>
+              <VisibilityIcon />
+            </IconButton>
+          </Link>
           {viewCount}
         </CardActions>
       </Card>
