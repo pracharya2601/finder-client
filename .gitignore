@@ -26,3 +26,6 @@ yarn-error.log*
 .env.development
 .env.local
 .env.staging
+.firebase
+.firebaserc
+build
