@@ -40,7 +40,7 @@ export const getPlace = (placeId) => (dispatch) => {
 };
 
 //post place
-export const postPlace = (placeData) => (dispatch) => {
+export const postPlace = (placeData, callback) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
     .post('/place', placeData)
@@ -51,6 +51,7 @@ export const postPlace = (placeData) => (dispatch) => {
       });
       dispatch(clearErrors());
     })
+    .then(() => callback())
     .catch((err) => {
       dispatch({
         type: SET_ERRORS,

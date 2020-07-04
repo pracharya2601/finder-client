@@ -48,6 +48,7 @@ class Notifications extends React.Component {
 
     const notifications = this.props.notifications;
     const anchorEl = this.state.anchorEl;
+    console.log(notifications);
 
     let notificationIcon;
     if (notifications && notifications.length > 0) {

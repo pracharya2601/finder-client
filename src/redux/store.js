@@ -11,10 +11,10 @@ const initialState = {};
 const middleware = [thunk];
 
 const reducers = combineReducers({
-  form: formReducer,
   user: userReducer,
   data: dataReducer,
   UI: uiReducer,
+  form: formReducer,
 });
 
 const composeEnhancers =

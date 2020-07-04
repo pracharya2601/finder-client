@@ -8,7 +8,6 @@ import AuthRoute from './util/AuthRoute';
 
 import Home from './components/Home';
 import SinglePlace from './components/places/SinglePlace';
-import PostPlace from './components/places/PostPlace';
 import Profile from './components/profile/Profile';
 import User from './components/User';
 import Login from './components/Login';
@@ -22,6 +21,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { SET_AUTHENTICATED } from './redux/types';
 import { logoutUser, getUserData } from './redux/actions/userAction';
+import PostNewPlace from './components/places/PostNewPlace';
 
 axios.defaults.baseURL = process.env.REACT_APP_PLACE_API_KEY;
 
@@ -50,7 +50,11 @@ class App extends React.Component {
               <Route path="/place/:placeId" exact component={SinglePlace} />
               <Route path="/user/profile/:handle" exact component={User} />
               <Route path="/user/profile" exact component={Profile} />
-              <Route path="/place/new" exact component={PostPlace} />
+              <Route
+                path="/place/newpost/place"
+                exact
+                component={PostNewPlace}
+              />
               <AuthRoute path="/login" exact component={Login} />
               <AuthRoute path="/signup" exact component={Signup} />
               <AuthRoute

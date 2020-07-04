@@ -35,14 +35,16 @@ class Navbar extends React.Component {
           {authenticated ? (
             <div className="navbar-items">
               <Tooltip title="add place">
-                <Button color="inherit" component={Link} to="/place/new">
+                <Button
+                  color="inherit"
+                  component={Link}
+                  to="/place/newpost/place"
+                >
                   <AddIcon />
                 </Button>
               </Tooltip>
               <Tooltip title="Notification">
-                <Button color="inherit">
-                  <Notifications />
-                </Button>
+                <Notifications />
               </Tooltip>
             </div>
           ) : (
