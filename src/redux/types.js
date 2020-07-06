@@ -19,6 +19,8 @@ export const SET_PLACE = 'SET_PLACE';
 export const POST_PLACE = 'POST_PLACE';
 export const LIKE_PLACE = 'LIKE_PLACE';
 export const UNLIKE_PLACE = 'UNLIKE_PLACE';
+export const SAVE_PLACE = 'SAVE_PLACE';
+export const UNSAVE_PLACE = 'UNSAVE_PLACE';
 export const DELETE_PLACE = 'DELETE_PLACE';
 export const SUBMIT_COMMENT = 'SUBMIT_COMMENT';
 

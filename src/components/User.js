@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import _ from 'lodash';
 
 import Place from './places/Place';
 import StaticProfile from './profile/StaticProfile';
@@ -50,7 +51,7 @@ class User extends React.Component {
     const placeMarkup = loading ? (
       <Loading />
     ) : places === null ? null : (
-      places.map((place) => <Place key={place.placeId} place={place} />)
+      _.map(places, (place) => <Place key={place.placeId} place={place} />)
     );
 
     return (

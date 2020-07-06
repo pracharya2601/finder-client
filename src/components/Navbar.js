@@ -20,7 +20,9 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 class Navbar extends React.Component {
   render() {
-    const { authenticated } = this.props;
+    const {
+      user: { authenticated, notifications },
+    } = this.props;
     return (
       <AppBar>
         <ToolBar className="nav-container">
@@ -43,9 +45,7 @@ class Navbar extends React.Component {
                   <AddIcon />
                 </Button>
               </Tooltip>
-              <Tooltip title="Notification">
-                <Notifications />
-              </Tooltip>
+              <Notifications notifications={notifications} />
             </div>
           ) : (
             <div className="navbar-items">
@@ -69,6 +69,7 @@ Navbar.propTypes = {
 
 const mapStateToProps = (state) => ({
   authenticated: state.user.authenticated,
+  user: state.user,
 });
 
 export default connect(mapStateToProps)(Navbar);

@@ -157,7 +157,7 @@ SinglePlace.propTypes = {
   clearErrors: PropTypes.func.isRequired,
   getPlace: PropTypes.func.isRequired,
   placeId: PropTypes.string,
-  place: PropTypes.object.isRequired,
+  // place: PropTypes.object.isRequired,
   UI: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({

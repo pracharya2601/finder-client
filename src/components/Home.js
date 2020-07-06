@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './css/Home.css';
 
+import _ from 'lodash';
+
 import Loading from './loading/Loading';
 import Place from './places/Place.js';
 
@@ -12,12 +14,13 @@ class Home extends React.Component {
   componentDidMount() {
     this.props.getPlaces();
   }
-
   render() {
     const { places, loading } = this.props.data;
 
     let recentPlace = !loading ? (
-      places.map((place) => <Place place={place} key={place.placeId} />)
+      _.map(places, (place) => {
+        return <Place place={place} key={place.placeId} />;
+      })
     ) : (
       <Loading />
     );

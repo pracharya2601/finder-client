@@ -9,6 +9,7 @@ import AuthRoute from './util/AuthRoute';
 import Home from './components/Home';
 import SinglePlace from './components/places/SinglePlace';
 import Profile from './components/profile/Profile';
+import Saved from './components/Saved';
 import User from './components/User';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -50,6 +51,7 @@ class App extends React.Component {
               <Route path="/place/:placeId" exact component={SinglePlace} />
               <Route path="/user/profile/:handle" exact component={User} />
               <Route path="/user/profile" exact component={Profile} />
+              <Route path="/user/saved" exact component={Saved} />
               <Route
                 path="/place/newpost/place"
                 exact

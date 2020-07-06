@@ -18,6 +18,7 @@ import ContactsIcon from '@material-ui/icons/Contacts';
 import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import SaveIcon from '@material-ui/icons/Save';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 // import clsx from 'clsx';
 
@@ -103,6 +104,27 @@ class ResponsiveDrawer extends React.Component {
       </div>
     );
 
+    const savedMarkup = (
+      <List>
+        <ListItem button component={Link} to={`/user/saved`}>
+          <ListItemIcon>
+            <SaveIcon />
+          </ListItemIcon>
+          <ListItemText>Saved</ListItemText>
+        </ListItem>
+      </List>
+    );
+    // const aboutMarkup = (
+    //   <List>
+    //     <ListItem button component={Link} to={`/user/saved`}>
+    //       <ListItemIcon>
+    //         <SaveIcon />
+    //       </ListItemIcon>
+    //       <ListItemText>Saved</ListItemText>
+    //     </ListItem>
+    //   </List>
+    // );
+
     const list = (anchor) => (
       <div className={classes.drawer}>
         <div
@@ -119,6 +141,7 @@ class ResponsiveDrawer extends React.Component {
                 <ListItemText>Home</ListItemText>
               </ListItem>
             </List>
+            {authenticated ? savedMarkup : null}
           </div>
           <div>{authenticated ? signedInList : noSignedList}</div>
         </div>

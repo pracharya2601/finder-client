@@ -5,6 +5,8 @@ import {
   LOADING_DATA,
   LIKE_PLACE,
   UNLIKE_PLACE,
+  SAVE_PLACE,
+  UNSAVE_PLACE,
   DELETE_PLACE,
   CLEAR_ERRORS,
   SET_ERRORS,
@@ -81,6 +83,32 @@ export const unLikePlace = (placeId) => (dispatch) => {
     .then((res) => {
       dispatch({
         type: UNLIKE_PLACE,
+        payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+export const savePlace = (placeId) => (dispatch) => {
+  dispatch({ type: LOADING_DATA });
+  axios
+    .get(`/place/${placeId}/save`)
+    .then((res) => {
+      dispatch({
+        type: SAVE_PLACE,
+        payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
+//unlike place
+export const unSavePlace = (placeId) => (dispatch) => {
+  dispatch({ type: LOADING_DATA });
+  axios
+    .get(`/place/${placeId}/unsave`)
+    .then((res) => {
+      dispatch({
+        type: UNSAVE_PLACE,
         payload: res.data,
       });
     })

@@ -15,6 +15,7 @@ import Badge from '@material-ui/core/Badge';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import StarIcon from '@material-ui/icons/Star';
 import ChatIcon from '@material-ui/icons/Chat';
+import Tooltip from '@material-ui/core/Tooltip';
 
 //redux
 
@@ -48,7 +49,6 @@ class Notifications extends React.Component {
 
     const notifications = this.props.notifications;
     const anchorEl = this.state.anchorEl;
-    console.log(notifications);
 
     let notificationIcon;
     if (notifications && notifications.length > 0) {
@@ -79,11 +79,10 @@ class Notifications extends React.Component {
             );
           const userHandle = not.sender;
           return (
-            <MenuItem key={not.createdAt} onCLick={this.handleClose}>
+            <MenuItem key={not.createdAt} onClick={this.handleClose}>
               {icon}
               <Typography
                 component={Link}
-                color="default"
                 variant="body1"
                 to={`/user/profile/${userHandle}`}
               >
@@ -98,13 +97,16 @@ class Notifications extends React.Component {
 
     return (
       <>
-        <IconButton
-          aria-owns={anchorEl ? 'simple-menu' : 'undefine'}
-          aria-haspopup="true"
-          onClick={this.handleOpen}
-        >
-          {notificationIcon}
-        </IconButton>
+        <Tooltip title="Notification">
+          <IconButton
+            aria-owns={anchorEl ? 'simple-menu' : 'undefine'}
+            aria-haspopup="true"
+            onClick={this.handleOpen}
+            color="inherit"
+          >
+            {notificationIcon}
+          </IconButton>
+        </Tooltip>
         <Menu
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
@@ -119,7 +121,7 @@ class Notifications extends React.Component {
 }
 Notifications.propTypes = {
   markNotificationsRead: PropTypes.func.isRequired,
-  notifications: PropTypes.object,
+  notifications: PropTypes.array.isRequired,
 };
 const mapStateToProps = (state) => ({
   notifications: state.user.notifications,
