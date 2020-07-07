@@ -23,6 +23,7 @@ export const SAVE_PLACE = 'SAVE_PLACE';
 export const UNSAVE_PLACE = 'UNSAVE_PLACE';
 export const DELETE_PLACE = 'DELETE_PLACE';
 export const SUBMIT_COMMENT = 'SUBMIT_COMMENT';
+export const SUBMIT_REPORT = 'SUBMIT_REPORT';
 
 //weather reducer type
 export const SET_WEATHER = 'SET_WEATHER';

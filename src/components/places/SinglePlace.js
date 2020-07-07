@@ -5,8 +5,10 @@ import PropTypes from 'prop-types';
 import CardHead from './CardHead';
 import ImageCard from './ImageCard';
 import LikeButton from './LikeButton';
+import SaveButton from './SaveButton';
 import Comments from './Comments';
 import CommentForm from './CommentForm';
+import Report from './Report';
 
 import Loading from '../loading/Loading';
 
@@ -115,10 +117,10 @@ class SinglePlace extends React.Component {
             <ChatIcon />
           </IconButton>
           {commentCount}
-          <IconButton className={classes.expand}>
-            <VisibilityIcon />
-          </IconButton>
-          {viewCount}
+          <SaveButton placeId={placeId} />
+          <div className={classes.expand}>
+            <Report placeId={placeId} />
+          </div>
         </CardActions>
 
         <Card className={classes.card}>

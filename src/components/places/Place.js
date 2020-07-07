@@ -8,6 +8,7 @@ import CardHead from './CardHead';
 import ImageCard from './ImageCard';
 import Description from './Description';
 import LikeButton from './LikeButton';
+import SaveButton from './SaveButton';
 
 //redux
 import { connect } from 'react-redux';
@@ -82,7 +83,7 @@ class Place extends React.Component {
             </IconButton>
           </Link>
           {commentCount}
-
+          <SaveButton placeId={placeId} />
           <Link to={`/place/${placeId}`} className={classes.expand}>
             <IconButton>
               <VisibilityIcon />

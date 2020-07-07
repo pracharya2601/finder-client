@@ -6,9 +6,17 @@ import { connect } from 'react-redux';
 import { savePlace, unSavePlace } from '../../redux/actions/dataAction';
 
 //mui
-import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
+
+//icons
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
+import SaveIcon from '@material-ui/icons/Save';
 
 class SaveButton extends React.Component {
+  state = {
+    save: '',
+  };
   savedPlace = () => {
     if (
       this.props.user.saved &&
@@ -19,25 +27,34 @@ class SaveButton extends React.Component {
   };
   savePlace = () => {
     this.props.savePlace(this.props.placeId);
+    this.setState({ save: 'saved' });
   };
+
   unSavePlace = () => {
     this.props.unSavePlace(this.props.placeId);
   };
+
   render() {
     const { authenticated } = this.props.user;
 
     const saveBtn = !authenticated ? (
-      <Button color="primary" component={Link} to="/login">
-        save
-      </Button>
-    ) : this.savedPlace() ? (
-      <Button color="primary" onClick={this.unSavePlace}>
-        unsave
-      </Button>
+      <Tooltip title="save place" placement="top">
+        <IconButton component={Link} to="/login">
+          <SaveAltIcon color="primary" />
+        </IconButton>
+      </Tooltip>
+    ) : this.savedPlace() || this.state.save ? (
+      <Tooltip title="unsave place" placement="top">
+        <IconButton onClick={this.unSavePlace}>
+          <SaveIcon color="primary" />
+        </IconButton>
+      </Tooltip>
     ) : (
-      <Button color="primary" onClick={this.savePlace}>
-        save
-      </Button>
+      <Tooltip title="save place" placement="top">
+        <IconButton onClick={this.savePlace}>
+          <SaveAltIcon color="primary" />
+        </IconButton>
+      </Tooltip>
     );
 
     return saveBtn;

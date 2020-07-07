@@ -230,7 +230,7 @@ class Signup extends React.Component {
               <Button
                 className={classes.gotoSignup}
                 component={Link}
-                to="/signup"
+                to="/login"
               >
                 Login here
               </Button>

@@ -87,6 +87,7 @@ class PostNewPlace extends React.Component {
     this.props.postPlace(values, () => {
       this.props.history.push('/');
     });
+    console.log(values);
   };
 
   render() {

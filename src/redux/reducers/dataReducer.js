@@ -10,6 +10,7 @@ import {
   DELETE_PLACE,
   POST_PLACE,
   SUBMIT_COMMENT,
+  SUBMIT_REPORT,
 } from '../types';
 
 const INITIAL_STATE = {
@@ -32,32 +33,16 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, place: action.payload };
     case LIKE_PLACE:
     case UNLIKE_PLACE:
-      let index = state.places.findIndex(
-        (place) => place.placeId === action.payload.placeId
-      );
-      state.places[index] = action.payload;
-      return {
-        ...state,
-      };
+      return { ...state, [action.payload.placeId]: action.payload };
     case SAVE_PLACE:
     case UNSAVE_PLACE:
-      let saveIndex = state.places.findIndex(
-        (place) => place.placeId === action.payload.placeId
-      );
-      state.places[saveIndex] = action.payload;
-      return {
-        ...state,
-      };
+      return { ...state, [action.payload.placeId]: action.payload };
     case DELETE_PLACE:
-      let item = state.places.findIndex(
-        (place) => place.placeId === action.payload
-      );
-      state.places.splice(item, 1);
-
+      return _.omit(state, action.payload);
     case POST_PLACE:
       return {
         ...state,
-        places: [action.payload, ...state.places],
+        [action.payload.placeId]: action.payload,
       };
     case SUBMIT_COMMENT:
       return {
@@ -67,7 +52,11 @@ export default (state = INITIAL_STATE, action) => {
           comments: [action.payload, ...state.place.comments],
         },
       };
-
+    case SUBMIT_REPORT:
+      return {
+        ...state,
+        message: 'we will review this post to make sure this is okay',
+      };
     default:
       return state;
   }

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import './place.css';
 
 import DeletePlace from './DeletePlace';
-import SaveButton from './SaveButton';
 import { connect } from 'react-redux';
 
 import dayjs from 'dayjs';
@@ -52,9 +51,6 @@ class CardHead extends React.Component {
       <>
         <div className={classes.dropdownContent}>
           <Button color="primary">Share</Button>
-        </div>
-        <div className={classes.dropdownContent}>
-          <SaveButton placeId={placeId} />
         </div>
       </>
     );

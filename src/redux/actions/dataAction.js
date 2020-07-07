@@ -13,6 +13,7 @@ import {
   LOADING_UI,
   STOP_LOADING_UI,
   SUBMIT_COMMENT,
+  SUBMIT_REPORT,
 } from '../types';
 import axios from 'axios';
 
@@ -57,7 +58,7 @@ export const postPlace = (placeData, callback) => (dispatch) => {
     .catch((err) => {
       dispatch({
         type: SET_ERRORS,
-        payload: err.response.data,
+        payload: err.response,
       });
     });
 };
@@ -88,8 +89,9 @@ export const unLikePlace = (placeId) => (dispatch) => {
     })
     .catch((err) => console.log(err));
 };
+
+//save place
 export const savePlace = (placeId) => (dispatch) => {
-  dispatch({ type: LOADING_DATA });
   axios
     .get(`/place/${placeId}/save`)
     .then((res) => {
@@ -103,7 +105,6 @@ export const savePlace = (placeId) => (dispatch) => {
 
 //unlike place
 export const unSavePlace = (placeId) => (dispatch) => {
-  dispatch({ type: LOADING_DATA });
   axios
     .get(`/place/${placeId}/unsave`)
     .then((res) => {
@@ -112,6 +113,7 @@ export const unSavePlace = (placeId) => (dispatch) => {
         payload: res.data,
       });
     })
+    .then(() => window.location.reload(false))
     .catch((err) => console.log(err));
 };
 
@@ -129,14 +131,32 @@ export const submitComment = (placeId, commentData) => (dispatch) => {
     .catch((err) => {
       dispatch({
         type: SET_ERRORS,
-        payload: err.response.data,
+        payload: err.response,
       });
     });
 };
 
-export const deletePlace = (placeId) => (dispatch) => {
+export const reportPost = (placeId, reportData) => (dispatch) => {
+  axios
+    .post(`/place/${placeId}/report`, reportData)
+    .then((res) => {
+      dispatch({
+        type: SUBMIT_REPORT,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response,
+      });
+    });
+};
+
+export const deletePlace = (placeId, callback) => (dispatch) => {
   axios
     .delete(`/place/${placeId}`)
+    .then(() => callback())
     .then(() => {
       dispatch({
         type: DELETE_PLACE,
