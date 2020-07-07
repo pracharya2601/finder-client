@@ -29,9 +29,7 @@ class DeletePlace extends React.Component {
 
   deletePlace = () => {
     console.log(this.props.placeId);
-    this.props.deletePlace(this.props.placeId, () => {
-      this.props.history.push('/');
-    });
+    this.props.deletePlace(this.props.placeId);
     this.handleClose();
   };
 

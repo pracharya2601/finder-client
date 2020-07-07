@@ -113,7 +113,6 @@ export const unSavePlace = (placeId) => (dispatch) => {
         payload: res.data,
       });
     })
-    .then(() => window.location.reload(false))
     .catch((err) => console.log(err));
 };
 
@@ -153,10 +152,9 @@ export const reportPost = (placeId, reportData) => (dispatch) => {
     });
 };
 
-export const deletePlace = (placeId, callback) => (dispatch) => {
+export const deletePlace = (placeId) => (dispatch) => {
   axios
     .delete(`/place/${placeId}`)
-    .then(() => callback())
     .then(() => {
       dispatch({
         type: DELETE_PLACE,

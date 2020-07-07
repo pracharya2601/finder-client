@@ -7,7 +7,8 @@ import {
   LIKE_PLACE,
   UNLIKE_PLACE,
   MARK_NOTIFICATIONS_READ,
-  LOADING_UI,
+  SAVE_PLACE,
+  UNSAVE_PLACE,
 } from '../types';
 
 const INITIAL_STATE = {
@@ -16,6 +17,7 @@ const INITIAL_STATE = {
   credentials: {},
   likes: [],
   notifications: [],
+  saved: [],
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -65,6 +67,24 @@ export default (state = INITIAL_STATE, action) => {
       state.notifications.forEach((not) => (not.read = true));
       return {
         ...state,
+      };
+    case SAVE_PLACE:
+      return {
+        ...state,
+        saved: [
+          ...state.saved,
+          {
+            userHandle: state.credentials.handle,
+            placeId: action.payload.placeId,
+          },
+        ],
+      };
+    case UNSAVE_PLACE:
+      return {
+        ...state,
+        saved: state.saved.filter(
+          (save) => save.placeId !== action.payload.placeId
+        ),
       };
     default:
       return state;

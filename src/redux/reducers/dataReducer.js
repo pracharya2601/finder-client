@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _, { omit } from 'lodash';
 import {
   SET_PLACES,
   SET_PLACE,
@@ -14,7 +14,7 @@ import {
 } from '../types';
 
 const INITIAL_STATE = {
-  places: [],
+  places: {},
   place: {},
   loading: false,
 };
@@ -38,7 +38,15 @@ export default (state = INITIAL_STATE, action) => {
     case UNSAVE_PLACE:
       return { ...state, [action.payload.placeId]: action.payload };
     case DELETE_PLACE:
-      return _.omit(state, action.payload);
+      return {
+        ...state,
+        places: omit(state.places, action.payload),
+      };
+    case DELETE_PLACE:
+      return {
+        ...state,
+        place: omit(state.place, action.payload),
+      };
     case POST_PLACE:
       return {
         ...state,

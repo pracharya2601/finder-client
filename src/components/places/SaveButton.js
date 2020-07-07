@@ -14,9 +14,6 @@ import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import SaveIcon from '@material-ui/icons/Save';
 
 class SaveButton extends React.Component {
-  state = {
-    save: '',
-  };
   savedPlace = () => {
     if (
       this.props.user.saved &&
@@ -27,7 +24,6 @@ class SaveButton extends React.Component {
   };
   savePlace = () => {
     this.props.savePlace(this.props.placeId);
-    this.setState({ save: 'saved' });
   };
 
   unSavePlace = () => {
@@ -43,7 +39,7 @@ class SaveButton extends React.Component {
           <SaveAltIcon color="primary" />
         </IconButton>
       </Tooltip>
-    ) : this.savedPlace() || this.state.save ? (
+    ) : this.savedPlace() ? (
       <Tooltip title="unsave place" placement="top">
         <IconButton onClick={this.unSavePlace}>
           <SaveIcon color="primary" />
