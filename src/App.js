@@ -14,6 +14,8 @@ import User from './components/User';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import ResetPassword from './components/ResetPassword';
+import PostNewPlace from './components/places/PostNewPlace';
+import addPlaceImage from './components/places/addPlaceImage';
 
 import axios from 'axios';
 
@@ -22,7 +24,6 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { SET_AUTHENTICATED } from './redux/types';
 import { logoutUser, getUserData } from './redux/actions/userAction';
-import PostNewPlace from './components/places/PostNewPlace';
 
 axios.defaults.baseURL = process.env.REACT_APP_PLACE_API_KEY;
 
@@ -48,6 +49,11 @@ class App extends React.Component {
           <div className="container">
             <Switch>
               <Route path="/" exact component={Home} />
+              <Route
+                path="/place/imageupload"
+                exact
+                component={addPlaceImage}
+              />
               <Route path="/place/:placeId" exact component={SinglePlace} />
               <Route path="/user/profile/:handle" exact component={User} />
               <Route path="/user/profile" exact component={Profile} />
