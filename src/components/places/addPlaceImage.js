@@ -2,43 +2,65 @@ import React from 'react';
 import { storage } from '../../base';
 import _, { each } from 'lodash';
 
-class addPlaceImage extends React.Component {
+//filepond
+import { FilePond, registerPlugin } from 'react-filepond';
+import 'filepond/dist/filepond.min.css';
+
+import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
+import FilepondPluginImagePreview from 'filepond-plugin-image-preview';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+
+registerPlugin(FilePondPluginImageExifOrientation, FilepondPluginImagePreview);
+
+class AddPlaceImage extends React.Component {
   state = {
-    fileUrl: [],
+    files: [],
   };
 
-  onSubmit = (event) => {
-    event.preventDefault();
-  };
-
-  onFileChange = async (event) => {
-    const imageFileName = Math.round(Math.random() * 10000000000);
-    const files = event.target.files;
-    const filesList = [];
-    const eachFile = _.map(files, (file) => {
-      const renamedFile = new File([file], `${imageFileName}${file.name}`, {
-        type: file.type,
-      });
-      const storageRef = storage.ref(`places/${renamedFile.name}`);
-      storageRef.put(file);
-      const url = `https://firebasestorage.googleapis.com/v0/b/cocoontechlab.appspot.com/o/places%2F${renamedFile.name}?alt=media`;
-
-      return url;
+  submitImage = () => {
+    this.state.files.forEach((file) => {
+      // const storageRef = storage.ref(`places/${file.name}`);
+      // storageRef.put(file);
+      console.log(file);
     });
-    filesList.push(eachFile);
-    this.setState({ fileUrl: filesList });
+    this.setState({ files: [] });
+  };
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.props.clickMe(this.props);
+    this.submitImage();
   };
 
   render() {
-    console.log(this.state.fileUrl);
+    console.log(this.props);
     return (
-      <div>
-        <form onSubmit={this.onSubmit}>
-          <input type="file" onChange={this.onFileChange} multiple />
-        </form>
-      </div>
+      <>
+        <FilePond
+          files={this.state.files}
+          allowMultiple={true}
+          maxFiles={4}
+          onupdatefiles={(fileItem) => {
+            this.setState({
+              files: fileItem.map(({ file }) => {
+                const imageFileName =
+                  Math.round(Math.random() * 10000000000) +
+                  Math.round(Math.random() * 10000000000);
+                const renamedFile = new File(
+                  [file],
+                  `${imageFileName}${file.name}`,
+                  {
+                    type: file.type,
+                  }
+                );
+                return renamedFile;
+              }),
+            });
+          }}
+        />
+        <button onClick={this.handleSubmit}>click me</button>
+      </>
     );
   }
 }
 
-export default addPlaceImage;
+export default AddPlaceImage;

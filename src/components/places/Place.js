@@ -58,8 +58,6 @@ class Place extends React.Component {
       },
     } = this.props;
 
-    //header
-
     return (
       <Card className={classes.card}>
         <CardHead
@@ -70,7 +68,9 @@ class Place extends React.Component {
           placeId={placeId}
           createdAt={createdAt}
         />
-        <ImageCard placeImgUrl={placeImgUrl} body={body} />
+        {placeImgUrl && (
+          <ImageCard placeImgUrl={placeImgUrl} imgHeight="250px" body={body} />
+        )}
         <div>
           <Description description={description} />
         </div>

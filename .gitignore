@@ -29,3 +29,5 @@ yarn-error.log*
 .firebase
 .firebaserc
 build
+
+    #  const a = `https://firebasestorage.googleapis.com/v0/b/cocoontechlab.appspot.com/o/places%${imagegoeshere}?alt=media`

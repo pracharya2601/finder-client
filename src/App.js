@@ -15,7 +15,9 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import ResetPassword from './components/ResetPassword';
 import PostNewPlace from './components/places/PostNewPlace';
-import addPlaceImage from './components/places/addPlaceImage';
+import AddPlaceImage from './components/places/AddPlaceImage';
+
+import ScrollMemory from 'react-router-scroll-memory';
 
 import axios from 'axios';
 
@@ -46,13 +48,14 @@ class App extends React.Component {
       <Provider store={store}>
         <HashRouter>
           <Navbar />
+          <ScrollMemory />
           <div className="container">
             <Switch>
               <Route path="/" exact component={Home} />
               <Route
                 path="/place/imageupload"
                 exact
-                component={addPlaceImage}
+                component={AddPlaceImage}
               />
               <Route path="/place/:placeId" exact component={SinglePlace} />
               <Route path="/user/profile/:handle" exact component={User} />

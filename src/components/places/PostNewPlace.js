@@ -1,6 +1,13 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
+import { storage } from '../../base';
+
+import { connect } from 'react-redux';
+import { postPlace } from '../../redux/actions/dataAction';
+//import
+// import AddPlaceImage from './AddPlaceImage';
+
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -11,8 +18,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { connect } from 'react-redux';
-import { postPlace } from '../../redux/actions/dataAction';
+//filepond
+import { FilePond, registerPlugin } from 'react-filepond';
+import 'filepond/dist/filepond.min.css';
+
+import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
+import FilepondPluginImagePreview from 'filepond-plugin-image-preview';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+
+registerPlugin(FilePondPluginImageExifOrientation, FilepondPluginImagePreview);
 
 const styles = {
   titlePost: {
@@ -40,6 +54,10 @@ const styles = {
 };
 
 class PostNewPlace extends React.Component {
+  state = {
+    files: [],
+  };
+
   renderField = ({
     input,
     label,
@@ -83,11 +101,35 @@ class PostNewPlace extends React.Component {
     );
   };
 
+  newPlacewithImgDocument = (form, imgName) => {
+    const images = imgName.map((file) => file.fileName);
+    return {
+      ...form,
+      placeImgUrl: { images },
+    };
+  };
+
   onSubmit = (values) => {
-    this.props.postPlace(values, () => {
+    this.submitImage();
+    const newPlace = this.newPlacewithImgDocument(values, this.state.files);
+    this.props.postPlace(newPlace, () => {
       this.props.history.push('/');
     });
-    console.log(values);
+    console.log(newPlace);
+  };
+
+  submitImage = () => {
+    const files = this.state.files.map((imgFiles) => imgFiles.files);
+    files.forEach((file) => {
+      const storageRef = storage.ref(`places/${file.name}`);
+      storageRef.put(file);
+      console.log(file);
+    });
+  };
+
+  clearForm = () => {
+    this.props.reset();
+    this.setState({ files: [] });
   };
 
   render() {
@@ -98,6 +140,8 @@ class PostNewPlace extends React.Component {
       loading,
       user: { authenticated },
     } = this.props;
+    // const { files } = this.state;
+    // console.log(files.map((file) => file.fileName));
 
     const postMarkup = authenticated ? (
       <div className={classes.postContainer}>
@@ -145,6 +189,28 @@ class PostNewPlace extends React.Component {
             label="Add your contact Info"
             rows="1"
           />
+          <FilePond
+            files={this.state.files}
+            allowMultiple={true}
+            maxFiles={4}
+            onupdatefiles={(fileItem) => {
+              this.setState({
+                files: fileItem.map(({ file }) => {
+                  const imageFileName =
+                    Math.round(Math.random() * 1000000000) +
+                    Math.round(Math.random() * 1000000000);
+                  const renamedFile = new File([file], `${imageFileName}`, {
+                    type: file.type,
+                  });
+
+                  return {
+                    files: renamedFile,
+                    fileName: renamedFile.name,
+                  };
+                }),
+              });
+            }}
+          />
           <div className={classes.btnContainer}>
             <Button
               type="submit"
@@ -161,7 +227,7 @@ class PostNewPlace extends React.Component {
               type="button"
               variant="contained"
               className={classes.button}
-              onClick={reset}
+              onClick={this.clearForm}
             >
               Clear
             </Button>

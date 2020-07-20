@@ -109,7 +109,10 @@ class SinglePlace extends React.Component {
           createdAt={createdAt}
           className={classes.header}
         />
-        <ImageCard placeImgUrl={placeImgUrl} body={body} />
+        {placeImgUrl && (
+          <ImageCard placeImgUrl={placeImgUrl} imgHeight="400px" body={body} />
+        )}
+
         <CardActions disableSpacing>
           <LikeButton placeId={placeId} />
           {likeCount}
