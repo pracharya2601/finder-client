@@ -14,7 +14,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 
 //icons
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -47,14 +46,6 @@ class CardHead extends React.Component {
         </div>
       ) : null;
 
-    const btnList = (
-      <>
-        <div className={classes.dropdownContent}>
-          <Button color="primary">Share</Button>
-        </div>
-      </>
-    );
-
     return (
       <CardHeader
         avatar={
@@ -69,13 +60,7 @@ class CardHead extends React.Component {
         }
         action={
           <div aria-label="settings" className="dropDown">
-            <IconButton>
-              <MoreVertIcon />
-            </IconButton>
-            <div className="dropdown-content">
-              {optionBtn}
-              {btnList}
-            </div>
+            {optionBtn}
           </div>
         }
         title={header}

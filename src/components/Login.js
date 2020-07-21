@@ -13,6 +13,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
 
 const styles = {
@@ -40,11 +41,11 @@ const styles = {
   button: {
     marginTop: '20px',
     width: '150px',
-    position: 'relative',
   },
   progess: {
-    position: 'absolute',
-    color: 'white',
+    color: 'primary',
+    marginTop: '10px',
+    marginButtom: '-20px',
   },
   forgotPassword: {
     color: 'red',
@@ -140,6 +141,9 @@ class Login extends React.Component {
                 {errors.general}
               </Typography>
             )}
+            {loading && (
+              <CircularProgress size={30} className={classes.progess} />
+            )}
             <Button
               type="submit"
               variant="contained"
@@ -148,9 +152,6 @@ class Login extends React.Component {
               // disabled={loading}
             >
               Login
-              {loading && (
-                <CircularProgress size={30} className={classes.progess} />
-              )}
             </Button>
             <Button
               className={classes.forgotPassword}

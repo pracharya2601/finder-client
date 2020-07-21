@@ -5,9 +5,10 @@ import _ from 'lodash';
 
 import Place from './places/Place';
 import StaticProfile from './profile/StaticProfile';
-import Loading from './loading/Loading';
+
 //mui
 import withStyles from '@material-ui/core/styles/withStyles';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 //redux
 import { connect } from 'react-redux';
@@ -49,7 +50,9 @@ class User extends React.Component {
     const { places, loading } = this.props.data;
 
     const placeMarkup = loading ? (
-      <Loading />
+      <>
+        <LinearProgress color="primary" />
+      </>
     ) : places === null ? null : (
       _.map(places, (place) => <Place key={place.placeId} place={place} />)
     );

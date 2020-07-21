@@ -40,11 +40,11 @@ const styles = {
   button: {
     marginTop: '20px',
     width: '150px',
-    position: 'relative',
   },
   progess: {
-    position: 'absolute',
-    color: 'white',
+    color: 'primary',
+    marginTop: '10px',
+    marginButtom: '-20px',
   },
   remainContent: {
     marginTop: '10px',
@@ -208,6 +208,9 @@ class Signup extends React.Component {
                 {errors.general}
               </Typography>
             )}
+            {loading && (
+              <CircularProgress size={30} className={classes.progess} />
+            )}
             <Button
               type="submit"
               variant="contained"
@@ -216,9 +219,6 @@ class Signup extends React.Component {
               disabled={loading}
             >
               Signup
-              {loading && (
-                <CircularProgress size={30} className={classes.progess} />
-              )}
             </Button>
             <Typography
               variant="body1"

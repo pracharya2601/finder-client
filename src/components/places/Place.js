@@ -60,20 +60,12 @@ class Place extends React.Component {
 
     return (
       <Card className={classes.card}>
-        <CardHead
-          userHandle={userHandle}
-          userImage={userImage}
-          body={body}
-          address={address}
-          placeId={placeId}
-          createdAt={createdAt}
-        />
         {placeImgUrl && (
           <ImageCard placeImgUrl={placeImgUrl} imgHeight="250px" body={body} />
         )}
-        <div>
+        {/* <div>
           <Description description={description} />
-        </div>
+        </div> */}
         <CardActions disableSpacing>
           <LikeButton placeId={placeId} />
           {likeCount}
@@ -91,6 +83,14 @@ class Place extends React.Component {
           </Link>
           {viewCount}
         </CardActions>
+        <CardHead
+          userHandle={userHandle}
+          userImage={userImage}
+          body={body}
+          address={address}
+          placeId={placeId}
+          createdAt={createdAt}
+        />
       </Card>
     );
   }

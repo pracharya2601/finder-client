@@ -48,16 +48,20 @@ class ImageCard extends React.Component {
     const imageStyles = {
       width: IMG_WIDTH,
       height: IMG_HEIGHT,
+      borderTopLeftRadius: '5px',
+      borderTopRightRadius: '5px',
       backgroundImage: `url(${imagelink}${images[imageIndex]}?alt=media)`,
       backgroundRepeat: 'no-repeat',
-      backgroundSize: 'contain',
+      backgroundSize: 'cover',
       backgroundPosition: 'center',
+      transition: 'all 1.0s ease-in-out',
+      transition: 'all 1.0s ease-in-out',
+      transition: 'all 1.0s ease-in-out',
+      transition: 'all 1.0s ease-in-out',
     };
     const buttonStyles = {
       color: 'black',
       marginTop: `calc(${IMG_HEIGHT}/2.5)`,
-      fontSizw: '2em',
-      backgroundColor: 'teansparent',
       border: '0',
       cursor: 'pointer',
     };

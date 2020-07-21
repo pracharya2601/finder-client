@@ -4,7 +4,7 @@ import './css/Home.css';
 
 import _ from 'lodash';
 
-import Loading from './loading/Loading';
+import Skeleton from './loading/Skeleton';
 import Place from './places/Place.js';
 
 import { connect } from 'react-redux';
@@ -19,10 +19,19 @@ class Home extends React.Component {
 
     let recentPlace = !loading ? (
       _.map(places, (place) => {
-        return <Place place={place} key={place.placeId} />;
+        return (
+          <>
+            <Place place={place} key={place.placeId} />
+          </>
+        );
       })
     ) : (
-      <Loading />
+      <>
+        <Skeleton />
+        <Skeleton />
+        <Skeleton />
+        <Skeleton />
+      </>
     );
     return <div className="place_container">{recentPlace}</div>;
   }

@@ -24,9 +24,14 @@ import 'filepond/dist/filepond.min.css';
 
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
 import FilepondPluginImagePreview from 'filepond-plugin-image-preview';
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 
-registerPlugin(FilePondPluginImageExifOrientation, FilepondPluginImagePreview);
+registerPlugin(
+  FilePondPluginImageExifOrientation,
+  FilepondPluginImagePreview,
+  FilePondPluginFileValidateType
+);
 
 const styles = {
   titlePost: {
@@ -34,7 +39,13 @@ const styles = {
   },
   postContainer: {
     width: '80%',
+    maxWidth: '550px',
     margin: 'auto',
+    boxShadow:
+      '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+    padding: '30px 30px 30px 30px',
+    borderRadius: '5px',
+    backgroundColor: '#CACAD7',
   },
   btnContainer: {
     display: 'flex',
@@ -46,6 +57,9 @@ const styles = {
     marginTop: '20px',
     width: '130px',
     position: 'relative',
+  },
+  fileDrop: {
+    marginTop: '15px',
   },
   progess: {
     position: 'absolute',
@@ -190,9 +204,13 @@ class PostNewPlace extends React.Component {
             rows="1"
           />
           <FilePond
+            className={classes.fileDrop}
             files={this.state.files}
             allowMultiple={true}
-            maxFiles={4}
+            maxFiles={6}
+            allowFileTypeValidation={true}
+            acceptedFileTypes={['image/*']}
+            labelIdle='Drag & Drop your images or <span class="filepond--label-action">Browse</span>'
             onupdatefiles={(fileItem) => {
               this.setState({
                 files: fileItem.map(({ file }) => {
