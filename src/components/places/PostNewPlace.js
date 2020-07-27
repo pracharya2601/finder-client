@@ -129,7 +129,6 @@ class PostNewPlace extends React.Component {
     this.props.postPlace(newPlace, () => {
       this.props.history.push('/');
     });
-    console.log(newPlace);
   };
 
   submitImage = () => {

@@ -11,11 +11,10 @@ import SinglePlace from './components/places/SinglePlace';
 import Profile from './components/profile/Profile';
 import Saved from './components/Saved';
 import User from './components/User';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import ResetPassword from './components/ResetPassword';
+import Login from './views/AuthPage/Login';
+import Signup from './views/AuthPage/Signup';
+import ResetPassword from './views/AuthPage/ResetPassword';
 import PostNewPlace from './components/places/PostNewPlace';
-import AddPlaceImage from './components/places/AddPlaceImage';
 
 import ScrollMemory from 'react-router-scroll-memory';
 
@@ -52,11 +51,6 @@ class App extends React.Component {
           <div className="container">
             <Switch>
               <Route path="/" exact component={Home} />
-              <Route
-                path="/place/imageupload"
-                exact
-                component={AddPlaceImage}
-              />
               <Route path="/place/:placeId" exact component={SinglePlace} />
               <Route path="/user/profile/:handle" exact component={User} />
               <Route path="/user/profile" exact component={Profile} />
