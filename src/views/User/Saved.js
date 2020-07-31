@@ -4,9 +4,9 @@ import _ from 'lodash';
 
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getPlaces, clearErrors } from '../redux/actions/dataAction';
-import Loading from './loading/Loading';
-import Place from './places/Place';
+import { getPlaces, clearErrors } from '../../redux/actions/dataAction';
+import Loading from '../../components/loading/Loading';
+import Place from '../../components/places/Place';
 
 class Saved extends React.Component {
   componentDidMount() {

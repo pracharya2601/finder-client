@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import _ from 'lodash';
 
-import Place from './places/Place';
-import StaticProfile from './profile/StaticProfile';
+import Place from '../../components/places/Place';
+import StaticProfile from '../../components/profile/StaticProfile';
 
 //mui
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -12,7 +12,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 
 //redux
 import { connect } from 'react-redux';
-import { fetchUserData } from '../redux/actions/dataAction';
+import { fetchUserData } from '../../redux/actions/dataAction';
 
 const styles = {
   profileCard: {
