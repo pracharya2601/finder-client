@@ -11,10 +11,15 @@ import {
   POST_PLACE,
   SUBMIT_COMMENT,
   SUBMIT_REPORT,
+  FILTER_BY_CATAGORY,
+  FILTER_BY_VIEWCOUNT,
 } from '../types';
 
 const INITIAL_STATE = {
   places: {},
+  filteredPlaces: {},
+  catagory: '',
+  viewSort: '',
   place: {},
   loading: false,
 };
@@ -27,6 +32,21 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         places: _.mapKeys(action.payload, 'placeId'),
+        filteredPlaces: _.mapKeys(action.payload, 'placeId'),
+        loading: false,
+      };
+    case FILTER_BY_CATAGORY:
+      return {
+        ...state,
+        filteredPlaces: _.mapKeys(action.payload.places, 'placeId'),
+        catagory: action.payload.catagory,
+        loading: false,
+      };
+    case FILTER_BY_VIEWCOUNT:
+      return {
+        ...state,
+        filteredPlaces: _.mapKeys(action.payload.places, 'placeId'),
+        viewSort: action.payload.viewSort,
         loading: false,
       };
     case SET_PLACE:

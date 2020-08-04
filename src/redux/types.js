@@ -25,5 +25,12 @@ export const DELETE_PLACE = 'DELETE_PLACE';
 export const SUBMIT_COMMENT = 'SUBMIT_COMMENT';
 export const SUBMIT_REPORT = 'SUBMIT_REPORT';
 
+//filter type
+export const FILTER_BY_CATAGORY = 'FILTER_BY_CATAGORY';
+export const FILTER_BY_VIEWCOUNT = 'FILTER_BY_VIEWCOUNT';
+export const FILTER_BY_PRICE = 'FILTER_BY_PRICE';
+export const FILTER_BY_START = 'FILTER_BY_START';
+export const FILTER_BY_ADDRESS = 'FILTER_BY_ADDRESS';
+
 //weather reducer type
 export const SET_WEATHER = 'SET_WEATHER';

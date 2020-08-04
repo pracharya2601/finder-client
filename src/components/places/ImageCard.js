@@ -13,16 +13,14 @@ class ImageCard extends React.Component {
   };
 
   onSwiped = (direction) => {
-    const {
-      placeImgUrl: { images },
-    } = this.props;
+    const { placeImgUrl } = this.props;
     const change = direction === RIGHT ? RIGHT : LEFT;
     const adjustedIndex = this.state.imageIndex + Number(change);
     let newIndex;
-    if (adjustedIndex >= images.length) {
+    if (adjustedIndex >= placeImgUrl.length) {
       newIndex = 0;
     } else if (adjustedIndex < 0) {
-      newIndex = images.length - 1;
+      newIndex = placeImgUrl.length - 1;
     } else {
       newIndex = adjustedIndex;
     }
@@ -30,27 +28,20 @@ class ImageCard extends React.Component {
   };
 
   render() {
-    const {
-      classes,
-      placeImgUrl: { images },
-      body,
-      imgHeight,
-    } = this.props;
+    const { classes, placeImgUrl, body, imgHeight, placeId } = this.props;
+    console.log(placeImgUrl);
 
     const { imageIndex = 0 } = this.state;
 
     const IMG_WIDTH = '100%';
     const IMG_HEIGHT = imgHeight;
 
-    const imagelink =
-      'https://firebasestorage.googleapis.com/v0/b/cocoontechlab.appspot.com/o/places%2F';
-
     const imageStyles = {
       width: IMG_WIDTH,
       height: IMG_HEIGHT,
       borderTopLeftRadius: '5px',
       borderTopRightRadius: '5px',
-      backgroundImage: `url(${imagelink}${images[imageIndex]}?alt=media)`,
+      backgroundImage: `url(${placeImgUrl[imageIndex]})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
@@ -64,6 +55,7 @@ class ImageCard extends React.Component {
       marginTop: `calc(${IMG_HEIGHT}/2.5)`,
       border: '0',
       cursor: 'pointer',
+      zIndex: '200',
     };
     const buttonLeft = { ...buttonStyles, float: 'left' };
     const buttonRight = { ...buttonStyles, float: 'right' };

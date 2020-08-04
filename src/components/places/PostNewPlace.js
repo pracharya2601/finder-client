@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import uniqid from 'uniqid';
 
 import { storage } from '../../base';
 
@@ -69,6 +70,7 @@ const styles = {
 
 class PostNewPlace extends React.Component {
   state = {
+    placeId: '',
     files: [],
   };
 
@@ -115,29 +117,40 @@ class PostNewPlace extends React.Component {
     );
   };
 
-  newPlacewithImgDocument = (form, imgName) => {
-    const images = imgName.map((file) => file.fileName);
+  newPlacewithImgDocument = (form, id, imageName) => {
+    const images = imageName.map(
+      (file) =>
+        `https://firebasestorage.googleapis.com/v0/b/cocoontechlab.appspot.com/o/places%2F${id}%2F${file.name.replace(
+          / /g,
+          ''
+        )}?alt=media`
+    );
     return {
       ...form,
-      placeImgUrl: { images },
+      placeImgUrl: images,
+      placeId: id,
     };
   };
 
   onSubmit = (values) => {
-    this.submitImage();
-    const newPlace = this.newPlacewithImgDocument(values, this.state.files);
+    let id = uniqid('place-') + uniqid();
+    this.setState({ id: id });
+    this.submitImage(id);
+    const newPlace = this.newPlacewithImgDocument(values, id, this.state.files);
+    console.log(newPlace);
     this.props.postPlace(newPlace, () => {
       this.props.history.push('/');
     });
   };
 
-  submitImage = () => {
-    const files = this.state.files.map((imgFiles) => imgFiles.files);
-    files.forEach((file) => {
-      const storageRef = storage.ref(`places/${file.name}`);
+  submitImage = (id) => {
+    for (var i = 0; i < this.state.files.length; i++) {
+      let file = this.state.files[i];
+      const storageRef = storage.ref(
+        `places/${id}/${file.name.replace(/ /g, '')}`
+      );
       storageRef.put(file);
-      console.log(file);
-    });
+    }
   };
 
   clearForm = () => {
@@ -153,8 +166,6 @@ class PostNewPlace extends React.Component {
       loading,
       user: { authenticated },
     } = this.props;
-    // const { files } = this.state;
-    // console.log(files.map((file) => file.fileName));
 
     const postMarkup = authenticated ? (
       <div className={classes.postContainer}>
@@ -213,17 +224,7 @@ class PostNewPlace extends React.Component {
             onupdatefiles={(fileItem) => {
               this.setState({
                 files: fileItem.map(({ file }) => {
-                  const imageFileName =
-                    Math.round(Math.random() * 1000000000) +
-                    Math.round(Math.random() * 1000000000);
-                  const renamedFile = new File([file], `${imageFileName}`, {
-                    type: file.type,
-                  });
-
-                  return {
-                    files: renamedFile,
-                    fileName: renamedFile.name,
-                  };
+                  return file;
                 }),
               });
             }}

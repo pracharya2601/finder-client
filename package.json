@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
+    "cocoon-component-ui": "^1.0.0",
     "dayjs": "^1.8.28",
     "dotenv": "^8.2.0",
     "env-cmd": "^10.1.0",
@@ -19,6 +20,7 @@
     "filepond-plugin-image-exif-orientation": "^1.0.9",
     "filepond-plugin-image-preview": "^4.6.4",
     "firebase": "^7.16.1",
+    "framer-motion": "^2.3.0",
     "google-maps-react": "^2.0.6",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.15",
@@ -33,7 +35,8 @@
     "react-swipeable": "^5.5.1",
     "redux": "^4.0.5",
     "redux-form": "^8.3.6",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "uniqid": "^5.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

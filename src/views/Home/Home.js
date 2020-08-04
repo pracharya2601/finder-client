@@ -6,6 +6,7 @@ import _ from 'lodash';
 
 import Skeleton from '../../components/loading/Skeleton';
 import Place from '../../components/places/Place';
+import Filter from '../../components/places/Filter';
 
 import { connect } from 'react-redux';
 import { getPlaces } from '../../redux/actions/dataAction';
@@ -15,10 +16,10 @@ class Home extends React.Component {
     this.props.getPlaces();
   }
   render() {
-    const { places, loading } = this.props.data;
+    const { data, loading } = this.props;
 
     let recentPlace = !loading ? (
-      _.map(places, (place) => {
+      _.map(data, (place) => {
         return <Place place={place} key={place.placeId} />;
       })
     ) : (
@@ -29,7 +30,12 @@ class Home extends React.Component {
         <Skeleton />
       </>
     );
-    return <div className="place_container">{recentPlace}</div>;
+    return (
+      <>
+        <Filter />
+        <div className="place_container">{recentPlace}</div>
+      </>
+    );
   }
 }
 
@@ -39,7 +45,8 @@ Home.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  data: state.data,
+  loading: state.data.loading,
+  data: state.data.filteredPlaces,
 });
 
 export default connect(mapStateToProps, { getPlaces })(Home);

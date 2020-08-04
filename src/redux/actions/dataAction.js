@@ -14,6 +14,8 @@ import {
   STOP_LOADING_UI,
   SUBMIT_COMMENT,
   SUBMIT_REPORT,
+  FILTER_BY_CATAGORY,
+  FILTER_BY_VIEWCOUNT,
 } from '../types';
 import axios from 'axios';
 
@@ -25,6 +27,42 @@ export const getPlaces = () => (dispatch) => {
       type: SET_PLACES,
       payload: res.data,
     });
+  });
+};
+
+export const filterPlaces = (places, catagory) => (dispatch) => {
+  dispatch({
+    type: FILTER_BY_CATAGORY,
+    payload: {
+      catagory: catagory,
+      places:
+        catagory === ''
+          ? places
+          : places.filter((place) => place.catagory.indexOf(catagory) >= 0),
+    },
+  });
+};
+export const sortPlacesViews = (placeItems, sort) => (dispatch) => {
+  let places = placeItems.slice();
+  if (sort !== '') {
+    places.sort((a, b) =>
+      sort === 'lowestViews'
+        ? a.viewCount > b.viewCount
+          ? 1
+          : -1
+        : a.viewCount < b.viewCount
+        ? 1
+        : -1
+    );
+  } else {
+    places.sort((a, b) => (a.id > b.id ? 1 : -1));
+  }
+  dispatch({
+    type: FILTER_BY_VIEWCOUNT,
+    payload: {
+      viewSort: sort,
+      places: places,
+    },
   });
 };
 
