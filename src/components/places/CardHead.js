@@ -30,19 +30,23 @@ class CardHead extends React.Component {
       userImage,
       body,
       placeId,
+      deleteBtn,
       address,
       createdAt,
+      // handleClick,
       user: {
         authenticated,
         credentials: { handle },
       },
     } = this.props;
-
     const header = `${body} [${address}]`;
     const optionBtn =
-      authenticated && userHandle === handle ? (
+      authenticated && userHandle === handle && deleteBtn === true ? (
         <div className={classes.dropdownContent}>
-          <DeletePlace placeId={placeId} />
+          <DeletePlace
+            placeId={placeId}
+            // handleClick={handleClick}
+          />
         </div>
       ) : null;
 

@@ -62,11 +62,13 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         places: omit(state.places, action.payload),
       };
-    case DELETE_PLACE:
-      return {
-        ...state,
-        place: omit(state.place, action.payload),
-      };
+    // case DELETE_PLACE:
+    //   return {
+    //     ...state,
+    //     place: omit(state.place, action.payload),
+    //     places: delete state.places[action.payload],
+    //     filteredPlaces: delete state.filteredPlaces[action.payload],
+    //   };
     case POST_PLACE:
       return {
         ...state,

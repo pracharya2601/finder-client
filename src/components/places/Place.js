@@ -94,6 +94,7 @@ class Place extends React.Component {
           </CardActions>
           <CardHead
             userHandle={userHandle}
+            deleteBtn={false}
             userImage={userImage}
             body={body}
             address={address}

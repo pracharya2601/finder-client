@@ -18,6 +18,7 @@ import {
   FILTER_BY_VIEWCOUNT,
 } from '../types';
 import axios from 'axios';
+import history from '../../history';
 
 // get all places
 export const getPlaces = () => (dispatch) => {
@@ -190,16 +191,27 @@ export const reportPost = (placeId, reportData) => (dispatch) => {
     });
 };
 
-export const deletePlace = (placeId) => (dispatch) => {
-  axios
-    .delete(`/place/${placeId}`)
-    .then(() => {
-      dispatch({
-        type: DELETE_PLACE,
-        payload: placeId,
-      });
-    })
-    .catch((err) => console.log(err));
+// export const deletePlace = (placeId) => (dispatch) => {
+//   axios
+//     .delete(`/place/${placeId}`)
+//     .then(() => {
+//       dispatch({
+//         type: DELETE_PLACE,
+//         payload: placeId,
+//       });
+//     })
+//     .then(() => history.push('/'))
+//     .catch((err) => console.log(err));
+// };
+
+export const deletePlace = (placeId) => async (dispatch) => {
+  await axios.delete(`/place/${placeId}`);
+  dispatch({
+    type: DELETE_PLACE,
+    payload: placeId,
+  });
+  history.push('/');
+  window.location.reload();
 };
 
 export const fetchUserData = (userHandle) => (dispatch) => {

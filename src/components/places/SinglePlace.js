@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import history from '../../history';
+
 import CardHead from './CardHead';
 import ImageCard from './ImageCard';
 import LikeButton from './LikeButton';
@@ -56,6 +58,10 @@ class SinglePlace extends React.Component {
     this.props.getPlace(this.props.match.params.placeId);
   }
 
+  // handleClick = () => {
+  //   history.push('/');
+  // };
+
   render() {
     const {
       classes,
@@ -77,7 +83,7 @@ class SinglePlace extends React.Component {
       },
       UI: { loading },
     } = this.props;
-    // console.log(this.props.place.comments);
+    console.log(this.handleClick);
 
     const singleComment = comments
       ? comments.map((comment) => (
@@ -102,12 +108,14 @@ class SinglePlace extends React.Component {
       <div className={classes.card}>
         <CardHead
           userHandle={userHandle}
+          deleteBtn={true}
           userImage={userImage}
           body={body}
           address={address}
           placeId={placeId}
           createdAt={createdAt}
           className={classes.header}
+          // handleClick={this.handleCLick}
         />
         {placeImgUrl && (
           <ImageCard placeImgUrl={placeImgUrl} imgHeight="400px" body={body} />

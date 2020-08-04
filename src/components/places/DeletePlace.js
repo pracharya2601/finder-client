@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-
+import history from '../../history';
 //redux
 import { connect } from 'react-redux';
 import { deletePlace } from '../../redux/actions/dataAction';
@@ -28,10 +28,10 @@ class DeletePlace extends React.Component {
 
   handleClose = () => {
     this.setState({ open: false });
+    history.push('/');
   };
 
   deletePlace = () => {
-    console.log(this.props.placeId);
     this.props.deletePlace(this.props.placeId);
     this.handleClose();
   };
