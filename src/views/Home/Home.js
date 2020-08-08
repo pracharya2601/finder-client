@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../../components/css/Home.css';
-import _ from 'lodash';
+import _, { lastIndexOf } from 'lodash';
 
 //materialui
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -15,7 +15,7 @@ import Filter from '../../components/places/Filter';
 import Pagination from '../../components/pagination/Pagination';
 
 import { connect } from 'react-redux';
-import { getPlaces } from '../../redux/actions/dataAction';
+import { getPlaces, filterPlaces } from '../../redux/actions/dataAction';
 
 const styles = {
   paginationCard: {
@@ -37,6 +37,10 @@ class Home extends React.Component {
   componentDidMount() {
     this.props.getPlaces();
   }
+  // componentWillReceiveProps() {
+  //   this.props.filterPlaces();
+  // }
+
   onPageChanged = (itemsData) => {
     const { data } = this.props;
     const { currentPage, totalPages, pageLimit } = itemsData;
@@ -57,8 +61,7 @@ class Home extends React.Component {
     const { data, loading, classes } = this.props;
     const { currentPlaces, currentPage, totalPages } = this.state;
     if (Object.keys(data).length === 0) return null;
-
-    let recentPlace = !loading ? (
+    let recentPlace = data ? (
       _.map(currentPlaces, (place) => {
         return <Place place={place} key={place.placeId} />;
       })
@@ -104,9 +107,10 @@ Home.propTypes = {
 
 const mapStateToProps = (state) => ({
   loading: state.data.loading,
+  Places: state.data.places,
   data: state.data.filteredPlaces,
 });
 
-export default connect(mapStateToProps, { getPlaces })(
+export default connect(mapStateToProps, { getPlaces, filterPlaces })(
   withStyles(styles)(Home)
 );

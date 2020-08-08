@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 //material ui
 import withStyles from '@material-ui/core/styles/withStyles';
 import CardActions from '@material-ui/core/CardActions';
-import { withTheme } from '@material-ui/core';
 
 const LEFT_PAGE = 'LEFT';
 const RIGHT_PAGE = 'RIGHT';
@@ -54,17 +53,11 @@ const range = (from, to, step = 1) => {
 class Pagination extends Component {
   constructor(props) {
     super(props);
-    const { totalRecords = null, pageLimit = 30, pageNeighbours = 0 } = props;
-
-    this.pageLimit = typeof pageLimit === 'number' ? pageLimit : 30;
-    this.totalRecords = typeof totalRecords === 'number' ? totalRecords : 0;
-
+    const { pageNeighbours = 0 } = props;
     this.pageNeighbours =
       typeof pageNeighbours === 'number'
         ? Math.max(0, Math.min(pageNeighbours, 2))
         : 0;
-
-    this.totalPages = Math.ceil(this.totalRecords / this.pageLimit);
 
     this.state = { currentPage: 1 };
   }
@@ -75,14 +68,16 @@ class Pagination extends Component {
 
   gotoPage = (page) => {
     const { onPageChanged = (f) => f } = this.props;
+    const { totalRecords, pageLimit } = this.props;
+    const totalPages = Math.ceil(totalRecords / pageLimit);
 
-    const currentPage = Math.max(0, Math.min(page, this.totalPages));
+    const currentPage = Math.max(0, Math.min(page, totalPages));
 
     const paginationData = {
       currentPage,
-      totalPages: this.totalPages,
-      pageLimit: this.pageLimit,
-      totalRecords: this.totalRecords,
+      totalPages: totalPages,
+      pageLimit: pageLimit,
+      totalRecords: totalRecords,
     };
 
     this.setState({ currentPage }, () => onPageChanged(paginationData));
@@ -91,6 +86,7 @@ class Pagination extends Component {
   handleClick = (page, evt) => {
     evt.preventDefault();
     this.gotoPage(page);
+    window.scrollTo(0, 0);
   };
 
   handleMoveLeft = (evt) => {
@@ -104,7 +100,10 @@ class Pagination extends Component {
   };
 
   fetchPageNumbers = () => {
-    const totalPages = this.totalPages;
+    const { totalRecords, pageLimit } = this.props;
+    const totalPage = Math.ceil(totalRecords / pageLimit);
+
+    const totalPages = totalPage;
     const currentPage = this.state.currentPage;
     const pageNeighbours = this.pageNeighbours;
 
@@ -150,10 +149,9 @@ class Pagination extends Component {
 
   render() {
     const { classes } = this.props;
+    if (!this.props.totalRecords) return null;
 
-    if (!this.totalRecords) return null;
-
-    if (this.totalPages === 1) return null;
+    if (this.props.totalPages === 1) return null;
 
     const { currentPage } = this.state;
     const pages = this.fetchPageNumbers();

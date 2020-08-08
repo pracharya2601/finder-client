@@ -29,8 +29,6 @@ class ImageCard extends React.Component {
 
   render() {
     const { classes, placeImgUrl, body, imgHeight, placeId } = this.props;
-    console.log(placeImgUrl);
-
     const { imageIndex = 0 } = this.state;
 
     const IMG_WIDTH = '100%';

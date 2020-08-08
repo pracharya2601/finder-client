@@ -32,6 +32,7 @@ export const getPlaces = () => (dispatch) => {
 };
 
 export const filterPlaces = (places, catagory) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
   dispatch({
     type: FILTER_BY_CATAGORY,
     payload: {
@@ -44,6 +45,7 @@ export const filterPlaces = (places, catagory) => (dispatch) => {
   });
 };
 export const sortPlacesViews = (placeItems, sort) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
   let places = placeItems.slice();
   if (sort !== '') {
     places.sort((a, b) =>

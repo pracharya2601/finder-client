@@ -21,7 +21,6 @@ const styles = {
 class Filter extends Component {
   render() {
     const { classes, places, filteredPlaces } = this.props;
-    console.log(_.values(filteredPlaces));
     return (
       <div>
         <FormControl className={classes.formControl}>

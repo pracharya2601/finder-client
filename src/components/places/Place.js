@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './place.css';
 
-//motion animation
-import { motion } from 'framer-motion';
-
 //components
 import CardHead from './CardHead';
 import ImageCard from './ImageCard';
@@ -62,47 +59,45 @@ class Place extends React.Component {
     } = this.props;
 
     return (
-      <motion.div className={classes.card} layout>
-        <Card className={classes.card} layout>
-          {placeImgUrl && (
-            <ImageCard
-              placeImgUrl={placeImgUrl}
-              imgHeight="250px"
-              body={body}
-              placeId={placeId}
-            />
-          )}
-          {/* <div>
+      <Card className={classes.card}>
+        {placeImgUrl && (
+          <ImageCard
+            placeImgUrl={placeImgUrl}
+            imgHeight="250px"
+            body={body}
+            placeId={placeId}
+          />
+        )}
+        {/* <div>
           <Description description={description} />
         </div> */}
-          <CardActions disableSpacing>
-            <LikeButton placeId={placeId} />
-            {likeCount}
-            <Link to={`/place/${placeId}`}>
-              <IconButton aria-label="share">
-                <ChatIcon />
-              </IconButton>
-            </Link>
-            {commentCount}
-            <SaveButton placeId={placeId} />
-            <Link to={`/place/${placeId}`} className={classes.expand}>
-              <IconButton>
-                <VisibilityIcon />
-              </IconButton>
-            </Link>
-            {viewCount}
-          </CardActions>
-          <CardHead
-            userHandle={userHandle}
-            deleteBtn={false}
-            userImage={userImage}
-            body={body}
-            address={address}
-            placeId={placeId}
-            createdAt={createdAt}
-          />
-        </Card>
-      </motion.div>
+        <CardActions disableSpacing>
+          <LikeButton placeId={placeId} />
+          {likeCount}
+          <Link to={`/place/${placeId}`}>
+            <IconButton aria-label="share">
+              <ChatIcon />
+            </IconButton>
+          </Link>
+          {commentCount}
+          <SaveButton placeId={placeId} />
+          <Link to={`/place/${placeId}`} className={classes.expand}>
+            <IconButton>
+              <VisibilityIcon />
+            </IconButton>
+          </Link>
+          {viewCount}
+        </CardActions>
+        <CardHead
+          userHandle={userHandle}
+          deleteBtn={false}
+          userImage={userImage}
+          body={body}
+          address={address}
+          placeId={placeId}
+          createdAt={createdAt}
+        />
+      </Card>
     );
   }
 }
