@@ -25,6 +25,8 @@ const styles = {
     flexWrap: 'wrap',
     backgroundColor: '#F3F3E7',
     marginTop: '20px',
+    borderTop: '1px solid lightgrey',
+    borderBottom: '1px solid lightgrey',
   },
 };
 
@@ -38,10 +40,6 @@ class Home extends React.Component {
   componentDidMount() {
     this.props.getPlaces();
   }
-  // componentWillReceiveProps() {
-  //   this.props.filterPlaces();
-  // }
-
   onPageChanged = (itemsData) => {
     const { data } = this.props;
     const { currentPage, totalPages, pageLimit } = itemsData;
@@ -80,7 +78,9 @@ class Home extends React.Component {
         <Card>
           <Filter />
         </Card>
-        <div className="place_container">{recentPlace}</div>
+        <Grid container spacing={2}>
+          {recentPlace}
+        </Grid>
         <div className={classes.paginationCard}>
           {currentPage && (
             <CardActions className={classes.pageCount}>

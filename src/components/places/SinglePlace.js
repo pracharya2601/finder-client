@@ -71,6 +71,7 @@ class SinglePlace extends React.Component {
         body,
         comments,
         contactNo,
+        catagory,
         createdAt,
         description,
         likeCount,
@@ -83,7 +84,6 @@ class SinglePlace extends React.Component {
       },
       UI: { loading },
     } = this.props;
-    console.log(this.handleClick);
 
     const singleComment = comments
       ? comments.map((comment) => (
@@ -118,7 +118,15 @@ class SinglePlace extends React.Component {
           // handleClick={this.handleCLick}
         />
         {placeImgUrl && (
-          <ImageCard placeImgUrl={placeImgUrl} imgHeight="400px" body={body} />
+          <ImageCard
+            placeImgUrl={placeImgUrl}
+            imgHeight="400px"
+            body={body}
+            catagory={catagory}
+            userHandle={userHandle}
+            userImage={userImage}
+            viewCount={viewCount}
+          />
         )}
 
         <CardActions disableSpacing>
@@ -130,7 +138,7 @@ class SinglePlace extends React.Component {
           {commentCount}
           <SaveButton placeId={placeId} />
           <div className={classes.expand}>
-            <Report placeId={placeId} />
+            <Report placeId={placeId} iconOnly />
           </div>
         </CardActions>
 

@@ -9,11 +9,15 @@ import ImageCard from './ImageCard';
 import Description from './Description';
 import LikeButton from './LikeButton';
 import SaveButton from './SaveButton';
+import Report from './Report';
 
 //redux
 import { connect } from 'react-redux';
+
 import withStyles from '@material-ui/core/styles/withStyles';
 //MUI
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
@@ -23,15 +27,26 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 
 const styles = {
   card: {
-    minWidth: '320px',
-    width: '100%',
-    maxWidth: '500px',
-    marginTop: '10px',
+    marginTop: '5px',
   },
   expand: {
     transform: 'rotate(0deg)',
     marginLeft: 'auto',
     color: 'green',
+  },
+  placeHeading: {
+    height: '50px',
+    maxHeight: '50px',
+    overflow: 'auto',
+    padding: '10px 20px 0 20px',
+    borderLeft: '1px dotted lightgrey',
+    borderRight: '1px dotted lightgrey',
+    borderBottom: '1px solid lightgrey',
+  },
+  action: {
+    borderLeft: '1px dotted lightgrey',
+    borderRight: '1px dotted lightgrey',
+    borderBottom: '1px solid lightgrey',
   },
   dropdownContent: {
     display: 'flex',
@@ -45,6 +60,7 @@ class Place extends React.Component {
       classes,
       place: {
         body,
+        catagory,
         description,
         placeImgUrl,
         address,
@@ -59,19 +75,34 @@ class Place extends React.Component {
     } = this.props;
 
     return (
-      <Card className={classes.card}>
+      <Grid
+        item
+        xs={12}
+        sm={6}
+        md={4}
+        lg={3}
+        spacing={2}
+        className={classes.card}
+      >
         {placeImgUrl && (
           <ImageCard
             placeImgUrl={placeImgUrl}
             imgHeight="250px"
             body={body}
             placeId={placeId}
+            catagory={catagory}
+            userHandle={userHandle}
+            userImage={userImage}
+            viewCount={viewCount}
           />
         )}
-        {/* <div>
-          <Description description={description} />
-        </div> */}
-        <CardActions disableSpacing>
+        <Link to={`/place/${placeId}`}>
+          <Typography className={classes.placeHeading} variant="subtitle1">
+            {body}
+          </Typography>
+        </Link>
+
+        <CardActions disableSpacing className={classes.action}>
           <LikeButton placeId={placeId} />
           {likeCount}
           <Link to={`/place/${placeId}`}>
@@ -81,23 +112,11 @@ class Place extends React.Component {
           </Link>
           {commentCount}
           <SaveButton placeId={placeId} />
-          <Link to={`/place/${placeId}`} className={classes.expand}>
-            <IconButton>
-              <VisibilityIcon />
-            </IconButton>
-          </Link>
-          {viewCount}
+          <div className={classes.expand}>
+            <Report placeId={placeId} />
+          </div>
         </CardActions>
-        <CardHead
-          userHandle={userHandle}
-          deleteBtn={false}
-          userImage={userImage}
-          body={body}
-          address={address}
-          placeId={placeId}
-          createdAt={createdAt}
-        />
-      </Card>
+      </Grid>
     );
   }
 }

@@ -59,7 +59,6 @@ class CardHead extends React.Component {
             to={`/user/profile/${userHandle}`}
             alt={userHandle}
             src={userImage}
-            className={classes.avatar}
           />
         }
         action={

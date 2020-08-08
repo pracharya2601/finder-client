@@ -20,6 +20,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import ReportIcon from '@material-ui/icons/Report';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = {};
 
@@ -88,19 +89,23 @@ class Report extends React.Component {
       handleSubmit,
       reset,
       classes,
+      iconOnly,
       user: { authenticated },
     } = this.props;
-
     return (
       <Fragment>
         {authenticated && (
           <>
-            <IconButton onClick={this.handleClickOpen}>
-              <ReportIcon color="secondary" />
-            </IconButton>
-            <Button color="secondary" onClick={this.handleClickOpen}>
-              Report
-            </Button>
+            <Tooltip title="report" placement="top">
+              <IconButton onClick={this.handleClickOpen}>
+                <ReportIcon color="secondary" />
+              </IconButton>
+            </Tooltip>
+            {iconOnly && (
+              <Button color="secondary" onClick={this.handleClickOpen}>
+                Report
+              </Button>
+            )}
           </>
         )}
         <Dialog
@@ -131,7 +136,7 @@ class Report extends React.Component {
               <Field
                 name="body"
                 component={this.renderField}
-                label="Main heading for your place"
+                label="Write your comment to report"
                 rows="2"
               />
             </DialogContent>
