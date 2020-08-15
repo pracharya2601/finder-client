@@ -4,6 +4,7 @@ import { getPlaces } from '../../redux/actions/dataAction';
 
 //page
 import Page from '../../components/page/Page';
+import LoadingPage from '../../components/loading/LoadingPage';
 
 class All extends React.Component {
   componentDidMount() {
@@ -11,11 +12,13 @@ class All extends React.Component {
   }
   render() {
     const { loading, places } = this.props;
-    return (
-      <div>
-        <Page loading={loading} items={places} pageName="All Items" />
-      </div>
+    const renderMarkup = loading ? (
+      <LoadingPage />
+    ) : (
+      <Page loading={loading} items={places} pageName="All Items" />
     );
+
+    return <div>{renderMarkup}</div>;
   }
 }
 

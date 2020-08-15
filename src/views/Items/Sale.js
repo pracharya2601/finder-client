@@ -4,6 +4,7 @@ import { getSalePlace } from '../../redux/actions/dataAction';
 
 //page
 import Page from '../../components/page/Page';
+import LoadingPage from '../../components/loading/LoadingPage';
 
 class Sale extends React.Component {
   componentDidMount() {
@@ -11,11 +12,13 @@ class Sale extends React.Component {
   }
   render() {
     const { loading, salePlaces } = this.props;
-    return (
-      <div>
-        <Page loading={loading} items={salePlaces} pageName="Sale Items" />
-      </div>
+    const renderMarkup = loading ? (
+      <LoadingPage />
+    ) : (
+      <Page loading={loading} items={salePlaces} pageName="Sale Items" />
     );
+
+    return <div>{renderMarkup}</div>;
   }
 }
 
