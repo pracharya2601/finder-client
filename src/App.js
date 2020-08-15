@@ -8,11 +8,17 @@ import AuthRoute from './util/AuthRoute';
 import Home from './views/Home/Home';
 import SinglePlace from './components/places/SinglePlace';
 import Profile from './components/profile/Profile';
+
 import Saved from './views/User/Saved';
 import User from './views/User/User';
 import Login from './views/AuthPage/Login';
 import Signup from './views/AuthPage/Signup';
 import ResetPassword from './views/AuthPage/ResetPassword';
+import Other from './views/Items/Other';
+import Sale from './views/Items/Sale';
+import Rental from './views/Items/Rental';
+import All from './views/Items/All';
+
 import PostNewPlace from './components/places/PostNewPlace';
 
 import ScrollMemory from 'react-router-scroll-memory';
@@ -51,6 +57,10 @@ class App extends React.Component {
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/place/:placeId" exact component={SinglePlace} />
+              <Route path="/all" exact component={All} />
+              <Route path="/rental" exact component={Rental} />
+              <Route path="/sale" exact component={Sale} />
+              <Route path="/other" exact component={Other} />
               <Route path="/user/profile/:handle" exact component={User} />
               <Route path="/user/profile" exact component={Profile} />
               <Route path="/user/saved" exact component={Saved} />

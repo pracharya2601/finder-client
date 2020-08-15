@@ -121,12 +121,10 @@ class Report extends React.Component {
               <Field
                 name="type"
                 component={this.renderSelectField}
-                label="Select One"
+                label="Reason for report"
               >
-                <MenuItem value={''}>Select Catagory</MenuItem>
                 <MenuItem value={'spam'}>Its suspicious or spam</MenuItem>
                 <MenuItem value={'sensative'}>
-                  {' '}
                   It display sensative information
                 </MenuItem>
                 <MenuItem value={'abusive'}>It is abusive or harmful</MenuItem>

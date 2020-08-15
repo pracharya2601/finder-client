@@ -163,8 +163,8 @@ class Pagination extends Component {
             return (
               <li key={index} className={classes.pageItem}>
                 <a
-                  className={classes.pageLink}
                   href="#"
+                  className={classes.pageLink}
                   aria-label="Previous"
                   onClick={this.handleMoveLeft}
                 >
@@ -177,8 +177,8 @@ class Pagination extends Component {
             return (
               <li key={index} className={classes.pageItem}>
                 <a
-                  className={classes.pageLink}
                   href="#"
+                  className={classes.pageLink}
                   aria-label="Next"
                   onClick={this.handleMoveRight}
                 >
@@ -186,17 +186,15 @@ class Pagination extends Component {
                 </a>
               </li>
             );
-          let pageItem = 'pageItem';
-          let pageActiveItem = 'pageActiveItem';
           return (
             <li key={index} className={classes.activeItem}>
               <a
+                href="#"
                 className={`${
                   currentPage === page
                     ? classes.pageActiveItem
                     : classes.pageItem
                 }`}
-                href="#"
                 onClick={(e) => this.handleClick(page, e)}
               >
                 {page}

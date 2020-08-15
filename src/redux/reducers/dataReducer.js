@@ -1,6 +1,9 @@
 import _, { omit } from 'lodash';
 import {
   SET_PLACES,
+  SET_RENTAL_PLACES,
+  SET_SALE_PLACES,
+  SET_OTHER_PLACES,
   SET_PLACE,
   LIKE_PLACE,
   UNLIKE_PLACE,
@@ -11,14 +14,15 @@ import {
   POST_PLACE,
   SUBMIT_COMMENT,
   SUBMIT_REPORT,
-  FILTER_BY_CATAGORY,
+  // FILTER_BY_CATAGORY,
   FILTER_BY_VIEWCOUNT,
 } from '../types';
 
 const INITIAL_STATE = {
   places: {},
-  filteredPlaces: {},
-  catagory: '',
+  rentalPlaces: {},
+  salePlaces: {},
+  otherPlaces: {},
   viewSort: '',
   place: {},
   loading: false,
@@ -32,14 +36,25 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         places: _.mapKeys(action.payload, 'placeId'),
-        filteredPlaces: _.mapKeys(action.payload, 'placeId'),
+        // filteredPlaces: _.mapKeys(action.payload, 'placeId'),
         loading: false,
       };
-    case FILTER_BY_CATAGORY:
+    case SET_RENTAL_PLACES:
       return {
         ...state,
-        filteredPlaces: _.mapKeys(action.payload.places, 'placeId'),
-        catagory: action.payload.catagory,
+        rentalPlaces: _.mapKeys(action.payload, 'placeId'),
+        loading: false,
+      };
+    case SET_SALE_PLACES:
+      return {
+        ...state,
+        salePlaces: _.mapKeys(action.payload, 'placeId'),
+        loading: false,
+      };
+    case SET_OTHER_PLACES:
+      return {
+        ...state,
+        otherPlaces: _.mapKeys(action.payload, 'placeId'),
         loading: false,
       };
     case FILTER_BY_VIEWCOUNT:

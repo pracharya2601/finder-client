@@ -6,17 +6,16 @@ import _, { lastIndexOf } from 'lodash';
 //materialui
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 
 import Skeleton from '../../components/loading/Skeleton';
 import Place from '../../components/places/Place';
-import Filter from '../../components/places/Filter';
+// import Filter from '../../components/places/Filter';
 
 import Pagination from '../../components/pagination/Pagination';
 
 import { connect } from 'react-redux';
-import { getPlaces, filterPlaces } from '../../redux/actions/dataAction';
+import { getPlaces } from '../../redux/actions/dataAction';
 
 const styles = {
   paginationCard: {
@@ -35,13 +34,14 @@ class Home extends React.Component {
     currentPlaces: {},
     currentPage: null,
     totalPages: null,
+    loading: false,
   };
 
   componentDidMount() {
     this.props.getPlaces();
   }
   onPageChanged = (itemsData) => {
-    const { data } = this.props;
+    const { data, loading } = this.props;
     const { currentPage, totalPages, pageLimit } = itemsData;
 
     const offset = (currentPage - 1) * pageLimit;
@@ -53,31 +53,31 @@ class Home extends React.Component {
         return result;
       }, {});
 
-    this.setState({ currentPage, currentPlaces, totalPages });
+    this.setState({ currentPage, currentPlaces, totalPages, loading });
   };
 
   render() {
-    const { data, loading, classes } = this.props;
-    const { currentPlaces, currentPage, totalPages } = this.state;
+    const { data, classes } = this.props;
+    const { currentPlaces, currentPage, totalPages, loading } = this.state;
     if (Object.keys(data).length === 0) return null;
     let recentPlace = data ? (
       _.map(currentPlaces, (place) => {
         return <Place place={place} key={place.placeId} />;
       })
-    ) : (
+    ) : loading ? (
       <>
         <Skeleton />
         <Skeleton />
         <Skeleton />
         <Skeleton />
       </>
-    );
+    ) : null;
 
     return (
       <>
-        <Card>
+        {/* <Card>
           <Filter />
-        </Card>
+        </Card> */}
         <Grid container spacing={2}>
           {recentPlace}
         </Grid>
@@ -108,10 +108,9 @@ Home.propTypes = {
 
 const mapStateToProps = (state) => ({
   loading: state.data.loading,
-  Places: state.data.places,
-  data: state.data.filteredPlaces,
+  data: state.data.places,
 });
 
-export default connect(mapStateToProps, { getPlaces, filterPlaces })(
+export default connect(mapStateToProps, { getPlaces })(
   withStyles(styles)(Home)
 );

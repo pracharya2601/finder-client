@@ -4,6 +4,7 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   background-color: rgba(245, 245, 245);
+  scroll-behavior: smooth;
 }
 
 .container {

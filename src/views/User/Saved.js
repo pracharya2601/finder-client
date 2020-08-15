@@ -1,12 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getPlaces, clearErrors } from '../../redux/actions/dataAction';
-import Loading from '../../components/loading/Loading';
-import Place from '../../components/places/Place';
+import Page from '../../components/page/Page';
 
 class Saved extends React.Component {
   componentDidMount() {
@@ -18,7 +16,6 @@ class Saved extends React.Component {
       data: { places },
       user: { saved, authenticated },
     } = this.props;
-    console.log(this.props);
 
     const filtered = Object.keys(places)
       .filter((key) => Object.keys(_.mapKeys(saved, 'placeId')).includes(key))
@@ -26,21 +23,13 @@ class Saved extends React.Component {
         obj[key] = places[key];
         return obj;
       }, {});
-    // (_.isEmpty(filtered))
 
     const savedMarkup = _.isEmpty(filtered) ? (
       <div>You dont have any saved Item</div>
     ) : (
-      _.map(filtered, (place) => {
-        return <Place place={place} key={place.placeId} />;
-      })
+      <Page items={filtered} pageName="My Saved Items" />
     );
-
-    return (
-      <div className="place_container">
-        {authenticated && <>{savedMarkup}</>}
-      </div>
-    );
+    return <>{authenticated && <>{savedMarkup}</>}</>;
   }
 }
 

@@ -1,5 +1,8 @@
 import {
   SET_PLACES,
+  SET_RENTAL_PLACES,
+  SET_SALE_PLACES,
+  SET_OTHER_PLACES,
   SET_PLACE,
   POST_PLACE,
   LOADING_DATA,
@@ -14,7 +17,7 @@ import {
   STOP_LOADING_UI,
   SUBMIT_COMMENT,
   SUBMIT_REPORT,
-  FILTER_BY_CATAGORY,
+  // FILTER_BY_CATAGORY,
   FILTER_BY_VIEWCOUNT,
 } from '../types';
 import axios from 'axios';
@@ -31,17 +34,31 @@ export const getPlaces = () => (dispatch) => {
   });
 };
 
-export const filterPlaces = (places, catagory) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
-  dispatch({
-    type: FILTER_BY_CATAGORY,
-    payload: {
-      catagory: catagory,
-      places:
-        catagory === ''
-          ? places
-          : places.filter((place) => place.catagory.indexOf(catagory) >= 0),
-    },
+export const getRentalPlace = () => (dispatch) => {
+  dispatch({ type: LOADING_DATA });
+  axios.get('/rentalPlaces').then((res) => {
+    dispatch({
+      type: SET_RENTAL_PLACES,
+      payload: res.data,
+    });
+  });
+};
+export const getSalePlace = () => (dispatch) => {
+  dispatch({ type: LOADING_DATA });
+  axios.get('/salePlaces').then((res) => {
+    dispatch({
+      type: SET_SALE_PLACES,
+      payload: res.data,
+    });
+  });
+};
+export const getOtherPlace = () => (dispatch) => {
+  dispatch({ type: LOADING_DATA });
+  axios.get('/otherPlaces').then((res) => {
+    dispatch({
+      type: SET_OTHER_PLACES,
+      payload: res.data,
+    });
   });
 };
 export const sortPlacesViews = (placeItems, sort) => (dispatch) => {

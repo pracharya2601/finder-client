@@ -31,6 +31,7 @@ import ContactsIcon from '@material-ui/icons/Contacts';
 //redux
 import { connect } from 'react-redux';
 import { getPlace, clearErrors } from '../../redux/actions/dataAction';
+import ImgCarousel from '../carousel/ImgCarousel';
 
 const styles = {
   loadingComponent: {
@@ -42,6 +43,7 @@ const styles = {
     maxWidth: '900px',
     marginTop: '10px',
     margin: 'auto',
+    maxHeight: '100%',
   },
   description: {
     padding: '10px',
@@ -118,15 +120,16 @@ class SinglePlace extends React.Component {
           // handleClick={this.handleCLick}
         />
         {placeImgUrl && (
-          <ImageCard
-            placeImgUrl={placeImgUrl}
-            imgHeight="400px"
-            body={body}
-            catagory={catagory}
-            userHandle={userHandle}
-            userImage={userImage}
-            viewCount={viewCount}
-          />
+          // <ImageCard
+          //   placeImgUrl={placeImgUrl}
+          //   imgHeight="400px"
+          //   body={body}
+          //   catagory={catagory}
+          //   userHandle={userHandle}
+          //   userImage={userImage}
+          //   viewCount={viewCount}
+          // />
+          <ImgCarousel placeImgUrl={placeImgUrl} />
         )}
 
         <CardActions disableSpacing>

@@ -54,7 +54,9 @@ class ImageCard extends React.Component {
         ? 'For Sale'
         : catagory === 'rental'
         ? 'For Rent'
-        : 'Other';
+        : catagory === 'other'
+        ? 'Other'
+        : null;
 
     const IMG_WIDTH = '100%';
     const IMG_HEIGHT = imgHeight;

@@ -15,6 +15,9 @@ export const STOP_LOADING_UI = 'STOP_LOADING_UI';
 
 //data reducers type
 export const SET_PLACES = 'SET_PLACES';
+export const SET_RENTAL_PLACES = 'SET_RENTAL_PLACES';
+export const SET_SALE_PLACES = 'SET_SALE_PLACES';
+export const SET_OTHER_PLACES = 'SET_OTHER_PLACES';
 export const SET_PLACE = 'SET_PLACE';
 export const POST_PLACE = 'POST_PLACE';
 export const LIKE_PLACE = 'LIKE_PLACE';

@@ -20,6 +20,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SaveIcon from '@material-ui/icons/Save';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import LoyaltyIcon from '@material-ui/icons/Loyalty';
+import RecentActorsIcon from '@material-ui/icons/RecentActors';
+import CategoryIcon from '@material-ui/icons/Category';
 // import clsx from 'clsx';
 
 const styles = {
@@ -139,6 +142,30 @@ class ResponsiveDrawer extends React.Component {
                   <HomeIcon />
                 </ListItemIcon>
                 <ListItemText>Home</ListItemText>
+              </ListItem>
+            </List>
+            <List>
+              <ListItem button component={Link} to="/sale">
+                <ListItemIcon>
+                  <LoyaltyIcon />
+                </ListItemIcon>
+                <ListItemText>For Sale</ListItemText>
+              </ListItem>
+            </List>
+            <List>
+              <ListItem button component={Link} to="/rental">
+                <ListItemIcon>
+                  <RecentActorsIcon />
+                </ListItemIcon>
+                <ListItemText>Rental</ListItemText>
+              </ListItem>
+            </List>
+            <List>
+              <ListItem button component={Link} to="/other">
+                <ListItemIcon>
+                  <CategoryIcon />
+                </ListItemIcon>
+                <ListItemText>Other</ListItemText>
               </ListItem>
             </List>
             {authenticated ? savedMarkup : null}
