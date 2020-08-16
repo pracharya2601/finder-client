@@ -60,10 +60,6 @@ class SinglePlace extends React.Component {
     this.props.getPlace(this.props.match.params.placeId);
   }
 
-  // handleClick = () => {
-  //   history.push('/');
-  // };
-
   render() {
     const {
       classes,
@@ -117,20 +113,8 @@ class SinglePlace extends React.Component {
           placeId={placeId}
           createdAt={createdAt}
           className={classes.header}
-          // handleClick={this.handleCLick}
         />
-        {placeImgUrl && (
-          // <ImageCard
-          //   placeImgUrl={placeImgUrl}
-          //   imgHeight="400px"
-          //   body={body}
-          //   catagory={catagory}
-          //   userHandle={userHandle}
-          //   userImage={userImage}
-          //   viewCount={viewCount}
-          // />
-          <ImgCarousel placeImgUrl={placeImgUrl} />
-        )}
+        {placeImgUrl && <ImgCarousel placeImgUrl={placeImgUrl} />}
 
         <CardActions disableSpacing>
           <LikeButton placeId={placeId} />

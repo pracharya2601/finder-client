@@ -40,10 +40,9 @@ class Page extends React.Component {
     currentPlaces: {},
     currentPage: null,
     totalPages: null,
-    loading: true,
   };
   onPageChanged = (itemsData) => {
-    const { items, loading } = this.props;
+    const { items } = this.props;
     const { currentPage, totalPages, pageLimit } = itemsData;
 
     const offset = (currentPage - 1) * pageLimit;
@@ -55,7 +54,7 @@ class Page extends React.Component {
         return result;
       }, {});
 
-    this.setState({ currentPage, currentPlaces, totalPages, loading });
+    this.setState({ currentPage, currentPlaces, totalPages });
   };
 
   render() {

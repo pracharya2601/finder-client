@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../../components/css/Home.css';
-import _, { lastIndexOf } from 'lodash';
+import _ from 'lodash';
 
 //materialui
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -15,7 +15,12 @@ import Place from '../../components/places/Place';
 import Pagination from '../../components/pagination/Pagination';
 
 import { connect } from 'react-redux';
-import { getPlaces } from '../../redux/actions/dataAction';
+import {
+  getPlaces,
+  getOtherPlace,
+  getSalePlace,
+  getRentalPlace,
+} from '../../redux/actions/dataAction';
 
 const styles = {
   paginationCard: {
@@ -34,14 +39,16 @@ class Home extends React.Component {
     currentPlaces: {},
     currentPage: null,
     totalPages: null,
-    loading: false,
   };
 
   componentDidMount() {
     this.props.getPlaces();
+    this.props.getOtherPlace();
+    this.props.getSalePlace();
+    this.props.getRentalPlace();
   }
   onPageChanged = (itemsData) => {
-    const { data, loading } = this.props;
+    const { data } = this.props;
     const { currentPage, totalPages, pageLimit } = itemsData;
 
     const offset = (currentPage - 1) * pageLimit;
@@ -53,25 +60,38 @@ class Home extends React.Component {
         return result;
       }, {});
 
-    this.setState({ currentPage, currentPlaces, totalPages, loading });
+    this.setState({ currentPage, currentPlaces, totalPages });
   };
 
   render() {
-    const { data, classes } = this.props;
-    const { currentPlaces, currentPage, totalPages, loading } = this.state;
+    const { data, classes, loading } = this.props;
+    const { currentPlaces, currentPage, totalPages } = this.state;
     if (Object.keys(data).length === 0) return null;
-    let recentPlace = data ? (
-      _.map(currentPlaces, (place) => {
-        return <Place place={place} key={place.placeId} />;
-      })
-    ) : loading ? (
+    // let recentPlace = data ? (
+    //   _.map(currentPlaces, (place) => {
+    //     return <Place place={place} key={place.placeId} />;
+    //   })
+    // ) : loading ? (
+    //   <>
+    //     <Skeleton />
+    //     <Skeleton />
+    //     <Skeleton />
+    //     <Skeleton />
+    //   </>
+    // ) : null;
+
+    let recentPlace = loading ? (
       <>
         <Skeleton />
         <Skeleton />
         <Skeleton />
         <Skeleton />
       </>
-    ) : null;
+    ) : (
+      _.map(currentPlaces, (place) => {
+        return <Place place={place} key={place.placeId} />;
+      })
+    );
 
     return (
       <>
@@ -111,6 +131,9 @@ const mapStateToProps = (state) => ({
   data: state.data.places,
 });
 
-export default connect(mapStateToProps, { getPlaces })(
-  withStyles(styles)(Home)
-);
+export default connect(mapStateToProps, {
+  getPlaces,
+  getOtherPlace,
+  getSalePlace,
+  getRentalPlace,
+})(withStyles(styles)(Home));
