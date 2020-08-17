@@ -20,6 +20,7 @@ export const SET_SALE_PLACES = 'SET_SALE_PLACES';
 export const SET_OTHER_PLACES = 'SET_OTHER_PLACES';
 export const SET_PLACE = 'SET_PLACE';
 export const POST_PLACE = 'POST_PLACE';
+export const UPDATE_PLACE = 'UPDATE_PLACE';
 export const LIKE_PLACE = 'LIKE_PLACE';
 export const UNLIKE_PLACE = 'UNLIKE_PLACE';
 export const SAVE_PLACE = 'SAVE_PLACE';

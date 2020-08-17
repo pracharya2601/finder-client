@@ -12,6 +12,7 @@ import {
   LOADING_DATA,
   DELETE_PLACE,
   POST_PLACE,
+  UPDATE_PLACE,
   SUBMIT_COMMENT,
   SUBMIT_REPORT,
   // FILTER_BY_CATAGORY,
@@ -78,6 +79,11 @@ export default (state = INITIAL_STATE, action) => {
         places: omit(state.places, action.payload),
       };
     case POST_PLACE:
+      return {
+        ...state,
+        [action.payload.placeId]: action.payload,
+      };
+    case UPDATE_PLACE:
       return {
         ...state,
         [action.payload.placeId]: action.payload,

@@ -75,7 +75,12 @@ class ResponsiveDrawer extends React.Component {
           </ListItem>
         </List>
         <List>
-          <ListItem button onClick={this.handleLogout}>
+          <ListItem
+            button
+            onClick={this.handleLogout}
+            component={Link}
+            to={`/login`}
+          >
             <ListItemIcon>
               <ExitToAppIcon style={{ color: 'red' }} />
             </ListItemIcon>

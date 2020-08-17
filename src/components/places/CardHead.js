@@ -14,6 +14,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
+import Tooltip from '@material-ui/core/Tooltip';
 
 //icons
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -31,6 +34,7 @@ class CardHead extends React.Component {
       body,
       placeId,
       deleteBtn,
+      editBtn,
       address,
       createdAt,
       // handleClick,
@@ -41,12 +45,22 @@ class CardHead extends React.Component {
     } = this.props;
     const header = `${body} [${address}]`;
     const optionBtn =
-      authenticated && userHandle === handle && deleteBtn === true ? (
+      authenticated &&
+      userHandle === handle &&
+      deleteBtn &&
+      editBtn === true ? (
         <div className={classes.dropdownContent}>
           <DeletePlace
             placeId={placeId}
             // handleClick={handleClick}
           />
+          <Tooltip title="edit" placement="top">
+            <Link to={`/place/edit/${placeId}`}>
+              <IconButton>
+                <EditIcon />
+              </IconButton>
+            </Link>
+          </Tooltip>
         </div>
       ) : null;
 

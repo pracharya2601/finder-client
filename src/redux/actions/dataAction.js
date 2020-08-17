@@ -5,6 +5,7 @@ import {
   SET_OTHER_PLACES,
   SET_PLACE,
   POST_PLACE,
+  UPDATE_PLACE,
   LOADING_DATA,
   LIKE_PLACE,
   UNLIKE_PLACE,
@@ -34,6 +35,7 @@ export const getPlaces = () => (dispatch) => {
   });
 };
 
+//get rental places
 export const getRentalPlace = () => (dispatch) => {
   dispatch({ type: LOADING_DATA });
   axios.get('/rentalPlaces').then((res) => {
@@ -43,6 +45,8 @@ export const getRentalPlace = () => (dispatch) => {
     });
   });
 };
+
+//get sale places
 export const getSalePlace = () => (dispatch) => {
   dispatch({ type: LOADING_DATA });
   axios.get('/salePlaces').then((res) => {
@@ -52,6 +56,8 @@ export const getSalePlace = () => (dispatch) => {
     });
   });
 };
+
+//get other catagory places
 export const getOtherPlace = () => (dispatch) => {
   dispatch({ type: LOADING_DATA });
   axios.get('/otherPlaces').then((res) => {
@@ -61,6 +67,8 @@ export const getOtherPlace = () => (dispatch) => {
     });
   });
 };
+
+//sort place by views
 export const sortPlacesViews = (placeItems, sort) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   let places = placeItems.slice();
@@ -86,6 +94,7 @@ export const sortPlacesViews = (placeItems, sort) => (dispatch) => {
   });
 };
 
+//get single place
 export const getPlace = (placeId) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
@@ -121,8 +130,28 @@ export const postPlace = (placeData, callback) => (dispatch) => {
     });
 };
 
-//like a place
+//update place
+export const updatePlace = (placeId, placeData, callback) => (dispatch) => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .post(`/place/${placeId}/update`, placeData)
+    .then((res) => {
+      dispatch({
+        type: UPDATE_PLACE,
+        payload: res.data,
+      });
+      dispatch(clearErrors());
+    })
+    .then(() => callback())
+    .catch((err) => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response,
+      });
+    });
+};
 
+//like a place
 export const likePlace = (placeId) => (dispatch) => {
   axios
     .get(`/place/${placeId}/like`)
@@ -209,19 +238,6 @@ export const reportPost = (placeId, reportData) => (dispatch) => {
       });
     });
 };
-
-// export const deletePlace = (placeId) => (dispatch) => {
-//   axios
-//     .delete(`/place/${placeId}`)
-//     .then(() => {
-//       dispatch({
-//         type: DELETE_PLACE,
-//         payload: placeId,
-//       });
-//     })
-//     .then(() => history.push('/'))
-//     .catch((err) => console.log(err));
-// };
 
 export const deletePlace = (placeId) => async (dispatch) => {
   await axios.delete(`/place/${placeId}`);

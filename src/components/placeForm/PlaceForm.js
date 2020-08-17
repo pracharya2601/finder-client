@@ -4,11 +4,6 @@ import uniqid from 'uniqid';
 
 import { storage } from '../../base';
 
-import { connect } from 'react-redux';
-import { postPlace } from '../../redux/actions/dataAction';
-//import
-// import AddPlaceImage from './AddPlaceImage';
-
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -68,10 +63,11 @@ const styles = {
   },
 };
 
-class PostNewPlace extends React.Component {
+class PlaceForm extends React.Component {
   state = {
     placeId: '',
     files: [],
+    error: '',
   };
 
   renderField = ({
@@ -133,14 +129,19 @@ class PostNewPlace extends React.Component {
   };
 
   onSubmit = (values) => {
-    let id = uniqid('place-') + uniqid();
+    let id = this.props.id;
     this.setState({ id: id });
-    this.submitImage(id);
-    const newPlace = this.newPlacewithImgDocument(values, id, this.state.files);
-    console.log(newPlace);
-    this.props.postPlace(newPlace, () => {
-      this.props.history.push('/');
-    });
+    if (this.state.files.length > 0) {
+      this.submitImage(id);
+      const newPlace = this.newPlacewithImgDocument(
+        values,
+        id,
+        this.state.files
+      );
+      this.props.onSubmit(newPlace);
+    } else {
+      this.setState({ error: 'Please Add Image to Continue' });
+    }
   };
 
   submitImage = (id) => {
@@ -155,22 +156,18 @@ class PostNewPlace extends React.Component {
 
   clearForm = () => {
     this.props.reset();
-    this.setState({ files: [] });
+    this.setState({ files: [], error: '' });
   };
 
   render() {
-    const {
-      handleSubmit,
-      reset,
-      classes,
-      loading,
-      user: { authenticated },
-    } = this.props;
-
-    const postMarkup = authenticated ? (
+    const { handleSubmit, classes, header, id, resetBtn, addImg } = this.props;
+    const imgLabel = !addImg
+      ? `Drag & Drop your images or <span class="filepond--label-action">Browse</span>`
+      : `<div>Add Image To Update</div> Drag & Drop your images or <span class="filepond--label-action">Browse</span>`;
+    const postMarkup = (
       <div className={classes.postContainer}>
         <Typography variant="h5" className={classes.titlePost}>
-          Post New Stuff
+          {header}
         </Typography>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <Field
@@ -213,6 +210,13 @@ class PostNewPlace extends React.Component {
             label="Add your contact Info"
             rows="1"
           />
+          {this.state.error && (
+            <div
+              style={{ textAlign: 'center', color: 'red', marginTop: '10px' }}
+            >
+              {this.state.error}
+            </div>
+          )}
           <FilePond
             className={classes.fileDrop}
             files={this.state.files}
@@ -220,7 +224,7 @@ class PostNewPlace extends React.Component {
             maxFiles={6}
             allowFileTypeValidation={true}
             acceptedFileTypes={['image/*']}
-            labelIdle='Drag & Drop your images or <span class="filepond--label-action">Browse</span>'
+            labelIdle={imgLabel}
             onupdatefiles={(fileItem) => {
               this.setState({
                 files: fileItem.map(({ file }) => {
@@ -237,22 +241,24 @@ class PostNewPlace extends React.Component {
               className={classes.button}
             >
               Post
-              {loading.loading && (
+              {/* {loading.loading && (
                 <CircularProgress size={30} className={classes.progess} />
-              )}
+              )} */}
             </Button>
-            <Button
-              type="button"
-              variant="contained"
-              className={classes.button}
-              onClick={this.clearForm}
-            >
-              Clear
-            </Button>
+            {resetBtn && (
+              <Button
+                type="button"
+                variant="contained"
+                className={classes.button}
+                onClick={this.clearForm}
+              >
+                Clear
+              </Button>
+            )}
           </div>
         </form>
       </div>
-    ) : null;
+    );
 
     return postMarkup;
   }
@@ -267,6 +273,7 @@ const validate = (values) => {
     'priceRange',
     'address',
     'contactNo',
+    'placeImgUrl',
   ];
   requiredFields.forEach((field) => {
     if (!values[field]) {
@@ -276,12 +283,8 @@ const validate = (values) => {
   return errors;
 };
 
-const mapStateToProps = (state) => ({
-  loading: state.UI,
-  user: state.user,
-});
-
 export default reduxForm({
-  form: 'PostNewForm',
+  form: 'placeForm',
+  enableReinitialize: true,
   validate,
-})(connect(mapStateToProps, { postPlace })(withStyles(styles)(PostNewPlace)));
+})(withStyles(styles)(PlaceForm));

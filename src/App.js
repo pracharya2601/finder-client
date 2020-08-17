@@ -19,10 +19,10 @@ import Sale from './views/Items/Sale';
 import Rental from './views/Items/Rental';
 import All from './views/Items/All';
 
-import PostNewPlace from './components/places/PostNewPlace';
+import PostNewPlace from './views/Post/PostNewPlace';
+import EditPlace from './views/Post/EditPlace';
 
 import ScrollMemory from 'react-router-scroll-memory';
-
 import axios from 'axios';
 
 //redux
@@ -56,19 +56,20 @@ class App extends React.Component {
           <div className="container">
             <Switch>
               <Route path="/" exact component={Home} />
-              <Route path="/place/:placeId" exact component={SinglePlace} />
-              <Route path="/all" exact component={All} />
-              <Route path="/rental" exact component={Rental} />
-              <Route path="/sale" exact component={Sale} />
-              <Route path="/other" exact component={Other} />
-              <Route path="/user/profile/:handle" exact component={User} />
-              <Route path="/user/profile" exact component={Profile} />
-              <Route path="/user/saved" exact component={Saved} />
               <Route
                 path="/place/newpost/place"
                 exact
                 component={PostNewPlace}
               />
+              <Route path="/place/edit/:placeId" exact component={EditPlace} />
+              <Route path="/user/profile" exact component={Profile} />
+              <Route path="/user/saved" exact component={Saved} />
+              <Route path="/user/profile/:handle" exact component={User} />
+              <Route path="/all" exact component={All} />
+              <Route path="/rental" exact component={Rental} />
+              <Route path="/sale" exact component={Sale} />
+              <Route path="/other" exact component={Other} />
+              <Route path="/place/:placeId" exact component={SinglePlace} />
               <AuthRoute path="/login" exact component={Login} />
               <AuthRoute path="/signup" exact component={Signup} />
               <AuthRoute

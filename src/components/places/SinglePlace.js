@@ -56,8 +56,14 @@ const styles = {
 };
 
 class SinglePlace extends React.Component {
+  _isMounted = false;
+
   componentDidMount() {
+    this._isMounted = true;
     this.props.getPlace(this.props.match.params.placeId);
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {
@@ -106,7 +112,8 @@ class SinglePlace extends React.Component {
       <div className={classes.card}>
         <CardHead
           userHandle={userHandle}
-          deleteBtn={true}
+          deleteBtn
+          editBtn
           userImage={userImage}
           body={body}
           address={address}
