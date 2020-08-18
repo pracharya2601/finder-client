@@ -29,7 +29,7 @@ export default ({ children }) => {
   return (
     <Carousel
       swipeable={true}
-      draggable={false}
+      draggable={true}
       showDots={true}
       responsive={responsive}
       ssr={true} // means to render carousel on server-side.
@@ -37,7 +37,7 @@ export default ({ children }) => {
       autoPlaySpeed={1000}
       keyBoardControl={true}
       customTransition="all .5"
-      transitionDuration={500}
+      transitionDuration={1000}
       containerClass="carousel-container"
       removeArrowOnDeviceType={['mobile', 'tablet']}
       dotListClass="custom-dot-list-style"

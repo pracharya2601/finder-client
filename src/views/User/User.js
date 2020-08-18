@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import _ from 'lodash';
 
-import Place from '../../components/places/Place';
 import StaticProfile from '../../components/profile/StaticProfile';
+import Page from '../../components/page/Page';
 
 //mui
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -19,12 +19,12 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
   },
-  placeCard: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-  },
+  // placeCard: {
+  //   display: 'flex',
+  //   flexDirection: 'row',
+  //   flexWrap: 'wrap',
+  //   justifyContent: 'space-around',
+  // },
 };
 
 class User extends React.Component {
@@ -54,7 +54,7 @@ class User extends React.Component {
         <LinearProgress color="primary" />
       </>
     ) : places === null ? null : (
-      _.map(places, (place) => <Place key={place.placeId} place={place} />)
+      <Page loading={loading} items={places} pageName="Other Catagory Items" />
     );
 
     return (

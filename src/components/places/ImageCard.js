@@ -3,10 +3,15 @@ import { Link } from 'react-router-dom';
 import { Swipeable } from 'react-swipeable';
 
 import IconButton from '@material-ui/core/IconButton';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import Button from '@material-ui/core/Button';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Avatar from '@material-ui/core/Avatar';
-import VisibilityIcon from '@material-ui/icons/Visibility';
+// import VisibilityIcon from '@material-ui/icons/Visibility';
+import GroupIcon from '@material-ui/icons/Group';
+import zIndex from '@material-ui/core/styles/zIndex';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const RIGHT = '-1';
 const LEFT = '+1';
@@ -31,7 +36,7 @@ class ImageCard extends React.Component {
     this.setState({ imageIndex: newIndex });
   };
   onClicked = () => {
-    console.log(this.props.placeId);
+    console.log('Hello');
   };
 
   render() {
@@ -39,6 +44,7 @@ class ImageCard extends React.Component {
       classes,
       placeImgUrl,
       body,
+      address,
       imgHeight,
       placeId,
       userHandle,
@@ -75,6 +81,8 @@ class ImageCard extends React.Component {
       transition: 'all 1.0s ease-in-out',
       transition: 'all 1.0s ease-in-out',
       transition: 'all 1.0s ease-in-out',
+      boxSizing: 'border-box',
+      borderBottom: '5px solid green',
     };
     const catagoryStyle = {
       marginTop: '10px',
@@ -84,14 +92,24 @@ class ImageCard extends React.Component {
       padding: '2px 10px 2px 10px',
       float: 'right',
     };
-    const iconBtn = {
-      backgroundColor: 'white',
-      padding: '0 13px 0 2px',
-      borderRadius: '20px',
+    const cssBoth = {
+      textAlign: 'center',
       float: 'left',
-      margin: '10px 0 0 10px',
-      border: '1px solid yellow',
+      margin: '10px 10px 0 10px',
       zIndex: '200',
+    };
+    const iconBtn = {
+      ...cssBoth,
+      backgroundColor: 'white',
+      borderRadius: '20px',
+      padding: '0 13px 0 2px',
+      border: '1px solid yellow',
+    };
+    const location = {
+      ...cssBoth,
+      backgroundColor: '#ffb885',
+      padding: '10px 0 10px 0',
+      borderRadius: '5px',
     };
     const avatar = {
       margin: '0 0 10px 10px',
@@ -105,27 +123,47 @@ class ImageCard extends React.Component {
           onSwipedLeft={() => this.onSwiped(LEFT)}
           onSwipedRight={() => this.onSwiped(RIGHT)}
           style={{ width: IMG_WIDTH }}
-          component={Link}
-          to={`/place/${placeId}`}
         >
           <div style={imageStyles}>
             <div>
-              <div style={iconBtn}>
-                <IconButton size="small">
-                  <VisibilityIcon />
-                </IconButton>
-                <span style={{ margin: '20px 0 0 5px' }}>{viewCount}</span>
-              </div>
+              <Tooltip
+                title={`${viewCount} people viewed this place`}
+                placement="right"
+              >
+                <Button size="small" color="primary" startIcon={<GroupIcon />}>
+                  {viewCount}
+                </Button>
+              </Tooltip>
               <div style={catagoryStyle}>{catagoryItem}</div>
             </div>
-            <Avatar
-              aria-label="place_body"
-              component={Link}
-              to={`/user/profile/${userHandle}`}
-              alt={userHandle}
-              src={userImage}
-              style={avatar}
-            />
+            <Link to={`/place/${placeId}`}>
+              <div
+                style={{
+                  width: '100%',
+                  height: '175px',
+                  zIndex: '1000',
+                }}
+              ></div>
+            </Link>
+            <div style={location}>
+              {/* <Avatar
+                aria-label="place_body"
+                component={Link}
+                to={`/user/profile/${userHandle}`}
+                alt={userHandle}
+                src={userImage}
+                style={avatar}
+              /> */}
+
+              {/* <span>{address}</span> */}
+              <Button
+                size="small"
+                color="primary"
+                startIcon={<LocationOnIcon />}
+              >
+                {address}
+              </Button>
+            </div>
           </div>
         </Swipeable>
       </>

@@ -23,6 +23,7 @@ import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import LoyaltyIcon from '@material-ui/icons/Loyalty';
 import RecentActorsIcon from '@material-ui/icons/RecentActors';
 import CategoryIcon from '@material-ui/icons/Category';
+import AddIcon from '@material-ui/icons/Add';
 // import clsx from 'clsx';
 
 const styles = {
@@ -113,14 +114,24 @@ class ResponsiveDrawer extends React.Component {
     );
 
     const savedMarkup = (
-      <List>
-        <ListItem button component={Link} to={`/user/saved`}>
-          <ListItemIcon>
-            <SaveIcon />
-          </ListItemIcon>
-          <ListItemText>Saved</ListItemText>
-        </ListItem>
-      </List>
+      <>
+        <List>
+          <ListItem button component={Link} to={`/user/saved`}>
+            <ListItemIcon>
+              <AddIcon />
+            </ListItemIcon>
+            <ListItemText>Add New Place</ListItemText>
+          </ListItem>
+        </List>
+        <List>
+          <ListItem button component={Link} to={`/place/newpost/place`}>
+            <ListItemIcon>
+              <SaveIcon />
+            </ListItemIcon>
+            <ListItemText>Saved</ListItemText>
+          </ListItem>
+        </List>
+      </>
     );
     // const aboutMarkup = (
     //   <List>

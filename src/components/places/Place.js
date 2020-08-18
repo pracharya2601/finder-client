@@ -20,6 +20,7 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 //icons
 import ChatIcon from '@material-ui/icons/Chat';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -28,29 +29,25 @@ const styles = {
   card: {
     width: '100%',
     marginTop: '5px',
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    color: 'green',
+    borderRadius: '5px',
   },
   placeHeading: {
-    height: '50px',
-    maxHeight: '50px',
-    overflow: 'auto',
-    padding: '10px 20px 0 20px',
-    borderLeft: '1px dotted lightgrey',
-    borderRight: '1px dotted lightgrey',
-    borderBottom: '1px solid lightgrey',
+    backgroundColor: '#f6fad7',
+    height: '30px',
+    maxHeight: '30px',
+    overflow: 'hide',
+    padding: '30px 20px 0 20px',
+    borderTop: '5px solid blue',
+    borderLeft: '1px solid #e1e6c8',
+    borderRight: '1px solid #e1e6c8',
+    // textAlign: 'center',
   },
   action: {
-    borderLeft: '1px dotted lightgrey',
-    borderRight: '1px dotted lightgrey',
-    borderBottom: '1px solid lightgrey',
-  },
-  dropdownContent: {
-    display: 'flex',
-    flexDirection: 'column',
+    backgroundColor: '#f6fad7',
+    padding: '0 0 0 5px',
+    borderLeft: '1px solid #e1e6c8',
+    borderRight: '1px solid #e1e6c8',
+    borderBottom: '1px solid #e1e6c8',
   },
 };
 
@@ -86,28 +83,27 @@ class Place extends React.Component {
             userHandle={userHandle}
             userImage={userImage}
             viewCount={viewCount}
+            address={address}
           />
         )}
         <Link to={`/place/${placeId}`}>
-          <Typography className={classes.placeHeading} variant="subtitle1">
-            {body}
-          </Typography>
+          <div className={classes.placeHeading}>{body}</div>
         </Link>
 
-        <CardActions disableSpacing className={classes.action}>
+        <div disableSpacing className={classes.action}>
           <LikeButton placeId={placeId} />
           {likeCount}
           <Link to={`/place/${placeId}`}>
-            <IconButton aria-label="share">
-              <ChatIcon />
-            </IconButton>
+            <Tooltip title="comment" placement="top">
+              <IconButton size="medium" aria-label="share">
+                <ChatIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
           </Link>
           {commentCount}
           <SaveButton placeId={placeId} />
-          <div className={classes.expand}>
-            <Report placeId={placeId} />
-          </div>
-        </CardActions>
+          <Report placeId={placeId} />
+        </div>
       </div>
     );
   }

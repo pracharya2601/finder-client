@@ -17,11 +17,13 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
 import Tooltip from '@material-ui/core/Tooltip';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 class Navbar extends React.Component {
   render() {
     const {
       user: { authenticated, notifications },
+      loading,
     } = this.props;
     return (
       <AppBar>
@@ -29,14 +31,19 @@ class Navbar extends React.Component {
           <div className="navbar-items">
             <ResponsiveDrawer />
             <Tooltip title="Home">
-              <Button color="inherit" component={Link} to="/">
-                <HomeIcon />
+              <Button
+                color="inherit"
+                // startIcon={<HomeIcon />}
+                component={Link}
+                to="/"
+              >
+                EasyPezy
               </Button>
             </Tooltip>
           </div>
           {authenticated ? (
             <div className="navbar-items">
-              <Tooltip title="add place">
+              <Tooltip title="Post a place">
                 <Button
                   color="inherit"
                   component={Link}
@@ -58,6 +65,7 @@ class Navbar extends React.Component {
             </div>
           )}
         </ToolBar>
+        {loading && <LinearProgress color="secondary" />}
       </AppBar>
     );
   }
@@ -68,6 +76,7 @@ Navbar.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  loading: state.data.loading,
   authenticated: state.user.authenticated,
   user: state.user,
 });

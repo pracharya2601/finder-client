@@ -64,7 +64,7 @@ class Home extends React.Component {
     let otherPlacesMarkup = loading
       ? skeleton
       : _.map(otherPlaces, (place) => {
-          return <Place place={place} key={place.placeId} />;
+          return <Place place={place} key={place.placeId} margin />;
         });
 
     return (
