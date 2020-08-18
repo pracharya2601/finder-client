@@ -3,16 +3,14 @@ import PropTypes from 'prop-types';
 import '../../components/css/Home.css';
 import _ from 'lodash';
 
-//materialui
-import withStyles from '@material-ui/core/styles/withStyles';
-import Grid from '@material-ui/core/Grid';
-import CardActions from '@material-ui/core/CardActions';
-
 import Skeleton from '../../components/loading/Skeleton';
 import Place from '../../components/places/Place';
-// import Filter from '../../components/places/Filter';
 
-import Pagination from '../../components/pagination/Pagination';
+import ItemCarousel from '../../components/carousel/ItemCarousel';
+import CarouselHeader from '../../components/carousel/CarouselHeader';
+
+//material ui
+import Typography from '@material-ui/core/Typography';
 
 import { connect } from 'react-redux';
 import {
@@ -22,113 +20,112 @@ import {
   getRentalPlace,
 } from '../../redux/actions/dataAction';
 
-const styles = {
-  paginationCard: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
-    backgroundColor: '#F3F3E7',
-    marginTop: '20px',
-    borderTop: '1px solid lightgrey',
-    borderBottom: '1px solid lightgrey',
-  },
-};
-
 class Home extends React.Component {
-  state = {
-    currentPlaces: {},
-    currentPage: null,
-    totalPages: null,
-  };
-
   componentDidMount() {
     this.props.getPlaces();
     this.props.getOtherPlace();
     this.props.getSalePlace();
     this.props.getRentalPlace();
   }
-  onPageChanged = (itemsData) => {
-    const { data } = this.props;
-    const { currentPage, totalPages, pageLimit } = itemsData;
-
-    const offset = (currentPage - 1) * pageLimit;
-    const currentPlaces = Object.keys(data)
-      .slice(offset, offset + pageLimit)
-      .reduce((result, key) => {
-        result[key] = data[key];
-
-        return result;
-      }, {});
-
-    this.setState({ currentPage, currentPlaces, totalPages });
-  };
 
   render() {
-    const { data, classes, loading } = this.props;
-    const { currentPlaces, currentPage, totalPages } = this.state;
-    if (Object.keys(data).length === 0) return null;
-    // let recentPlace = data ? (
-    //   _.map(currentPlaces, (place) => {
-    //     return <Place place={place} key={place.placeId} />;
-    //   })
-    // ) : loading ? (
-    //   <>
-    //     <Skeleton />
-    //     <Skeleton />
-    //     <Skeleton />
-    //     <Skeleton />
-    //   </>
-    // ) : null;
+    const {
+      allPlaces,
+      rentalPlaces,
+      salePlaces,
+      otherPlaces,
+      loading,
+    } = this.props;
 
-    let recentPlace = loading ? (
-      <>
+    const skeleton = (
+      <div style={{ display: 'flex' }}>
         <Skeleton />
         <Skeleton />
         <Skeleton />
         <Skeleton />
-      </>
-    ) : (
-      _.map(currentPlaces, (place) => {
-        return <Place place={place} key={place.placeId} />;
-      })
+      </div>
     );
+
+    let allPlacesMarkup = loading
+      ? skeleton
+      : _.map(allPlaces, (place) => {
+          return <Place place={place} key={place.placeId} />;
+        });
+    let rentalPlacesMarkup = loading
+      ? skeleton
+      : _.map(rentalPlaces, (place) => {
+          return <Place place={place} key={place.placeId} />;
+        });
+    let salePlaceMarkup = loading
+      ? skeleton
+      : _.map(salePlaces, (place) => {
+          return <Place place={place} key={place.placeId} />;
+        });
+    let otherPlacesMarkup = loading
+      ? skeleton
+      : _.map(otherPlaces, (place) => {
+          return <Place place={place} key={place.placeId} />;
+        });
 
     return (
       <>
-        {/* <Card>
-          <Filter />
-        </Card> */}
-        <Grid container spacing={2}>
-          {recentPlace}
-        </Grid>
-        <div className={classes.paginationCard}>
-          {currentPage && (
-            <CardActions className={classes.pageCount}>
-              Page : {currentPage} / {totalPages}
-            </CardActions>
-          )}
-          <>
-            <Pagination
-              totalRecords={Object.keys(data).length}
-              pageLimit={4}
-              pageNeighbours={1}
-              onPageChanged={this.onPageChanged}
+        <div style={style}>
+          {!loading && (
+            <CarouselHeader
+              heading="Recent Places"
+              goTo="/all"
+              goToText="See All"
             />
-          </>
+          )}
+          <ItemCarousel>{allPlacesMarkup}</ItemCarousel>
+        </div>
+        <div style={style}>
+          {!loading && (
+            <CarouselHeader
+              heading="Rental Places"
+              goTo="/rental"
+              goToText="See All"
+            />
+          )}
+          <ItemCarousel>{rentalPlacesMarkup}</ItemCarousel>
+        </div>
+        <div style={style}>
+          {!loading && (
+            <CarouselHeader
+              heading="Sale Places"
+              goTo="/sale"
+              goToText="See All"
+            />
+          )}
+          <ItemCarousel>{salePlaceMarkup}</ItemCarousel>
+        </div>
+        <div style={style}>
+          {!loading && (
+            <CarouselHeader
+              heading="Other Catagory Item"
+              goTo="/other"
+              goToText="See All"
+            />
+          )}
+          <ItemCarousel>{otherPlacesMarkup}</ItemCarousel>
         </div>
       </>
     );
   }
 }
 
-Home.propTypes = {
-  getPlaces: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired,
+const style = {
+  boxSizing: 'border-box',
+  padding: '0 0 3% 0',
+  borderBottom: '3px solid lightgrey',
 };
 
 const mapStateToProps = (state) => ({
   loading: state.data.loading,
-  data: state.data.places,
+  allPlaces: state.data.places,
+  rentalPlaces: state.data.rentalPlaces,
+  salePlaces: state.data.salePlaces,
+  otherPlaces: state.data.otherPlaces,
 });
 
 export default connect(mapStateToProps, {
@@ -136,4 +133,4 @@ export default connect(mapStateToProps, {
   getOtherPlace,
   getSalePlace,
   getRentalPlace,
-})(withStyles(styles)(Home));
+})(Home);

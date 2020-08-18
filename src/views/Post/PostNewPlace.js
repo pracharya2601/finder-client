@@ -12,19 +12,21 @@ import PlaceForm from '../../components/placeForm/PlaceForm';
 class PostNewPlace extends React.Component {
   onSubmit = (values) => {
     this.props.postPlace(values, () => {
-      this.props.history.push('/');
+      this.props.history.push('/all');
     });
   };
 
   render() {
     let id = uniqid('place-') + uniqid();
     return (
-      <PlaceForm
-        onSubmit={this.onSubmit}
-        header="Post New Stuff"
-        id={id}
-        resetBtn
-      />
+      <>
+        <PlaceForm
+          onSubmit={this.onSubmit}
+          header="Post New Stuff"
+          id={id}
+          resetBtn
+        />
+      </>
     );
   }
 }

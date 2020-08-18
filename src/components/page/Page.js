@@ -62,7 +62,19 @@ class Page extends React.Component {
     const { currentPlaces, currentPage, totalPages } = this.state;
     if (Object.keys(items).length === 0) return null;
     let item = _.map(currentPlaces, (itemData) => {
-      return <Place place={itemData} key={itemData.placeId} />;
+      return (
+        <Grid
+          item
+          xs={12}
+          sm={6}
+          md={4}
+          lg={3}
+          spacing={2}
+          key={itemData.placeId}
+        >
+          <Place place={itemData} />
+        </Grid>
+      );
     });
     return (
       <div>
