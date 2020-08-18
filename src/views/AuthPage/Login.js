@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+//recapta
+import Recaptcha from 'react-recaptcha';
+
 //image
 import AppIcon from '../../images/icon.png';
 
@@ -61,6 +64,10 @@ const styles = {
 };
 
 class Login extends React.Component {
+  state = {
+    isVerified: false,
+  };
+
   renderField = ({
     input,
     label,
@@ -83,9 +90,22 @@ class Login extends React.Component {
       </>
     );
   };
+  verifyHuman = () => {
+    console.log('Loaded');
+  };
+
+  verifyCallback = (response) => {
+    if (response) {
+      this.setState({ isVerified: true });
+    }
+  };
 
   onSubmit = (values) => {
-    this.props.loginUser(values, this.props.history);
+    if (this.state.isVerified) {
+      this.props.loginUser(values, this.props.history);
+    } else {
+      alert('please verify you are a human');
+    }
   };
 
   render() {
@@ -126,6 +146,14 @@ class Login extends React.Component {
             label="Password"
             loading={loading}
           />
+          <CardActions className={classes.cardAction}>
+            <Recaptcha
+              sitekey="6Lc0l8AZAAAAALujkZBq1yiL8mnC6ar0M1OsmoAL"
+              render="explicit"
+              onloadCallback={this.verifyHuman}
+              verifyCallback={this.verifyCallback}
+            />
+          </CardActions>
           <CardActions className={classes.cardAction}>
             {loading && (
               <CircularProgress size={30} className={classes.progess} />

@@ -14,6 +14,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+//icon
+import CategoryIcon from '@material-ui/icons/Category';
+
 //filepond
 import { FilePond, registerPlugin } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
@@ -32,6 +35,9 @@ registerPlugin(
 const styles = {
   titlePost: {
     textAlign: 'center',
+  },
+  formBox: {
+    marginTop: '10px',
   },
   postContainer: {
     width: '80%',
@@ -74,6 +80,8 @@ class PlaceForm extends React.Component {
     input,
     label,
     rows,
+    type,
+    placeholder,
     meta: { touched, error },
     ...custom
   }) => {
@@ -82,10 +90,12 @@ class PlaceForm extends React.Component {
         <TextField
           {...input}
           {...custom}
+          type={type}
           label={label}
+          placeholder={placeholder}
           rows={rows}
           fullWidth
-          multiline
+          variant="outlined"
           error={touched && error ? true : false}
         />
       </>
@@ -170,46 +180,65 @@ class PlaceForm extends React.Component {
           {header}
         </Typography>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-          <Field
-            name="catagory"
-            component={this.renderSelectField}
-            label="Catagory"
-          >
-            <MenuItem value={''}>Select Catagory</MenuItem>
-            <MenuItem value={'rental'}>For Rental</MenuItem>
-            <MenuItem value={'sale'}> For Sale</MenuItem>
-            <MenuItem value={'other'}>Other Catagory</MenuItem>
-          </Field>
-          <Field
-            name="body"
-            component={this.renderField}
-            label="Main heading for your place"
-            rows="1"
-          />
-          <Field
-            name="description"
-            component={this.renderField}
-            label="Description of your Place"
-            rows="3"
-          />
-          <Field
-            name="priceRange"
-            component={this.renderField}
-            label="Estimated Price Range"
-            rows="1"
-          />
-          <Field
-            name="address"
-            component={this.renderField}
-            label="Location of your Place"
-            rows="1"
-          />
-          <Field
-            name="contactNo"
-            component={this.renderField}
-            label="Add your contact Info"
-            rows="1"
-          />
+          <div className={classes.formBox}>
+            <Field
+              name="catagory"
+              component={this.renderSelectField}
+              label="Catagory"
+            >
+              <MenuItem value={''}>Select Catagory</MenuItem>
+              <MenuItem value={'rental'}>For Rental</MenuItem>
+              <MenuItem value={'sale'}> For Sale</MenuItem>
+              <MenuItem value={'other'}>Other Catagory</MenuItem>
+            </Field>
+          </div>
+          <div className={classes.formBox}>
+            <Field
+              name="body"
+              type="text"
+              component={this.renderField}
+              label="Heading For your place"
+              placeholder="Eg: Room for rent, House for sale"
+            />
+          </div>
+          <div className={classes.formBox}>
+            <Field
+              name="description"
+              type="text"
+              multiline
+              component={this.renderField}
+              label="Description of your Place"
+              placeholder="Tell us what's great about the your listed item, property and area"
+              rows="3"
+            />
+          </div>
+          <div className={classes.formBox}>
+            <Field
+              name="priceRange"
+              type="number"
+              component={this.renderField}
+              label="Estimated Price Range"
+              placeholder="Give a Price in Number"
+            />
+          </div>
+          <div className={classes.formBox}>
+            <Field
+              name="address"
+              type="text"
+              component={this.renderField}
+              label="Address"
+              placeholder="Location of your Place "
+            />
+          </div>
+          <div className={classes.formBox}>
+            <Field
+              name="contactNo"
+              type="number"
+              component={this.renderField}
+              label="Contact"
+              placeholder="Add your contact Info"
+            />
+          </div>
           {this.state.error && (
             <div
               style={{ textAlign: 'center', color: 'red', marginTop: '10px' }}

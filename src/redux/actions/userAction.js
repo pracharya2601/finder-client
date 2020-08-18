@@ -58,7 +58,7 @@ export const resetPassword = (userEmail, history) => (dispatch) => {
       });
       setTimeout(() => {
         history.push('/login');
-      }, 2000);
+      }, 500);
     })
     .catch((err) => {
       dispatch({

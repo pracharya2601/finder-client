@@ -34,20 +34,20 @@ class LikeButton extends Component {
 
     const likeBtn = !authenticated ? (
       <Tooltip title="Star" placement="top">
-        <IconButton size="medium" component={Link} to="/login">
-          <StarsIcon fontSize="medium" color="primary" />
+        <IconButton fontSize="medium" component={Link} to="/login">
+          <StarsIcon fontSize="inherit" color="primary" />
         </IconButton>
       </Tooltip>
     ) : this.likedPlace() ? (
       <Tooltip title="undo star" placement="top">
-        <IconButton size="medium" onClick={this.unLikePlace}>
-          <StarIcon fontSize="medium" color="primary" />
+        <IconButton fontSize="medium" onClick={this.unLikePlace}>
+          <StarIcon fontSize="inherit" color="primary" />
         </IconButton>
       </Tooltip>
     ) : (
       <Tooltip title="Star" placement="top">
-        <IconButton size="medium" onClick={this.likePlace}>
-          <StarsIcon fontSize="medium" color="primary" />
+        <IconButton fontSize="medium" onClick={this.likePlace}>
+          <StarsIcon fontSize="inherit" color="primary" />
         </IconButton>
       </Tooltip>
     );

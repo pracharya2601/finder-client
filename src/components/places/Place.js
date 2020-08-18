@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import './place.css';
 
 //components
 import CardHead from './CardHead';
@@ -90,7 +89,7 @@ class Place extends React.Component {
           <div className={classes.placeHeading}>{body}</div>
         </Link>
 
-        <div disableSpacing className={classes.action}>
+        <div className={classes.action}>
           <LikeButton placeId={placeId} />
           {likeCount}
           <Link to={`/place/${placeId}`}>

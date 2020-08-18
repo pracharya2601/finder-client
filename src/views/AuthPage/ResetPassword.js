@@ -47,8 +47,8 @@ const styles = {
     color: 'red',
     margin: '5px 0 10px 0',
   },
-  forgotPassword: {
-    color: 'red',
+  gotoLogin: {
+    color: 'green',
     marginTop: '10px',
     textDecoration: 'underline',
   },
@@ -136,11 +136,7 @@ class ReserPassword extends React.Component {
             <Button color="primary" variant="contained" type="submit">
               Submit
             </Button>
-            <Button
-              className={classes.forgotPassword}
-              component={Link}
-              to="/login"
-            >
+            <Button className={classes.gotoLogin} component={Link} to="/login">
               Go to Login
             </Button>
             <Typography
