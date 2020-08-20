@@ -17,9 +17,6 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Tooltip from '@material-ui/core/Tooltip';
 
-//icons
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-
 const styles = {};
 
 class CardHead extends React.Component {
@@ -49,10 +46,7 @@ class CardHead extends React.Component {
       deleteBtn &&
       editBtn === true ? (
         <div className={classes.dropdownContent}>
-          <DeletePlace
-            placeId={placeId}
-            // handleClick={handleClick}
-          />
+          <DeletePlace placeId={placeId} del />
           <Tooltip title="edit" placement="top">
             <Link to={`/place/edit/${placeId}`}>
               <IconButton>

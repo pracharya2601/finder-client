@@ -9,11 +9,9 @@ import Skeleton from '../loading/Skeleton';
 import Pagination from '../pagination/Pagination';
 
 //material ui
-//materialui
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import CardActions from '@material-ui/core/CardActions';
-import { blue } from '@material-ui/core/colors';
 
 const styles = {
   paginationCard: {
@@ -69,7 +67,7 @@ class Page extends React.Component {
           sm={6}
           md={4}
           lg={3}
-          spacing={2}
+          // spacing={2}
           key={itemData.placeId}
         >
           <Place place={itemData} />

@@ -6,7 +6,8 @@ import jwtDecode from 'jwt-decode';
 import Navbar from './components/Navbar';
 import AuthRoute from './util/AuthRoute';
 import Home from './views/Home/Home';
-import SinglePlace from './components/places/SinglePlace';
+// import SinglePlace from './components/places/SinglePlace';
+import SinglePlace from './views/Items/SinglePlace';
 import Profile from './components/profile/Profile';
 
 import Saved from './views/User/Saved';
@@ -18,6 +19,9 @@ import Other from './views/Items/Other';
 import Sale from './views/Items/Sale';
 import Rental from './views/Items/Rental';
 import All from './views/Items/All';
+
+//term
+import Term from './term';
 
 import PostNewPlace from './views/Post/PostNewPlace';
 import EditPlace from './views/Post/EditPlace';
@@ -72,6 +76,7 @@ class App extends React.Component {
               <Route path="/place/:placeId" exact component={SinglePlace} />
               <AuthRoute path="/login" exact component={Login} />
               <AuthRoute path="/signup" exact component={Signup} />
+              <AuthRoute path="/termandcondition" exact component={Term} />
               <AuthRoute
                 path="/resetpassword"
                 exact

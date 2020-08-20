@@ -6,7 +6,7 @@ const ImgCarousel = ({ placeImgUrl }) => {
   return (
     <Carousel showArrows={true} dynamicHeight={true}>
       {placeImgUrl.map((image) => (
-        <div key="image" style={{ height: '450', padding: '20' }}>
+        <div key={image}>
           <img alt={image} src={image} />
         </div>
       ))}

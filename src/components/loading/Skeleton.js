@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -8,9 +7,8 @@ import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    minWidth: '320px',
+    minWidth: '300px',
     width: '100%',
-    maxWidth: '500px',
     marginTop: '10px',
   },
   media: {
@@ -18,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
   actionBar: {
     display: 'flex',
+    marginTop: '-10',
   },
   actionButton: {
     marginRight: '10px',
@@ -35,14 +34,20 @@ const SkeletonLoading = (props) => {
       <Skeleton
         animation="wave"
         variant="rect"
-        height={260}
+        height={220}
         className={classes.media}
       />
-
-      <CardContent>
-        {/* <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
-        <Skeleton animation="wave" height={10} width="80%" /> */}
-      </CardContent>
+      <CardHeader
+        title={
+          <Skeleton
+            animation="wave"
+            height={20}
+            width="80%"
+            style={{ marginTop: -5 }}
+          />
+        }
+        subheader={<Skeleton animation="wave" height={20} width="40%" />}
+      />
       <CardContent className={classes.actionBar}>
         <Skeleton
           className={classes.actionButton}
@@ -66,27 +71,13 @@ const SkeletonLoading = (props) => {
           height={30}
         />
         <Skeleton
-          className={classes.actionButtonExpand}
+          className={classes.actionButton}
           animation="wave"
           variant="circle"
           width={30}
           height={30}
         />
       </CardContent>
-      <CardHeader
-        avatar={
-          <Skeleton animation="wave" variant="circle" width={40} height={40} />
-        }
-        title={
-          <Skeleton
-            animation="wave"
-            height={10}
-            width="80%"
-            style={{ marginBottom: 6 }}
-          />
-        }
-        subheader={<Skeleton animation="wave" height={10} width="40%" />}
-      />
     </Card>
   );
 };

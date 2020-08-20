@@ -32,6 +32,7 @@ class EditPlace extends React.Component {
         onSubmit={this.onSubmit}
         id={this.props.place.placeId}
         header="Edit Item Info"
+        loading={this.props.loading}
         addImg
       />
     );
@@ -39,6 +40,7 @@ class EditPlace extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
+  loading: state.UI.loading,
   place: state.data.place,
 });
 

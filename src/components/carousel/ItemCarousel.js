@@ -25,12 +25,12 @@ const responsive = {
   },
 };
 
-export default ({ children }) => {
+export default ({ children, dot }) => {
   return (
     <Carousel
       swipeable={true}
       draggable={true}
-      showDots={true}
+      showDots={dot ? true : false}
       responsive={responsive}
       ssr={true} // means to render carousel on server-side.
       infinite={true}

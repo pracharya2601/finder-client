@@ -7,10 +7,9 @@ import { connect } from 'react-redux';
 import ResponsiveDrawer from './navItems/ResponsiveDrawer';
 import Notifications from './navItems/Notifications';
 
-//css import
-import './css/Navbar.css';
-
 //material ui
+import withStyles from '@material-ui/core/styles/withStyles';
+import Slide from '@material-ui/core/Slide';
 import AppBar from '@material-ui/core/AppBar';
 import ToolBar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
@@ -19,54 +18,60 @@ import HomeIcon from '@material-ui/icons/Home';
 import Tooltip from '@material-ui/core/Tooltip';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
+const styles = {
+  navItem: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+};
+
 class Navbar extends React.Component {
   render() {
     const {
+      classes,
       user: { authenticated, notifications },
       loading,
     } = this.props;
     return (
-      <AppBar>
-        <ToolBar className="nav-container">
-          <div className="navbar-items">
-            <ResponsiveDrawer />
-            <Tooltip title="Home">
-              <Button
-                color="inherit"
-                // startIcon={<HomeIcon />}
-                component={Link}
-                to="/"
-              >
-                EasyPezy
-              </Button>
-            </Tooltip>
-          </div>
-          {authenticated ? (
-            <div className="navbar-items">
-              <Tooltip title="Post a place">
-                <Button
-                  color="inherit"
-                  component={Link}
-                  to="/place/newpost/place"
-                >
-                  <AddIcon />
+      <Slide direction="down" in={true} mountOnEnter unmountOnExit>
+        <AppBar>
+          <ToolBar className={classes.navItem}>
+            <div className={classes.navItem}>
+              <ResponsiveDrawer />
+              <Tooltip title="Home">
+                <Button color="inherit" component={Link} to="/">
+                  EasyPezy
                 </Button>
               </Tooltip>
-              <Notifications notifications={notifications} />
             </div>
-          ) : (
-            <div className="navbar-items">
-              <Button color="inherit" component={Link} to="/login">
-                Login
-              </Button>
-              <Button color="inherit" component={Link} to="/signup">
-                Signup
-              </Button>
-            </div>
-          )}
-        </ToolBar>
-        {loading && <LinearProgress color="secondary" />}
-      </AppBar>
+            {authenticated ? (
+              <div className={classes.navItem}>
+                <Tooltip title="Post a place">
+                  <Button
+                    color="inherit"
+                    component={Link}
+                    to="/place/newpost/place"
+                  >
+                    <AddIcon />
+                  </Button>
+                </Tooltip>
+                <Notifications notifications={notifications} />
+              </div>
+            ) : (
+              <div className={classes.navItem}>
+                <Button color="inherit" component={Link} to="/login">
+                  Login
+                </Button>
+                <Button color="inherit" component={Link} to="/signup">
+                  Signup
+                </Button>
+              </div>
+            )}
+          </ToolBar>
+          {loading && <LinearProgress color="secondary" />}
+        </AppBar>
+      </Slide>
     );
   }
 }
@@ -81,4 +86,4 @@ const mapStateToProps = (state) => ({
   user: state.user,
 });
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps)(withStyles(styles)(Navbar));

@@ -29,7 +29,8 @@ const styles = {
     marginTop: '10px',
     marginBottom: '10px',
     position: 'relative',
-    marginLeft: '83%',
+    marginLeft: 'auto',
+    marginRight: '4%',
   },
   progess: {
     position: 'absolute',
@@ -70,38 +71,48 @@ class CommentForm extends React.Component {
     } = this.props;
     const { errors } = this.state;
 
-    const commentFormMarkup = authenticated ? (
-      <>
-        <form
-          className={classes.formcontainer}
-          noValidate
-          onSubmit={this.handleSubmit}
-        >
-          <TextField
-            name="body"
-            type="text"
-            label="Add your comment"
-            helperText={errors.comment}
-            error={errors.comment ? true : false}
-            value={this.state.body}
-            onChange={this.handleChange}
-            fullWidth
-            className={classes.formField}
-          />
-          <Button
-            type="submit"
-            varient="contained"
-            color="primary"
-            className={classes.button}
-          >
-            Submit
-            {loading && (
-              <CircularProgress size={30} className={classes.progess} />
-            )}
-          </Button>
-        </form>
-      </>
-    ) : null;
+    const btnMarkup = authenticated ? (
+      <Button
+        type="submit"
+        varient="contained"
+        color="primary"
+        className={classes.button}
+      >
+        Submit
+        {loading && <CircularProgress size={30} className={classes.progess} />}
+      </Button>
+    ) : (
+      <Button
+        varient="contained"
+        color="primary"
+        className={classes.button}
+        component={Link}
+        to={'/login'}
+      >
+        Go to Login
+      </Button>
+    );
+
+    const commentFormMarkup = (
+      <form
+        className={classes.formcontainer}
+        noValidate
+        onSubmit={this.handleSubmit}
+      >
+        <TextField
+          name="body"
+          type="text"
+          label="Add your comment"
+          helperText={errors.comment}
+          error={errors.comment ? true : false}
+          value={this.state.body}
+          onChange={this.handleChange}
+          fullWidth
+          className={classes.formField}
+        />
+        {btnMarkup}
+      </form>
+    );
 
     return commentFormMarkup;
   }

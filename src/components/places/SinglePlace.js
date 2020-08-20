@@ -66,6 +66,14 @@ class SinglePlace extends React.Component {
     this._isMounted = false;
   }
 
+  onUpdate = () => {
+    console.log('updated');
+  };
+  onClick = () => {
+    console.log('clicked');
+    this.onUpdate();
+  };
+
   render() {
     const {
       classes,

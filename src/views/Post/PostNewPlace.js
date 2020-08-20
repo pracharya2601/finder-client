@@ -24,6 +24,7 @@ class PostNewPlace extends React.Component {
           onSubmit={this.onSubmit}
           header="Post New Stuff"
           id={id}
+          loading={this.props.loading}
           resetBtn
         />
       </>
@@ -31,4 +32,8 @@ class PostNewPlace extends React.Component {
   }
 }
 
-export default connect(null, { postPlace })(PostNewPlace);
+const mapStateToProps = (state) => ({
+  loading: state.UI.loading,
+});
+
+export default connect(mapStateToProps, { postPlace })(PostNewPlace);

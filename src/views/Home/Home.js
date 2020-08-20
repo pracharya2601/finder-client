@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import '../../components/css/Home.css';
 import _ from 'lodash';
 
@@ -8,9 +7,6 @@ import Place from '../../components/places/Place';
 
 import ItemCarousel from '../../components/carousel/ItemCarousel';
 import CarouselHeader from '../../components/carousel/CarouselHeader';
-
-//material ui
-import Typography from '@material-ui/core/Typography';
 
 import { connect } from 'react-redux';
 import {
@@ -36,9 +32,10 @@ class Home extends React.Component {
       otherPlaces,
       loading,
     } = this.props;
+    let num = 5;
 
     const skeleton = (
-      <div style={{ display: 'flex' }}>
+      <div style={{ display: 'flex', overFlow: 'hide' }}>
         <Skeleton />
         <Skeleton />
         <Skeleton />
@@ -70,44 +67,44 @@ class Home extends React.Component {
     return (
       <>
         <div style={style}>
-          {!loading && (
+          {allPlaces && (
             <CarouselHeader
               heading="Recent Places"
               goTo="/all"
               goToText="See All"
             />
           )}
-          <ItemCarousel>{allPlacesMarkup}</ItemCarousel>
+          <ItemCarousel dot>{allPlacesMarkup}</ItemCarousel>
         </div>
         <div style={style}>
-          {!loading && (
+          {rentalPlaces && (
             <CarouselHeader
               heading="Rental Places"
               goTo="/rental"
               goToText="See All"
             />
           )}
-          <ItemCarousel>{rentalPlacesMarkup}</ItemCarousel>
+          <ItemCarousel dot>{rentalPlacesMarkup}</ItemCarousel>
         </div>
         <div style={style}>
-          {!loading && (
+          {salePlaces && (
             <CarouselHeader
               heading="Sale Places"
               goTo="/sale"
               goToText="See All"
             />
           )}
-          <ItemCarousel>{salePlaceMarkup}</ItemCarousel>
+          <ItemCarousel dot>{salePlaceMarkup}</ItemCarousel>
         </div>
         <div style={style}>
-          {!loading && (
+          {otherPlaces && (
             <CarouselHeader
               heading="Other Catagory Item"
               goTo="/other"
               goToText="See All"
             />
           )}
-          <ItemCarousel>{otherPlacesMarkup}</ItemCarousel>
+          <ItemCarousel dot>{otherPlacesMarkup}</ItemCarousel>
         </div>
       </>
     );

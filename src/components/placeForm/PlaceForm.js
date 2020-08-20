@@ -74,6 +74,7 @@ class PlaceForm extends React.Component {
     placeId: '',
     files: [],
     error: '',
+    errorForm: '',
   };
 
   renderField = ({
@@ -142,15 +143,21 @@ class PlaceForm extends React.Component {
     let id = this.props.id;
     this.setState({ id: id });
     if (this.state.files.length > 0) {
-      this.submitImage(id);
-      const newPlace = this.newPlacewithImgDocument(
-        values,
-        id,
-        this.state.files
-      );
-      this.props.onSubmit(newPlace);
+      if (Object.keys(values).length !== 0) {
+        this.submitImage(id);
+        const newPlace = this.newPlacewithImgDocument(
+          values,
+          id,
+          this.state.files
+        );
+        this.props.onSubmit(newPlace);
+      } else {
+        window.scrollTo(0, 0);
+        this.setState({ errorForm: 'Fillout all the form' });
+      }
     } else {
-      this.setState({ error: 'Please Add Image to Continue' });
+      console.log(values);
+      this.setState({ error: 'Add Image to submit' });
     }
   };
 
@@ -166,11 +173,20 @@ class PlaceForm extends React.Component {
 
   clearForm = () => {
     this.props.reset();
-    this.setState({ files: [], error: '' });
+    this.setState({ files: [], error: '', errorForm: '' });
+    window.scrollTo(0, 0);
   };
 
   render() {
-    const { handleSubmit, classes, header, id, resetBtn, addImg } = this.props;
+    const {
+      handleSubmit,
+      classes,
+      header,
+      id,
+      resetBtn,
+      addImg,
+      loading,
+    } = this.props;
     const imgLabel = !addImg
       ? `Drag & Drop your images or <span class="filepond--label-action">Browse</span>`
       : `<div>Add Image To Update</div> Drag & Drop your images or <span class="filepond--label-action">Browse</span>`;
@@ -181,6 +197,13 @@ class PlaceForm extends React.Component {
         </Typography>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <div className={classes.formBox}>
+            {this.state.errorForm && (
+              <div
+                style={{ textAlign: 'center', color: 'red', marginTop: '10px' }}
+              >
+                {this.state.errorForm}
+              </div>
+            )}
             <Field
               name="catagory"
               component={this.renderSelectField}
@@ -270,9 +293,9 @@ class PlaceForm extends React.Component {
               className={classes.button}
             >
               Post
-              {/* {loading.loading && (
+              {loading && (
                 <CircularProgress size={30} className={classes.progess} />
-              )} */}
+              )}
             </Button>
             {resetBtn && (
               <Button
@@ -302,7 +325,6 @@ const validate = (values) => {
     'priceRange',
     'address',
     'contactNo',
-    'placeImgUrl',
   ];
   requiredFields.forEach((field) => {
     if (!values[field]) {

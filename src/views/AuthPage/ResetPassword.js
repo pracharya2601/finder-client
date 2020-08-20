@@ -9,6 +9,7 @@ import { resetPassword } from '../../redux/actions/userAction';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 //material ui
+import Slide from '@material-ui/core/Slide';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
@@ -98,65 +99,71 @@ class ReserPassword extends React.Component {
     console.log(message);
 
     return (
-      <Card className={classes.card}>
-        <CardActions>
-          <img src={AppIcon} alt="logo" className={classes.image} />
-        </CardActions>
-        <CardActions className={classes.cardAction}>
-          <Typography variant="h4" className={classes.text}>
-            Forgot your password?
-          </Typography>
-          <Typography variant="body2">
-            Enter your email address to reset your password.
-          </Typography>
-          {message && (
-            <Typography variant="body2" className={classes.customMessage}>
-              {message}
-            </Typography>
-          )}
-        </CardActions>
-        <form
-          className={classes.form}
-          onSubmit={handleSubmit(this.onSubmit.bind(this))}
-        >
-          <Field
-            name="email"
-            type="email"
-            component={this.renderField}
-            label="Email"
-            loading={loading}
-          />
-          <CardActions className={classes.cardAction}>
-            {loading && (
-              <CircularProgress size={30} className={classes.progess} />
-            )}
-            {errors && (
-              <div className={classes.errorText}>{errors.general}</div>
-            )}
-            <Button color="primary" variant="contained" type="submit">
-              Submit
-            </Button>
-            <Button className={classes.gotoLogin} component={Link} to="/login">
-              Go to Login
-            </Button>
-            <Typography
-              variant="body1"
-              color="textSecondary"
-              className={classes.remainContent}
-            >
-              Don't have an account?
-              <br />
-              <Button
-                className={classes.gotoSignup}
-                component={Link}
-                to="/signup"
-              >
-                Sign up here
-              </Button>
-            </Typography>
+      <Slide direction="down" in={true} mountOnEnter unmountOnExit>
+        <Card className={classes.card}>
+          <CardActions>
+            <img src={AppIcon} alt="logo" className={classes.image} />
           </CardActions>
-        </form>
-      </Card>
+          <CardActions className={classes.cardAction}>
+            <Typography variant="h4" className={classes.text}>
+              Forgot your password?
+            </Typography>
+            <Typography variant="body2">
+              Enter your email address to reset your password.
+            </Typography>
+            {message && (
+              <Typography variant="body2" className={classes.customMessage}>
+                {message}
+              </Typography>
+            )}
+          </CardActions>
+          <form
+            className={classes.form}
+            onSubmit={handleSubmit(this.onSubmit.bind(this))}
+          >
+            <Field
+              name="email"
+              type="email"
+              component={this.renderField}
+              label="Email"
+              loading={loading}
+            />
+            <CardActions className={classes.cardAction}>
+              {loading && (
+                <CircularProgress size={30} className={classes.progess} />
+              )}
+              {errors && (
+                <div className={classes.errorText}>{errors.general}</div>
+              )}
+              <Button color="primary" variant="contained" type="submit">
+                Submit
+              </Button>
+              <Button
+                className={classes.gotoLogin}
+                component={Link}
+                to="/login"
+              >
+                Go to Login
+              </Button>
+              <Typography
+                variant="body1"
+                color="textSecondary"
+                className={classes.remainContent}
+              >
+                Don't have an account?
+                <br />
+                <Button
+                  className={classes.gotoSignup}
+                  component={Link}
+                  to="/signup"
+                >
+                  Sign up here
+                </Button>
+              </Typography>
+            </CardActions>
+          </form>
+        </Card>
+      </Slide>
     );
   }
 }

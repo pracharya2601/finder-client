@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
+import Term from '../../term';
+
 //react-recaptcha
 import Recaptcha from 'react-recaptcha';
 //image
@@ -12,6 +14,7 @@ import { signupUser } from '../../redux/actions/userAction';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 //material ui
+import Slide from '@material-ui/core/Slide';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
@@ -124,104 +127,114 @@ class Signup extends React.Component {
     const errotTextContactNo = errors ? errors.contactNo : null;
     const errorTextAge = errors ? errors.age : null;
     return (
-      <Card className={classes.card}>
-        <CardActions>
-          <img src={AppIcon} alt="logo" className={classes.image} />
-        </CardActions>
-        <CardActions className={classes.cardAction}>
-          <Typography variant="h4" className={classes.text}>
-            Sign Up
-          </Typography>
-        </CardActions>
-        <form
-          className={classes.form}
-          onSubmit={handleSubmit(this.onSubmit.bind(this))}
-        >
-          <Field
-            name="fullName"
-            type="text"
-            component={this.renderField}
-            label="Full Name"
-          />
-          <Field
-            name="email"
-            type="email"
-            component={this.renderField}
-            label="Email"
-            helperText={errorTextEmail}
-          />
-          <Field
-            name="handle"
-            type="text"
-            component={this.renderField}
-            label="Unique Username"
-            helperText={errorTextHandle}
-          />
-          <Field
-            name="password"
-            type="password"
-            component={this.renderField}
-            label="Password"
-            helperText={errorTextPassword}
-          />
-          <Field
-            name="confirmPassword"
-            type="password"
-            component={this.renderField}
-            label="Confirm Password"
-            helperText={errorTextConfirmPassword}
-          />
-          <Field
-            name="contactNo"
-            type="number"
-            component={this.renderField}
-            label="Contact Number"
-            helperText={errotTextContactNo}
-          />
-          <Field
-            name="age"
-            type="number"
-            component={this.renderField}
-            label="Age"
-            helperText={errorTextAge}
-          />
-          <CardActions className={classes.cardAction}>
-            <Recaptcha
-              sitekey="6Lc0l8AZAAAAALujkZBq1yiL8mnC6ar0M1OsmoAL"
-              render="explicit"
-              onloadCallback={this.verifyHuman}
-              verifyCallback={this.verifyCallback}
-            />
+      <Slide direction="down" in={true} mountOnEnter unmountOnExit>
+        <Card className={classes.card}>
+          <CardActions>
+            <img src={AppIcon} alt="logo" className={classes.image} />
           </CardActions>
           <CardActions className={classes.cardAction}>
-            {loading && (
-              <CircularProgress size={30} className={classes.progess} />
-            )}
-            {errors && (
-              <div className={classes.errorText}>{errors.general}</div>
-            )}
-            <Button color="primary" variant="contained" type="submit">
+            <Typography variant="h4" className={classes.text}>
               Sign Up
-            </Button>
-            <Typography
-              variant="body1"
-              color="textSecondary"
-              className={classes.remainContent}
-            >
-              Already have an account?
-              <br />
-              <Button
-                className={classes.gotoSignup}
-                component={Link}
-                to="/login"
-              >
-                Login here
-              </Button>
             </Typography>
           </CardActions>
-        </form>
-        {loading && <LinearProgress />}
-      </Card>
+          <form
+            className={classes.form}
+            onSubmit={handleSubmit(this.onSubmit.bind(this))}
+          >
+            <Field
+              name="fullName"
+              type="text"
+              component={this.renderField}
+              label="Full Name"
+            />
+            <Field
+              name="email"
+              type="email"
+              component={this.renderField}
+              label="Email"
+              helperText={errorTextEmail}
+            />
+            <Field
+              name="handle"
+              type="text"
+              component={this.renderField}
+              label="Unique Username"
+              helperText={errorTextHandle}
+            />
+            <Field
+              name="password"
+              type="password"
+              component={this.renderField}
+              label="Password"
+              helperText={errorTextPassword}
+            />
+            <Field
+              name="confirmPassword"
+              type="password"
+              component={this.renderField}
+              label="Confirm Password"
+              helperText={errorTextConfirmPassword}
+            />
+            <Field
+              name="contactNo"
+              type="number"
+              component={this.renderField}
+              label="Contact Number"
+              helperText={errotTextContactNo}
+            />
+            <Field
+              name="age"
+              type="number"
+              component={this.renderField}
+              label="Age"
+              helperText={errorTextAge}
+            />
+            <CardActions className={classes.cardAction}>
+              <Recaptcha
+                sitekey="6Lc0l8AZAAAAALujkZBq1yiL8mnC6ar0M1OsmoAL"
+                render="explicit"
+                onloadCallback={this.verifyHuman}
+                verifyCallback={this.verifyCallback}
+              />
+            </CardActions>
+            <CardActions className={classes.cardAction}>
+              {loading && (
+                <CircularProgress size={30} className={classes.progess} />
+              )}
+              {errors && (
+                <div className={classes.errorText}>{errors.general}</div>
+              )}
+              <Button color="primary" variant="contained" type="submit">
+                Sign Up
+              </Button>
+              <Typography
+                variant="caption"
+                color="textSecondary"
+                className={classes.remainContent}
+              >
+                By signup you agree to company
+                <Term />
+              </Typography>
+              <Typography
+                variant="body1"
+                color="textSecondary"
+                className={classes.remainContent}
+              >
+                Already have an account?
+                <br />
+                <Button
+                  className={classes.gotoSignup}
+                  component={Link}
+                  to="/login"
+                >
+                  Login here
+                </Button>
+              </Typography>
+            </CardActions>
+          </form>
+          {loading && <LinearProgress />}
+        </Card>
+      </Slide>
     );
   }
 }
