@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import CardHead from '../../components/places/CardHead';
 import LikeButton from '../../components/places/LikeButton';
@@ -22,6 +23,7 @@ import TableHead from '@material-ui/core/TableHead';
 import Table from '@material-ui/core/Table';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import Chip from '@material-ui/core/Chip';
 
 import Typography from '@material-ui/core/Typography';
 
@@ -102,6 +104,8 @@ class SinglePlace extends React.Component {
         userHandle,
         userImage,
         viewCount,
+        nearbyPlace,
+        selectApply,
       },
       UI: { loading },
     } = this.props;
@@ -115,6 +119,28 @@ class SinglePlace extends React.Component {
         : null;
 
     console.log(address);
+    const nearbyPlaceMarkup = nearbyPlace
+      ? _.map(nearbyPlace, (pl) => {
+          return (
+            <Chip
+              label={pl}
+              key={pl}
+              style={{ margin: '10px 10px 5px 10px', backgroundColor: 'grey' }}
+            />
+          );
+        })
+      : null;
+    const featureMarkup = selectApply
+      ? _.map(selectApply, (item) => {
+          return (
+            <Chip
+              label={item}
+              key={item}
+              style={{ margin: '10px 10px 5px 10px' }}
+            />
+          );
+        })
+      : null;
 
     const singleComment = comments
       ? comments.map((comment) => (
@@ -181,7 +207,7 @@ class SinglePlace extends React.Component {
             </Typography>
           </div>
           <Typography color="textSecondary">{description}</Typography>
-
+          {featureMarkup}
           <div className={classes.aboutHeading}>
             <InfoTwoToneIcon />
             <Typography variant="subtitle1" className={classes.space}>
@@ -218,14 +244,22 @@ class SinglePlace extends React.Component {
           </div>
           <Table>
             <TableHead>
-              <TableRow>
-                <TableCell>Address</TableCell>
-                <TableCell>
-                  {' '}
-                  {/* {address.areaName}, {address.city}-{address.wardNo} */}
-                  {/* {address} */}
-                </TableCell>
-              </TableRow>
+              {address && (
+                <>
+                  <TableRow>
+                    <TableCell>Address</TableCell>
+                    <TableCell>
+                      {address.areaName} {address.wardNo}
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>City/State</TableCell>
+                    <TableCell>
+                      {address.city} {address.zone}
+                    </TableCell>
+                  </TableRow>
+                </>
+              )}
             </TableHead>
           </Table>
           <div className={classes.aboutHeading}>
@@ -242,6 +276,13 @@ class SinglePlace extends React.Component {
               </TableRow>
             </TableHead>
           </Table>
+          <div className={classes.aboutHeading}>
+            <ContactsIcon />
+            <Typography variant="subtitle1" className={classes.space}>
+              NearbyPlace
+            </Typography>
+          </div>
+          {nearbyPlaceMarkup}
         </Card>
         {commentSection}
       </>
