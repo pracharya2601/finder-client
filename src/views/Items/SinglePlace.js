@@ -30,6 +30,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import DescriptionTwoToneIcon from '@material-ui/icons/DescriptionTwoTone';
 import InfoTwoToneIcon from '@material-ui/icons/InfoTwoTone';
 import RateReviewIcon from '@material-ui/icons/RateReview';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 import IconButton from '@material-ui/core/IconButton';
 import PaymentIcon from '@material-ui/icons/Payment';
@@ -104,6 +105,16 @@ class SinglePlace extends React.Component {
       },
       UI: { loading },
     } = this.props;
+    const catagoryItem =
+      catagory === 'sale'
+        ? 'For Sale'
+        : catagory === 'rental'
+        ? 'For Rent'
+        : catagory === 'other'
+        ? 'Other'
+        : null;
+
+    console.log(address);
 
     const singleComment = comments
       ? comments.map((comment) => (
@@ -181,7 +192,7 @@ class SinglePlace extends React.Component {
             <TableHead>
               <TableRow>
                 <TableCell>Type</TableCell>
-                <TableCell>{catagory}</TableCell>
+                <TableCell>{catagoryItem}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Amount</TableCell>
@@ -197,9 +208,23 @@ class SinglePlace extends React.Component {
                 <TableCell>No. of Views</TableCell>
                 <TableCell> {viewCount}</TableCell>
               </TableRow>
+            </TableHead>
+          </Table>
+          <div className={classes.aboutHeading}>
+            <LocationOnIcon />
+            <Typography variant="subtitle1" className={classes.space}>
+              Location
+            </Typography>
+          </div>
+          <Table>
+            <TableHead>
               <TableRow>
-                <TableCell>Location</TableCell>
-                <TableCell> {address}</TableCell>
+                <TableCell>Address</TableCell>
+                <TableCell>
+                  {' '}
+                  {/* {address.areaName}, {address.city}-{address.wardNo} */}
+                  {/* {address} */}
+                </TableCell>
               </TableRow>
             </TableHead>
           </Table>

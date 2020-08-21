@@ -42,6 +42,7 @@
     "react-router-scroll-memory": "^2.0.6",
     "react-scripts": "3.4.1",
     "react-swipeable": "^5.5.1",
+    "react-widgets": "^4.5.0",
     "redux": "^4.0.5",
     "redux-form": "^8.3.6",
     "redux-thunk": "^2.3.0",

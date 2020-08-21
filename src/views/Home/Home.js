@@ -1,5 +1,4 @@
 import React from 'react';
-import '../../components/css/Home.css';
 import _ from 'lodash';
 
 import Skeleton from '../../components/loading/Skeleton';

@@ -10,7 +10,6 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Avatar from '@material-ui/core/Avatar';
 // import VisibilityIcon from '@material-ui/icons/Visibility';
 import GroupIcon from '@material-ui/icons/Group';
-import zIndex from '@material-ui/core/styles/zIndex';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const RIGHT = '-1';
@@ -55,15 +54,6 @@ class ImageCard extends React.Component {
 
     const { imageIndex = 0 } = this.state;
 
-    const catagoryItem =
-      catagory === 'sale'
-        ? 'For Sale'
-        : catagory === 'rental'
-        ? 'For Rent'
-        : catagory === 'other'
-        ? 'Other'
-        : null;
-
     const IMG_WIDTH = '100%';
     const IMG_HEIGHT = imgHeight;
 
@@ -81,51 +71,17 @@ class ImageCard extends React.Component {
       transition: 'all 1.0s ease-in-out',
       transition: 'all 1.0s ease-in-out',
       transition: 'all 1.0s ease-in-out',
-      boxSizing: 'border-box',
-      borderBottom: '5px solid green',
-    };
-    const catagoryStyle = {
-      marginTop: '10px',
-      color: 'white',
-      backgroundColor: 'green',
-      width: '70px',
-      padding: '2px 10px 2px 10px',
-      float: 'right',
-    };
-    const cssBoth = {
-      textAlign: 'center',
-      float: 'left',
-      margin: '10px 10px 0 10px',
-      zIndex: '200',
-    };
-    const iconBtn = {
-      ...cssBoth,
-      backgroundColor: 'white',
-      borderRadius: '20px',
-      padding: '0 13px 0 2px',
-      border: '1px solid yellow',
-    };
-    const location = {
-      ...cssBoth,
-      backgroundColor: '#ffb885',
-      padding: '10px 0 10px 0',
-      borderRadius: '5px',
-    };
-    const avatar = {
-      margin: '0 0 10px 10px',
-      border: '1px solid white',
     };
     return (
-      <>
-        <Swipeable
-          trackMouse
-          preventDefaultTouchmoveEvent
-          onSwipedLeft={() => this.onSwiped(LEFT)}
-          onSwipedRight={() => this.onSwiped(RIGHT)}
-          style={{ width: IMG_WIDTH }}
-        >
-          <div style={imageStyles}>
-            <div>
+      <Swipeable
+        trackMouse
+        preventDefaultTouchmoveEvent
+        onSwipedLeft={() => this.onSwiped(LEFT)}
+        onSwipedRight={() => this.onSwiped(RIGHT)}
+        style={{ width: IMG_WIDTH }}
+      >
+        <div style={imageStyles}>
+          {/* <div>
               <Tooltip
                 title={`${viewCount} people viewed this place`}
                 placement="right"
@@ -135,38 +91,18 @@ class ImageCard extends React.Component {
                 </Button>
               </Tooltip>
               <div style={catagoryStyle}>{catagoryItem}</div>
-            </div>
-            <Link to={`/place/${placeId}`}>
-              <div
-                style={{
-                  width: '100%',
-                  height: '175px',
-                  zIndex: '1000',
-                }}
-              ></div>
-            </Link>
-            <div style={location}>
-              {/* <Avatar
-                aria-label="place_body"
-                component={Link}
-                to={`/user/profile/${userHandle}`}
-                alt={userHandle}
-                src={userImage}
-                style={avatar}
-              /> */}
-
-              {/* <span>{address}</span> */}
-              <Button
-                size="small"
-                color="primary"
-                startIcon={<LocationOnIcon />}
-              >
-                {address}
-              </Button>
-            </div>
-          </div>
-        </Swipeable>
-      </>
+            </div> */}
+          <Link to={`/place/${placeId}`}>
+            <div
+              style={{
+                width: '100%',
+                height: '245px',
+                zIndex: '1000',
+              }}
+            ></div>
+          </Link>
+        </div>
+      </Swipeable>
     );
   }
 }
