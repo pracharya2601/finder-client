@@ -7,6 +7,8 @@ import {
   SET_PLACE,
   LIKE_PLACE,
   UNLIKE_PLACE,
+  MARK_AVAILABLE,
+  MARK_UNAVAILABLE,
   SAVE_PLACE,
   UNSAVE_PLACE,
   LOADING_DATA,
@@ -69,6 +71,9 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, place: action.payload };
     case LIKE_PLACE:
     case UNLIKE_PLACE:
+      return { ...state, [action.payload.placeId]: action.payload };
+    case MARK_AVAILABLE:
+    case MARK_UNAVAILABLE:
       return { ...state, [action.payload.placeId]: action.payload };
     case SAVE_PLACE:
     case UNSAVE_PLACE:

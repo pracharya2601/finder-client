@@ -20,8 +20,8 @@ const styles = {
     flexWrap: 'wrap',
     backgroundColor: '#F3F3E7',
     marginTop: '20px',
-    borderTop: '1px solid lightgrey',
-    borderBottom: '1px solid lightgrey',
+    borderTop: '1px solid  #4b62c9',
+    borderBottom: '1px solid #4b62c9',
   },
   pagename: {
     padding: '10px 0 10px 0',
@@ -30,6 +30,9 @@ const styles = {
     textDecorationLine: 'underline',
     textDecorationColor: 'blue',
     textDecorationStyle: 'double',
+  },
+  pageCount: {
+    color: '#4b62c9',
   },
 };
 
@@ -61,15 +64,7 @@ class Page extends React.Component {
     if (Object.keys(items).length === 0) return null;
     let item = _.map(currentPlaces, (itemData) => {
       return (
-        <Grid
-          item
-          xs={12}
-          sm={6}
-          md={4}
-          lg={3}
-          // spacing={2}
-          key={itemData.placeId}
-        >
+        <Grid item xs={12} sm={6} md={4} lg={3} key={itemData.placeId}>
           <Place place={itemData} />
         </Grid>
       );
@@ -77,20 +72,19 @@ class Page extends React.Component {
     return (
       <div>
         <div className={classes.pagename}>{pageName} :</div>
-        {loading && <Skeleton />}
         <Grid container spacing={2}>
           {item}
         </Grid>
         <div className={classes.paginationCard}>
           {currentPage && (
             <CardActions className={classes.pageCount}>
-              Page : {currentPage} / {totalPages}
+              Page : {currentPage} of {totalPages}
             </CardActions>
           )}
           <>
             <Pagination
               totalRecords={Object.keys(items).length}
-              pageLimit={4}
+              pageLimit={8}
               pageNeighbours={1}
               onPageChanged={this.onPageChanged}
             />

@@ -8,6 +8,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = {};
 
@@ -48,11 +49,10 @@ class Modal extends React.Component {
     // const content = report ? <ReportForm /> : null
     return (
       <Fragment>
-        <Tooltip title={tollTipMarkup} placement="top">
-          <IconButton color="secondary" onClick={this.handleClickOpen}>
-            {btnMarkup}
-          </IconButton>
-        </Tooltip>
+        <MenuItem onClick={this.handleClickOpen}>
+          <IconButton color="secondary">{btnMarkup}</IconButton>
+          Delete
+        </MenuItem>
         <Dialog open={this.state.open} onClose={this.handleClose}>
           {headingMarkup}
           <DialogActions>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -11,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 //icons
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
+import MenuItem from '@material-ui/core/MenuItem';
 import SaveIcon from '@material-ui/icons/Save';
 
 class SaveButton extends React.Component {
@@ -34,23 +35,26 @@ class SaveButton extends React.Component {
     const { authenticated } = this.props.user;
 
     const saveBtn = !authenticated ? (
-      <Tooltip title="save place" placement="top">
-        <IconButton component={Link} to="/login">
+      <MenuItem component={Link} to="/login">
+        <IconButton>
           <SaveAltIcon color="primary" />
         </IconButton>
-      </Tooltip>
+        Save Place
+      </MenuItem>
     ) : this.savedPlace() ? (
-      <Tooltip title="unsave place" placement="top">
-        <IconButton onClick={this.unSavePlace}>
+      <MenuItem onClick={this.unSavePlace}>
+        <IconButton>
           <SaveIcon color="primary" />
         </IconButton>
-      </Tooltip>
+        Unsave Place
+      </MenuItem>
     ) : (
-      <Tooltip title="save place" placement="top">
-        <IconButton onClick={this.savePlace}>
+      <MenuItem onClick={this.savePlace}>
+        <IconButton>
           <SaveAltIcon color="primary" />
         </IconButton>
-      </Tooltip>
+        Save Place
+      </MenuItem>
     );
 
     return saveBtn;

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Field, FieldArray, reduxForm } from 'redux-form';
-import uniqid from 'uniqid';
 
 import { storage } from '../../base';
 
@@ -112,8 +111,7 @@ class PlaceForm extends React.Component {
           id,
           this.state.files
         );
-        this.props.onSubmit(newPlace);
-        console.log(newPlace);
+        setTimeout(this.props.onSubmit(newPlace), 2000);
       } else {
         window.scrollTo(0, 0);
         this.setState({ errorForm: 'Fillout all the form' });
@@ -198,8 +196,8 @@ class PlaceForm extends React.Component {
         </Typography>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <Grid container spacing={2}>
-            <Grid item xm={12} md={3} />
-            <Grid item xs={12} sm={6}>
+            <Grid item xm={12} sm={2} md={3} />
+            <Grid item xs={12} sm={8} md={6}>
               {this.state.errorForm && (
                 <div
                   style={{
@@ -222,7 +220,7 @@ class PlaceForm extends React.Component {
                 <MenuItem value={'other'}>Other Catagory</MenuItem>
               </Field>
             </Grid>
-            <Grid item xm={12} md={3} />
+            <Grid item xm={12} sm={2} md={3} />
             <Grid item xs={12} sm={6}>
               <Field
                 name="body"

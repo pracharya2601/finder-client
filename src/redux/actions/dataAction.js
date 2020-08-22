@@ -11,6 +11,8 @@ import {
   UNLIKE_PLACE,
   SAVE_PLACE,
   UNSAVE_PLACE,
+  MARK_AVAILABLE,
+  MARK_UNAVAILABLE,
   DELETE_PLACE,
   CLEAR_ERRORS,
   SET_ERRORS,
@@ -18,7 +20,6 @@ import {
   STOP_LOADING_UI,
   SUBMIT_COMMENT,
   SUBMIT_REPORT,
-  // FILTER_BY_CATAGORY,
   FILTER_BY_VIEWCOUNT,
 } from '../types';
 import axios from 'axios';
@@ -106,7 +107,9 @@ export const getPlace = (placeId) => (dispatch) => {
       });
       dispatch({ type: STOP_LOADING_UI });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 //post place
@@ -171,6 +174,32 @@ export const unLikePlace = (placeId) => (dispatch) => {
     .then((res) => {
       dispatch({
         type: UNLIKE_PLACE,
+        payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
+//mark available place
+export const markAvailable = (placeId) => (dispatch) => {
+  axios
+    .get(`/place/${placeId}/available`)
+    .then((res) => {
+      dispatch({
+        type: MARK_AVAILABLE,
+        payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
+//mark unavailable place
+export const markUnavailable = (placeId) => (dispatch) => {
+  axios
+    .get(`/place/${placeId}/unavailable`)
+    .then((res) => {
+      dispatch({
+        type: MARK_UNAVAILABLE,
         payload: res.data,
       });
     })

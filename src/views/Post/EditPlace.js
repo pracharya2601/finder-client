@@ -27,7 +27,9 @@ class EditPlace extends React.Component {
           'catagory',
           'priceRange',
           'address',
-          'contactNo'
+          'contactNo',
+          'nearbyPlace',
+          'selectApply'
         )}
         onSubmit={this.onSubmit}
         id={this.props.place.placeId}

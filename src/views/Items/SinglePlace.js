@@ -47,6 +47,9 @@ import ContactsIcon from '@material-ui/icons/Contacts';
 import { connect } from 'react-redux';
 import { getPlace, clearErrors } from '../../redux/actions/dataAction';
 
+//import
+import Markavailability from '../../components/places/Markavailability';
+
 const styles = {
   loadingComponent: {
     display: 'flex',
@@ -106,6 +109,7 @@ class SinglePlace extends React.Component {
         viewCount,
         nearbyPlace,
         selectApply,
+        available,
       },
       UI: { loading },
     } = this.props;
@@ -117,8 +121,6 @@ class SinglePlace extends React.Component {
         : catagory === 'other'
         ? 'Other'
         : null;
-
-    console.log(address);
     const nearbyPlaceMarkup = nearbyPlace
       ? _.map(nearbyPlace, (pl) => {
           return (
@@ -193,6 +195,11 @@ class SinglePlace extends React.Component {
             <Report placeId={placeId} iconOnly />
           </div>
           <Divider />
+          <Markavailability
+            placeId={placeId}
+            userHandle={userHandle}
+            available={available}
+          />
           <div className={classes.aboutHeading}>
             <InfoIcon />
             <Typography variant="subtitle1" className={classes.space}>

@@ -96,11 +96,12 @@ class Report extends React.Component {
       <Fragment>
         {authenticated && (
           <>
-            <Tooltip title="report" placement="top">
-              <IconButton onClick={this.handleClickOpen}>
+            <MenuItem onClick={this.handleClickOpen}>
+              <IconButton>
                 <ReportIcon color="secondary" />
               </IconButton>
-            </Tooltip>
+              Report
+            </MenuItem>
             {iconOnly && (
               <Button color="secondary" onClick={this.handleClickOpen}>
                 Report

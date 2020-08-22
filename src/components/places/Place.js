@@ -7,38 +7,67 @@ import ImageCard from './ImageCard';
 import LikeButton from './LikeButton';
 import SaveButton from './SaveButton';
 import Report from './Report';
+import DeletePlace from './DeletePlace';
+import Menus from '../Menu/Menus';
+import Markavailability from './Markavailability';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
+import MenuItem from '@material-ui/core/MenuItem';
 //icons
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import EditIcon from '@material-ui/icons/Edit';
 import ChatIcon from '@material-ui/icons/Chat';
 
 //redux
 import { connect } from 'react-redux';
 
 const styles = {
-  card: {
+  available: {
     position: 'relative',
     width: '100%',
     marginTop: '5px',
+    backgroundColor: '#cfd8ff',
+    '&:hover': {
+      background: '#adbdff',
+    },
   },
-  descriptionContainer: {
-    backgroundColor: '#ffc2c2',
+  notAvailable: {
+    position: 'relative',
+    width: '100%',
+    marginTop: '5px',
+    backgroundColor: '#ffabab',
+    '&:hover': {
+      background: '#ff7373',
+    },
   },
   popItems: {
     position: 'absolute',
     top: '0',
-    left: '0',
+    right: '0',
     display: 'flex',
     marginTop: '10px',
-    backgroundColor: '#ffc2c2',
+    backgroundColor: '#cfd8ff',
+    color: '#003d87',
     padding: '0 5px 0 5px',
-    borderTopRightRadius: '10px',
-    borderBottomRightRadius: '10px',
+    borderTopLeftRadius: '10px',
+    borderBottomLeftRadius: '10px',
     cursor: 'pointer',
+  },
+  menuBtn: {
+    position: 'absolute',
+    top: '0',
+    left: '0',
+    marginTop: '10px',
+    marginLeft: '5px',
+    opacity: '0.8',
+    backgroundColor: '#cfd8ff',
+    borderRadius: '50px',
+    '&:hover': {
+      opacity: 1,
+      background: '#4b62c9',
+    },
   },
   itemBottom: {
     position: 'absolute',
@@ -47,15 +76,15 @@ const styles = {
     margin: '236px 0 0 10px',
   },
   price: {
-    background: '#5b4e94',
+    background: '#4b62c9',
     color: 'white',
     padding: '5px',
     borderRadius: '5px',
     fontSize: '14px',
   },
   catagory: {
-    background: '#ffebab',
-    color: '#0d4675',
+    background: '#ff9191',
+    color: '#003d87',
     padding: '5px',
     borderRadius: '5px',
     marginLeft: '5px',
@@ -68,7 +97,7 @@ const styles = {
     fontSize: '17px',
     height: '22px',
     overflow: 'hidden',
-    color: '#585587',
+    color: '#003d87',
     padding: '20px 10px 0 10px',
   },
   placeDesc: {
@@ -76,6 +105,7 @@ const styles = {
     height: '35px',
     overflow: 'hidden',
     padding: '0 10px 0 10px',
+    color: '#4b62c9',
   },
   action: {
     padding: '0 0 0 5px',
@@ -100,8 +130,13 @@ class Place extends React.Component {
         commentCount,
         viewCount,
         priceRange,
+        available,
+      },
+      user: {
+        credentials: { handle },
       },
     } = this.props;
+
     const catagoryItem =
       catagory === 'sale'
         ? 'For Sale'
@@ -110,8 +145,13 @@ class Place extends React.Component {
         : catagory === 'other'
         ? 'Other'
         : null;
+
+    //delete markup
+    const sameUser = userHandle === handle ? true : false;
     return (
-      <div className={classes.card}>
+      <div
+        className={`${available ? classes.available : classes.notAvailable}`}
+      >
         {placeImgUrl && (
           <ImageCard
             placeImgUrl={placeImgUrl}
@@ -119,26 +159,32 @@ class Place extends React.Component {
             imgHeight="250px"
           />
         )}
-        <div className={classes.descriptionContainer}>
+        <div>
           <div className={classes.popItems}>
             <LocationOnIcon style={{ color: '#5b4e94', marginTop: '2px' }} />
             <div className={classes.popItem}>{address.city},</div>
             <div className={classes.popItem}>{address.district}</div>
           </div>
+          <div className={classes.menuBtn}>
+            <Menus>
+              <SaveButton placeId={placeId} />
+              <Report placeId={placeId} />
+              {sameUser && <DeletePlace placeId={placeId} del />}
+              {sameUser && <Markavailability placeId={placeId} />}
+              {sameUser && (
+                <MenuItem component={Link} to={`/place/edit/${placeId}`}>
+                  <IconButton>
+                    <EditIcon color="secondary" />
+                  </IconButton>
+                  Edit
+                </MenuItem>
+              )}
+            </Menus>
+          </div>
           <div className={classes.itemBottom}>
             <div className={classes.price}>Rs: {priceRange}</div>
             <div className={classes.catagory}>{catagoryItem}</div>
           </div>
-
-          <IconButton
-            style={{
-              float: 'right',
-              margin: '20px 5px 0 0',
-              zIndex: '2000',
-            }}
-          >
-            <MoreVertIcon />
-          </IconButton>
           <Link to={`/place/${placeId}`}>
             <div className={classes.placeHeading}>{body}</div>
             <div className={classes.placeDesc}>{description}</div>
@@ -154,8 +200,6 @@ class Place extends React.Component {
               </Tooltip>
             </Link>
             {commentCount}
-            <SaveButton placeId={placeId} />
-            <Report placeId={placeId} />
           </div>
         </div>
       </div>

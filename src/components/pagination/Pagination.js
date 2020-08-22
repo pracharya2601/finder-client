@@ -10,31 +10,23 @@ const RIGHT_PAGE = 'RIGHT';
 
 const styles = {
   pagination: {
-    width: '100%',
-    display: 'flex',
-    // justifyContent: 'space-around',
     listStyle: 'none',
-    boxSizing: 'border-box',
-    overflow: 'scroll',
-    maxWidth: '500px',
   },
   pageItem: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    color: 'grey',
-    padding: '5px',
-    borderRadius: '10%',
-  },
-  pageLink: {
-    textDecoration: 'none',
-    color: 'black',
+    backgroundColor: '#cfd8ff',
+    border: '3px solid #cfd8ff',
+    borderRadius: '5px',
+    '&:hover': {
+      background: '#efefef',
+    },
   },
   pageActiveItem: {
-    backgroundColor: '#D3D3D3',
-    border: '1px solid #A2A1A1',
-    color: 'black',
-    padding: '10px',
-    borderRadius: '10%',
+    background: '#4b62c9',
+    color: 'white',
+    border: '3px solid #4b62c9',
+    borderRadius: '5px',
+    textDecorationLine: 'underline',
+    textDecorationColor: 'white',
   },
 };
 
@@ -161,35 +153,32 @@ class Pagination extends Component {
         {pages.map((page, index) => {
           if (page === LEFT_PAGE)
             return (
-              <li key={index} className={classes.pageItem}>
-                <a
-                  href="#"
-                  className={classes.pageLink}
+              <li key={index}>
+                <button
+                  className={classes.pageItem}
                   aria-label="Previous"
                   onClick={this.handleMoveLeft}
                 >
-                  <span className={classes.pageItem}>&laquo;prev</span>
-                </a>
+                  &laquo;prev
+                </button>
               </li>
             );
 
           if (page === RIGHT_PAGE)
             return (
-              <li key={index} className={classes.pageItem}>
-                <a
-                  href="#"
-                  className={classes.pageLink}
+              <li key={index}>
+                <button
+                  className={classes.pageItem}
                   aria-label="Next"
                   onClick={this.handleMoveRight}
                 >
-                  <span className={classes.pageItem}>next&raquo;</span>
-                </a>
+                  next&raquo;
+                </button>
               </li>
             );
           return (
             <li key={index} className={classes.activeItem}>
-              <a
-                href="#"
+              <button
                 className={`${
                   currentPage === page
                     ? classes.pageActiveItem
@@ -198,7 +187,7 @@ class Pagination extends Component {
                 onClick={(e) => this.handleClick(page, e)}
               >
                 {page}
-              </a>
+              </button>
             </li>
           );
         })}
