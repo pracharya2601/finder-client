@@ -3,21 +3,21 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import CardHead from '../../components/places/CardHead';
+// import CardHead from '../../components/places/CardHead';
 import LikeButton from '../../components/places/LikeButton';
 import SaveButton from '../../components/places/SaveButton';
 import Comments from '../../components/places/Comments';
 import CommentForm from '../../components/places/CommentForm';
 import Report from '../../components/places/Report';
+import DeletePlace from '../../components/places/DeletePlace';
 import ImgCarousel from '../../components/carousel/ImgCarousel';
-
+import AccordinMenu from '../../components/Menu/AccordinMenu';
 import Loading from '../../components/loading/Loading';
 
 //material ui
 import withStyles from '@material-ui/core/styles/withStyles';
 import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import Divider from '@material-ui/core/Divider';
 import TableHead from '@material-ui/core/TableHead';
 import Table from '@material-ui/core/Table';
@@ -33,15 +33,17 @@ import DescriptionTwoToneIcon from '@material-ui/icons/DescriptionTwoTone';
 import InfoTwoToneIcon from '@material-ui/icons/InfoTwoTone';
 import RateReviewIcon from '@material-ui/icons/RateReview';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import MenuItem from '@material-ui/core/MenuItem';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
 
+import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
 import PaymentIcon from '@material-ui/icons/Payment';
-
 import ChatIcon from '@material-ui/icons/Chat';
 
 //icon
-import CancelIcon from '@material-ui/icons/Cancel';
-import VisibilityIcon from '@material-ui/icons/Visibility';
+// import CancelIcon from '@material-ui/icons/Cancel';
+// import VisibilityIcon from '@material-ui/icons/Visibility';
 import ContactsIcon from '@material-ui/icons/Contacts';
 //redux
 import { connect } from 'react-redux';
@@ -112,7 +114,11 @@ class SinglePlace extends React.Component {
         available,
       },
       UI: { loading },
+      user: {
+        credentials: { handle },
+      },
     } = this.props;
+    const sameUser = userHandle === handle ? true : false;
     const catagoryItem =
       catagory === 'sale'
         ? 'For Sale'
@@ -191,15 +197,32 @@ class SinglePlace extends React.Component {
               <ChatIcon />
             </IconButton>
             {commentCount}
-            <SaveButton placeId={placeId} />
-            <Report placeId={placeId} iconOnly />
           </div>
           <Divider />
-          <Markavailability
-            placeId={placeId}
-            userHandle={userHandle}
-            available={available}
-          />
+          <AccordinMenu heading="Option">
+            <AccordionDetails>
+              <SaveButton placeId={placeId} />
+            </AccordionDetails>
+            <AccordionDetails>
+              <Report placeId={placeId} />
+            </AccordionDetails>
+            <AccordionDetails>
+              {sameUser && <DeletePlace placeId={placeId} del />}
+            </AccordionDetails>
+            <AccordionDetails>
+              {sameUser && <Markavailability placeId={placeId} />}
+            </AccordionDetails>
+            <AccordionDetails>
+              {sameUser && (
+                <MenuItem component={Link} to={`/place/edit/${placeId}`}>
+                  <IconButton>
+                    <EditIcon color="secondary" />
+                  </IconButton>
+                  Edit
+                </MenuItem>
+              )}
+            </AccordionDetails>
+          </AccordinMenu>
           <div className={classes.aboutHeading}>
             <InfoIcon />
             <Typography variant="subtitle1" className={classes.space}>
@@ -303,12 +326,13 @@ SinglePlace.propTypes = {
   clearErrors: PropTypes.func.isRequired,
   getPlace: PropTypes.func.isRequired,
   placeId: PropTypes.string,
-  // place: PropTypes.object.isRequired,
+  place: PropTypes.object,
   UI: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
   place: state.data.place,
   UI: state.UI,
+  user: state.user,
 });
 
 export default connect(mapStateToProps, { getPlace, clearErrors })(
