@@ -29,8 +29,10 @@ const styles = {
     width: '100%',
     marginTop: '5px',
     backgroundColor: '#cfd8ff',
+    backgroundImage: 'linear-gradient(white 250px, #cfd8ff 20%)',
     '&:hover': {
-      background: '#adbdff',
+      backgroundColor: '#adbdff',
+      backgroundImage: 'linear-gradient(white 250px, #adbdff 20%)',
     },
   },
   notAvailable: {
@@ -38,8 +40,10 @@ const styles = {
     width: '100%',
     marginTop: '5px',
     backgroundColor: '#ffabab',
+    backgroundImage: 'linear-gradient(white 250px, #ffabab 20%)',
     '&:hover': {
       background: '#ff7373',
+      backgroundImage: 'linear-gradient(white 250px, #ff7373 20%)',
     },
   },
   popItems: {
@@ -54,6 +58,7 @@ const styles = {
     borderTopLeftRadius: '10px',
     borderBottomLeftRadius: '10px',
     cursor: 'pointer',
+    zIndex: 300,
   },
   menuBtn: {
     position: 'absolute',
@@ -64,6 +69,7 @@ const styles = {
     opacity: '0.8',
     backgroundColor: '#cfd8ff',
     borderRadius: '50px',
+    zIndex: '300',
     '&:hover': {
       opacity: 1,
       background: '#4b62c9',
@@ -160,11 +166,17 @@ class Place extends React.Component {
           />
         )}
         <div>
-          <div className={classes.popItems}>
+          <a
+            className={classes.popItems}
+            href={`https://www.google.com/maps/search/?api=1&query=${
+              address.city
+            }${' '}${address.district}`}
+            target="_/blank"
+          >
             <LocationOnIcon style={{ color: '#5b4e94', marginTop: '2px' }} />
             <div className={classes.popItem}>{address.city},</div>
             <div className={classes.popItem}>{address.district}</div>
-          </div>
+          </a>
           <div className={classes.menuBtn}>
             <Menus>
               <SaveButton placeId={placeId} />

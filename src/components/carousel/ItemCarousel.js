@@ -1,49 +1,84 @@
 import React from 'react';
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
+import Carousel, { consts } from 'react-elastic-carousel';
+import IconButton from '@material-ui/core/IconButton';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
-const responsive = {
-  largdesktop: {
-    breakpoint: { max: 3000, min: 1280 },
-    items: 4,
-    slidesToSlide: 3, // optional, default to 1.
-  },
-  desktop: {
-    breakpoint: { max: 1279, min: 960 },
-    items: 3,
-    slidesToSlide: 3, // optional, default to 1.
-  },
-  tablet: {
-    breakpoint: { max: 959, min: 600 },
-    items: 2,
-    slidesToSlide: 2, // optional, default to 1.
-  },
-  mobile: {
-    breakpoint: { max: 599, min: 0 },
-    items: 1,
-    slidesToSlide: 1, // optional, default to 1.
+class ItemsCarousel extends React.Component {
+  constructor(props) {
+    super(props);
+    this.breakPoints = [
+      { width: 1, itemsToShow: 1 },
+      { width: 599, itemsToShow: 2, itemsToScroll: 2 },
+      { width: 959, itemsToShow: 3, itemsToScroll: 2 },
+      { width: 1150, itemsToShow: 4, itemsToScroll: 3 },
+      { width: 1450, itemsToShow: 5, itemsToScrool: 4 },
+      { width: 1750, itemsToShow: 6, itemsToScrool: 5 },
+    ];
+  }
+  myArrow = ({ type, onClick, isEdge }) => {
+    const pointer = type === consts.PREV ? null : null;
+    return <>{pointer}</>;
+  };
+  render() {
+    const { children } = this.props;
+    return (
+      <Carousel
+        breakPoints={this.breakPoints}
+        renderArrow={false}
+        focusOnSelect={false}
+        tiltEasing="cubic-bezier(0.110, 1, 1.000, 0.210)"
+        transitionMs={700}
+        renderArrow={this.myArrow}
+        itemPadding={[5, 5]}
+        renderPagination={({ pages, activePage, onClick }) => {
+          return (
+            <div style={style}>
+              {pages.map((page) => {
+                const isActivePage = activePage === page;
+                const itemStyle = isActivePage ? active : inactive;
+                return (
+                  <button
+                    key={page}
+                    onClick={() => onClick(page)}
+                    active={true}
+                    style={itemStyle}
+                  />
+                );
+              })}
+            </div>
+          );
+        }}
+      >
+        {children}
+      </Carousel>
+    );
+  }
+}
+const style = {
+  display: 'flex',
+  maxWidth: '90%',
+  overflow: 'hide',
+};
+const active = {
+  height: '20px',
+  width: '20px',
+  background: '#4b62c9',
+  border: '3px solid #4b62c9',
+  borderRadius: '5px',
+  margin: '2px',
+};
+
+const inactive = {
+  height: '20px',
+  width: '20px',
+  margin: '2px',
+  backgroundColor: '#cfd8ff',
+  border: '3px solid #cfd8ff',
+  borderRadius: '5px',
+  '&:hover': {
+    background: '#efefef',
   },
 };
 
-export default ({ children, dot }) => {
-  return (
-    <Carousel
-      swipeable={true}
-      draggable={true}
-      showDots={dot ? true : false}
-      responsive={responsive}
-      ssr={true} // means to render carousel on server-side.
-      infinite={true}
-      autoPlaySpeed={1000}
-      keyBoardControl={true}
-      customTransition="all .5"
-      transitionDuration={1000}
-      containerClass="carousel-container"
-      removeArrowOnDeviceType={['mobile', 'tablet']}
-      dotListClass="custom-dot-list-style"
-      itemClass="carousel-item-padding-40-px"
-    >
-      {children}
-    </Carousel>
-  );
-};
+export default ItemsCarousel;

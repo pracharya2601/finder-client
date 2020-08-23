@@ -73,7 +73,7 @@ class Home extends React.Component {
               goToText="See All"
             />
           )}
-          <ItemCarousel dot>{allPlacesMarkup}</ItemCarousel>
+          <ItemCarousel>{allPlacesMarkup}</ItemCarousel>
         </div>
         <div style={style}>
           {rentalPlaces && (
@@ -83,7 +83,7 @@ class Home extends React.Component {
               goToText="See All"
             />
           )}
-          <ItemCarousel dot>{rentalPlacesMarkup}</ItemCarousel>
+          <ItemCarousel>{rentalPlacesMarkup}</ItemCarousel>
         </div>
         <div style={style}>
           {salePlaces && (
@@ -93,7 +93,7 @@ class Home extends React.Component {
               goToText="See All"
             />
           )}
-          <ItemCarousel dot>{salePlaceMarkup}</ItemCarousel>
+          <ItemCarousel>{salePlaceMarkup}</ItemCarousel>
         </div>
         <div style={style}>
           {otherPlaces && (
@@ -103,7 +103,7 @@ class Home extends React.Component {
               goToText="See All"
             />
           )}
-          <ItemCarousel dot>{otherPlacesMarkup}</ItemCarousel>
+          <ItemCarousel>{otherPlacesMarkup}</ItemCarousel>
         </div>
       </>
     );
