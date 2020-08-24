@@ -4,48 +4,46 @@ import Menu from '@material-ui/core/Menu';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const ITEM_HEIGHT = 75;
-const Menus = ({ children }) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+class Menus extends React.Component {
+  state = {
+    anchorEl: null,
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  handleOpen = (event) => {
+    this.setState({ anchorEl: event.target });
   };
 
-  return (
-    <div>
-      <div>
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  render() {
+    const { children } = this.props;
+    const anchorEl = this.state.anchorEl;
+
+    return (
+      <>
         <IconButton
-          aria-label="more"
-          aria-controls="long-menu"
+          aria-owns={anchorEl ? 'simple-menu' : 'undefine'}
           aria-haspopup="true"
-          onClick={handleClick}
+          onClick={this.handleOpen}
+          color="inherit"
           size="small"
         >
           <MoreVertIcon />
         </IconButton>
         <Menu
-          id="long-menu"
           anchorEl={anchorEl}
-          keepMounted
-          open={open}
-          onClose={handleClose}
-          PaperProps={{
-            style: {
-              maxHeight: ITEM_HEIGHT * 4.5,
-              width: '20ch',
-            },
-          }}
+          open={Boolean(anchorEl)}
+          onClose={this.handleClose}
+          // onEntered={this.openMenuOpened}
         >
           {children}
         </Menu>
-      </div>
-    </div>
-  );
-};
+      </>
+    );
+  }
+}
 
 export default Menus;

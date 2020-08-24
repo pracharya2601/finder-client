@@ -42,24 +42,35 @@ class Home extends React.Component {
       </div>
     );
 
+    const slicedItem = (myObject) => {
+      const sliced = Object.keys(myObject)
+        .slice(0, 10)
+        .reduce((result, key) => {
+          result[key] = myObject[key];
+
+          return result;
+        }, {});
+      return sliced;
+    };
+
     let allPlacesMarkup = loading
       ? skeleton
-      : _.map(allPlaces, (place) => {
+      : _.map(slicedItem(allPlaces), (place) => {
           return <Place place={place} key={place.placeId} />;
         });
     let rentalPlacesMarkup = loading
       ? skeleton
-      : _.map(rentalPlaces, (place) => {
+      : _.map(slicedItem(rentalPlaces), (place) => {
           return <Place place={place} key={place.placeId} />;
         });
     let salePlaceMarkup = loading
       ? skeleton
-      : _.map(salePlaces, (place) => {
+      : _.map(slicedItem(salePlaces), (place) => {
           return <Place place={place} key={place.placeId} />;
         });
     let otherPlacesMarkup = loading
       ? skeleton
-      : _.map(otherPlaces, (place) => {
+      : _.map(slicedItem(otherPlaces), (place) => {
           return <Place place={place} key={place.placeId} margin />;
         });
 

@@ -41,7 +41,7 @@ class ItemsCarousel extends React.Component {
                   <button
                     key={page}
                     onClick={() => onClick(page)}
-                    active={true}
+                    active={active}
                     style={itemStyle}
                   />
                 );
@@ -57,7 +57,8 @@ class ItemsCarousel extends React.Component {
 }
 const style = {
   display: 'flex',
-  maxWidth: '90%',
+  justifyContent: 'center',
+  margin: '0 auto',
   overflow: 'hide',
 };
 const active = {
