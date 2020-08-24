@@ -7,6 +7,8 @@ import Term from '../../term';
 
 //react-recaptcha
 import Recaptcha from 'react-recaptcha';
+//title
+import withTitle from '../../util/withTitle';
 //image
 import AppIcon from '../../images/icon.png';
 
@@ -262,8 +264,13 @@ const mapStateToProps = (state) => ({
   loading: state.UI,
   user: state.user,
 });
+const title = 'Signup';
 
 export default reduxForm({
   form: 'signUpForm',
   validate,
-})(connect(mapStateToProps, { signupUser })(withStyles(styles)(Signup)));
+})(
+  connect(mapStateToProps, { signupUser })(
+    withStyles(styles)(withTitle(Signup, title))
+  )
+);

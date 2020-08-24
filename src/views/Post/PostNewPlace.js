@@ -1,7 +1,8 @@
 import React from 'react';
-
-import { storage } from '../../base';
 import uniqid from 'uniqid';
+
+//title
+import withTitle from '../../util/withTitle';
 
 import { connect } from 'react-redux';
 import { postPlace } from '../../redux/actions/dataAction';
@@ -36,4 +37,8 @@ const mapStateToProps = (state) => ({
   loading: state.UI.loading,
 });
 
-export default connect(mapStateToProps, { postPlace })(PostNewPlace);
+const title = 'Post New Item EasyPezy';
+
+export default connect(mapStateToProps, { postPlace })(
+  withTitle(PostNewPlace, title)
+);

@@ -2,6 +2,9 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+//title
+import withTitle from '../../util/withTitle';
+
 //redux
 import { connect } from 'react-redux';
 import { logoutUser, uploadImage } from '../../redux/actions/userAction';
@@ -151,6 +154,8 @@ const mapStateToProps = (state) => ({
   user: state.user,
 });
 
+const title = 'user';
+
 export default connect(mapStateToProps, { logoutUser, uploadImage })(
-  withStyles(styles)(Profile)
+  withStyles(styles)(withTitle(Profile, title))
 );

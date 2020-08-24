@@ -1,6 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
 
+//with title
+import withTitle from '../../util/withTitle';
+
 import Skeleton from '../../components/loading/Skeleton';
 import Place from '../../components/places/Place';
 
@@ -135,9 +138,11 @@ const mapStateToProps = (state) => ({
   otherPlaces: state.data.otherPlaces,
 });
 
+const home = 'EazyPezy';
+
 export default connect(mapStateToProps, {
   getPlaces,
   getOtherPlace,
   getSalePlace,
   getRentalPlace,
-})(Home);
+})(withTitle(Home, home));

@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getPlaces } from '../../redux/actions/dataAction';
+//title
+import withTitle from '../../util/withTitle';
 
 //page
 import Page from '../../components/page/Page';
@@ -22,9 +24,11 @@ class All extends React.Component {
   }
 }
 
+const title = 'All Items EazyPezy';
+
 const mapStateToProps = (state) => ({
   loading: state.data.loading,
   places: state.data.places,
 });
 
-export default connect(mapStateToProps, { getPlaces })(All);
+export default connect(mapStateToProps, { getPlaces })(withTitle(All, title));

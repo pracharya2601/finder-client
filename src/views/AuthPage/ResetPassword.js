@@ -7,6 +7,9 @@ import AppIcon from '../../images/icon.png';
 
 import { resetPassword } from '../../redux/actions/userAction';
 
+//title
+import withTitle from '../../util/withTitle';
+
 import withStyles from '@material-ui/core/styles/withStyles';
 //material ui
 import Slide from '@material-ui/core/Slide';
@@ -184,9 +187,13 @@ const mapStateToProps = (state) => ({
   user: state.user,
 });
 
+const title = 'Reset Password';
+
 export default reduxForm({
   form: 'resetPasswordForm',
   validate,
 })(
-  connect(mapStateToProps, { resetPassword })(withStyles(styles)(ReserPassword))
+  connect(mapStateToProps, { resetPassword })(
+    withStyles(styles)(withTitle(ReserPassword, title))
+  )
 );

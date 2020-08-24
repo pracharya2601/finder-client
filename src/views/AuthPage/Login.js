@@ -4,6 +4,8 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 //recapta
 import Recaptcha from 'react-recaptcha';
+//title
+import withTitle from '../../util/withTitle';
 
 //image
 import AppIcon from '../../images/icon.png';
@@ -212,7 +214,13 @@ const mapStateToProps = (state) => ({
   user: state.user,
 });
 
+const title = 'Login';
+
 export default reduxForm({
   form: 'loginForm',
   validate,
-})(connect(mapStateToProps, { loginUser })(withStyles(styles)(Login)));
+})(
+  connect(mapStateToProps, { loginUser })(
+    withStyles(styles)(withTitle(Login, title))
+  )
+);

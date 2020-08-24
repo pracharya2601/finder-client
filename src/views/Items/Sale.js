@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getSalePlace } from '../../redux/actions/dataAction';
 
+//title
+import withTitle from '../../util/withTitle';
+
 //page
 import Page from '../../components/page/Page';
 import LoadingPage from '../../components/loading/LoadingPage';
@@ -27,4 +30,8 @@ const mapStateToProps = (state) => ({
   salePlaces: state.data.salePlaces,
 });
 
-export default connect(mapStateToProps, { getSalePlace })(Sale);
+const title = 'All Items EazyPezy';
+
+export default connect(mapStateToProps, { getSalePlace })(
+  withTitle(Sale, title)
+);
