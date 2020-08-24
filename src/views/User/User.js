@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import _ from 'lodash';
 
+//import title
+import withTitle from '../../util/withTitle';
+
 import StaticProfile from '../../components/profile/StaticProfile';
 import Page from '../../components/page/Page';
 
@@ -81,6 +84,8 @@ const mapStateToProps = (state, ownProps) => ({
   credentials: state.user.credentials,
 });
 
+const title = 'User Detail';
+
 export default connect(mapStateToProps, { fetchUserData })(
-  withStyles(styles)(User)
+  withStyles(styles)(withTitle(User, title))
 );

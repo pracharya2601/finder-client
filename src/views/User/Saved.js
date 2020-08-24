@@ -1,7 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
 
-import { Link } from 'react-router-dom';
+//import title
+import withTitle from '../../util/withTitle';
+
 import { connect } from 'react-redux';
 import { getPlaces, clearErrors } from '../../redux/actions/dataAction';
 import Page from '../../components/page/Page';
@@ -38,4 +40,8 @@ const mapStateToProps = (state) => ({
   user: state.user,
 });
 
-export default connect(mapStateToProps, { getPlaces, clearErrors })(Saved);
+const title = 'saved';
+
+export default connect(mapStateToProps, { getPlaces, clearErrors })(
+  withTitle(Saved, title)
+);

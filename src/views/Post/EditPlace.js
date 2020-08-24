@@ -5,6 +5,9 @@ import { getPlace, updatePlace } from '../../redux/actions/dataAction';
 
 import PlaceForm from '../../components/placeForm/PlaceForm';
 
+//title
+import withTitle from '../../util/withTitle';
+
 class EditPlace extends React.Component {
   componentWillMount() {
     this.props.getPlace(this.props.match.params.placeId);
@@ -46,4 +49,8 @@ const mapStateToProps = (state, ownProps) => ({
   place: state.data.place,
 });
 
-export default connect(mapStateToProps, { getPlace, updatePlace })(EditPlace);
+const title = 'edit';
+
+export default connect(mapStateToProps, { getPlace, updatePlace })(
+  withTitle(EditPlace, title)
+);

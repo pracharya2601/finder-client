@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
+//title
+import withTitle from '../../util/withTitle';
+
 // import CardHead from '../../components/places/CardHead';
 import LikeButton from '../../components/places/LikeButton';
 import SaveButton from '../../components/places/SaveButton';
@@ -335,6 +338,8 @@ const mapStateToProps = (state) => ({
   user: state.user,
 });
 
+let title = 'singleplace';
+
 export default connect(mapStateToProps, { getPlace, clearErrors })(
-  withStyles(styles)(SinglePlace)
+  withStyles(styles)(withTitle(SinglePlace, title))
 );

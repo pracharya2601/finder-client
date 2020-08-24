@@ -19,6 +19,7 @@ import Other from './views/Items/Other';
 import Sale from './views/Items/Sale';
 import Rental from './views/Items/Rental';
 import All from './views/Items/All';
+// import withTitle from './util/withTitle';
 
 //term
 import Term from './term';
