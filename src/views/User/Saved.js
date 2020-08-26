@@ -5,24 +5,24 @@ import _ from 'lodash';
 import withTitle from '../../util/withTitle';
 
 import { connect } from 'react-redux';
-import { getPlaces, clearErrors } from '../../redux/actions/dataAction';
+import { getItems, clearErrors } from '../../redux/actions/dataAction';
 import Page from '../../components/page/Page';
 
 class Saved extends React.Component {
   componentDidMount() {
-    this.props.getPlaces();
+    this.props.getItems();
   }
 
   render() {
     const {
-      data: { places },
+      data: { items },
       user: { saved, authenticated },
     } = this.props;
 
-    const filtered = Object.keys(places)
-      .filter((key) => Object.keys(_.mapKeys(saved, 'placeId')).includes(key))
+    const filtered = Object.keys(items)
+      .filter((key) => Object.keys(_.mapKeys(saved, 'itemId')).includes(key))
       .reduce((obj, key) => {
-        obj[key] = places[key];
+        obj[key] = items[key];
         return obj;
       }, {});
 
@@ -42,6 +42,6 @@ const mapStateToProps = (state) => ({
 
 const title = 'saved';
 
-export default connect(mapStateToProps, { getPlaces, clearErrors })(
+export default connect(mapStateToProps, { getItems, clearErrors })(
   withTitle(Saved, title)
 );

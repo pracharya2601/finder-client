@@ -6,13 +6,13 @@ import _ from 'lodash';
 //title
 import withTitle from '../../util/withTitle';
 
-// import CardHead from '../../components/places/CardHead';
-import LikeButton from '../../components/places/LikeButton';
-import SaveButton from '../../components/places/SaveButton';
-import Comments from '../../components/places/Comments';
-import CommentForm from '../../components/places/CommentForm';
-import Report from '../../components/places/Report';
-import DeletePlace from '../../components/places/DeletePlace';
+// import CardHead from '../../components/items/CardHead';
+import LikeButton from '../../components/items/LikeButton';
+import SaveButton from '../../components/items/SaveButton';
+import Comments from '../../components/items/Comments';
+import CommentForm from '../../components/items/CommentForm';
+import Report from '../../components/items/Report';
+import DeleteItem from '../../components/items/DeleteItem';
 import ImgCarousel from '../../components/carousel/ImgCarousel';
 import AccordinMenu from '../../components/Menu/AccordinMenu';
 import Loading from '../../components/loading/Loading';
@@ -50,10 +50,10 @@ import ChatIcon from '@material-ui/icons/Chat';
 import ContactsIcon from '@material-ui/icons/Contacts';
 //redux
 import { connect } from 'react-redux';
-import { getPlace, clearErrors } from '../../redux/actions/dataAction';
+import { getItem, clearErrors } from '../../redux/actions/dataAction';
 
 //import
-import Markavailability from '../../components/places/Markavailability';
+import Markavailability from '../../components/items/Markavailability';
 
 const styles = {
   loadingComponent: {
@@ -82,12 +82,12 @@ const styles = {
   },
 };
 
-class SinglePlace extends React.Component {
+class SingleItem extends React.Component {
   _isMounted = false;
 
   componentDidMount() {
     this._isMounted = true;
-    this.props.getPlace(this.props.match.params.placeId);
+    this.props.getItem(this.props.match.params.itemId);
   }
   componentWillUnmount() {
     this._isMounted = false;
@@ -96,9 +96,9 @@ class SinglePlace extends React.Component {
   render() {
     const {
       classes,
-      place: {
+      item: {
         address,
-        placeId,
+        itemId,
         body,
         comments,
         contactNo,
@@ -107,7 +107,7 @@ class SinglePlace extends React.Component {
         description,
         likeCount,
         commentCount,
-        placeImgUrl,
+        itemImgUrl,
         priceRange,
         userHandle,
         userImage,
@@ -158,7 +158,7 @@ class SinglePlace extends React.Component {
           <Comments comment={comment} key={comment.createdAt} />
         ))
       : null;
-    const commentForm = <CommentForm placeId={placeId} />;
+    const commentForm = <CommentForm itemId={itemId} />;
 
     const commentSection = (
       <Card className={classes.card}>
@@ -180,7 +180,7 @@ class SinglePlace extends React.Component {
       </div>
     ) : (
       <>
-        {placeImgUrl && <ImgCarousel placeImgUrl={placeImgUrl} />}
+        {itemImgUrl && <ImgCarousel itemImgUrl={itemImgUrl} />}
         {/* <CardHead
           userHandle={userHandle}
           deleteBtn
@@ -188,13 +188,13 @@ class SinglePlace extends React.Component {
           userImage={userImage}
           body={body}
           address={address}
-          placeId={placeId}
+          itemId={itemId}
           createdAt={createdAt}
           className={classes.header}
         /> */}
         <Card className={classes.card}>
           <div>
-            <LikeButton placeId={placeId} />
+            <LikeButton itemId={itemId} />
             {likeCount}
             <IconButton aria-label="share">
               <ChatIcon />
@@ -204,20 +204,20 @@ class SinglePlace extends React.Component {
           <Divider />
           <AccordinMenu heading="Option">
             <AccordionDetails>
-              <SaveButton placeId={placeId} />
+              <SaveButton itemId={itemId} />
             </AccordionDetails>
             <AccordionDetails>
-              <Report placeId={placeId} />
+              <Report itemId={itemId} />
             </AccordionDetails>
             <AccordionDetails>
-              {sameUser && <DeletePlace placeId={placeId} del />}
+              {sameUser && <DeleteItem itemId={itemId} del />}
             </AccordionDetails>
             <AccordionDetails>
-              {sameUser && <Markavailability placeId={placeId} />}
+              {sameUser && <Markavailability itemId={itemId} />}
             </AccordionDetails>
             <AccordionDetails>
               {sameUser && (
-                <MenuItem component={Link} to={`/place/edit/${placeId}`}>
+                <MenuItem component={Link} to={`/item/edit/${itemId}`}>
                   <IconButton>
                     <EditIcon color="secondary" />
                   </IconButton>
@@ -229,7 +229,7 @@ class SinglePlace extends React.Component {
           <div className={classes.aboutHeading}>
             <InfoIcon />
             <Typography variant="subtitle1" className={classes.space}>
-              Place Info
+              Item Info
             </Typography>
           </div>
           <Typography color="textSecondary">{body}</Typography>
@@ -282,13 +282,13 @@ class SinglePlace extends React.Component {
                   <TableRow>
                     <TableCell>Address</TableCell>
                     <TableCell>
-                      {address.areaName} {address.wardNo}
+                      {address.address} {address.ward}
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>City/State</TableCell>
+                    <TableCell>City/District</TableCell>
                     <TableCell>
-                      {address.city} {address.zone}
+                      {address.city}, {address.district}
                     </TableCell>
                   </TableRow>
                 </>
@@ -312,7 +312,7 @@ class SinglePlace extends React.Component {
           <div className={classes.aboutHeading}>
             <ContactsIcon />
             <Typography variant="subtitle1" className={classes.space}>
-              NearbyPlace
+              Nearby Places
             </Typography>
           </div>
           {nearbyPlaceMarkup}
@@ -325,21 +325,21 @@ class SinglePlace extends React.Component {
   }
 }
 
-SinglePlace.propTypes = {
+SingleItem.propTypes = {
   clearErrors: PropTypes.func.isRequired,
-  getPlace: PropTypes.func.isRequired,
-  placeId: PropTypes.string,
-  place: PropTypes.object,
+  getItem: PropTypes.func.isRequired,
+  itemId: PropTypes.string,
+  item: PropTypes.object,
   UI: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
-  place: state.data.place,
+  item: state.data.item,
   UI: state.UI,
   user: state.user,
 });
 
-let title = 'singleplace';
+let title = 'singleitem';
 
-export default connect(mapStateToProps, { getPlace, clearErrors })(
-  withStyles(styles)(withTitle(SinglePlace, title))
+export default connect(mapStateToProps, { getItem, clearErrors })(
+  withStyles(styles)(withTitle(SingleItem, title))
 );

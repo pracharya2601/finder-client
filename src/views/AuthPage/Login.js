@@ -8,7 +8,7 @@ import Recaptcha from 'react-recaptcha';
 import withTitle from '../../util/withTitle';
 
 //image
-import AppIcon from '../../images/icon.png';
+import AppIcon from '../../images/iconn.png';
 
 import { loginUser } from '../../redux/actions/userAction';
 

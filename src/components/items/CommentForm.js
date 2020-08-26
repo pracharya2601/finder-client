@@ -60,7 +60,8 @@ class CommentForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.submitComment(this.props.placeId, { body: this.state.body });
+    const { body } = this.state;
+    this.props.submitComment(this.props.itemId, { body: body });
   };
 
   render() {
@@ -122,7 +123,7 @@ CommentForm.propTypes = {
   submitComment: PropTypes.func.isRequired,
   UI: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-  placeId: PropTypes.string,
+  itemId: PropTypes.string,
   authenticated: PropTypes.bool.isRequired,
 };
 

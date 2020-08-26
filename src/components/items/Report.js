@@ -37,7 +37,7 @@ class Report extends React.Component {
   };
 
   onSubmit = (values) => {
-    this.props.reportPost(this.props.placeId, values);
+    this.props.reportPost(this.props.itemId, values);
     this.handleClose();
   };
 
@@ -162,7 +162,7 @@ class Report extends React.Component {
 Report.propTypes = {
   classes: PropTypes.object.isRequired,
   reportPlace: PropTypes.func,
-  placeId: PropTypes.string,
+  itemId: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({

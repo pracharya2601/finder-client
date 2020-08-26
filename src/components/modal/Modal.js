@@ -34,7 +34,7 @@ class Modal extends React.Component {
       classes,
       report,
       del,
-      placeId,
+      itemId,
       submit,
       cancel,
       onClick,

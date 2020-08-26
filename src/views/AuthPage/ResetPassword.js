@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 //image
-import AppIcon from '../../images/icon.png';
+import AppIcon from '../../images/iconn.png';
 
 import { resetPassword } from '../../redux/actions/userAction';
 

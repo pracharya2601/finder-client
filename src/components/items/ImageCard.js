@@ -21,14 +21,14 @@ class ImageCard extends React.Component {
   };
 
   onSwiped = (direction) => {
-    const { placeImgUrl } = this.props;
+    const { itemImgUrl } = this.props;
     const change = direction === RIGHT ? RIGHT : LEFT;
     const adjustedIndex = this.state.imageIndex + Number(change);
     let newIndex;
-    if (adjustedIndex >= placeImgUrl.length) {
+    if (adjustedIndex >= itemImgUrl.length) {
       newIndex = 0;
     } else if (adjustedIndex < 0) {
-      newIndex = placeImgUrl.length - 1;
+      newIndex = itemImgUrl.length - 1;
     } else {
       newIndex = adjustedIndex;
     }
@@ -41,11 +41,11 @@ class ImageCard extends React.Component {
   render() {
     const {
       classes,
-      placeImgUrl,
-      body,
+      itemImgUrl,
+      name,
       address,
       imgHeight,
-      placeId,
+      itemId,
       userHandle,
       userImage,
       catagory,
@@ -63,7 +63,7 @@ class ImageCard extends React.Component {
       justifyContent: 'space-between',
       width: IMG_WIDTH,
       height: IMG_HEIGHT,
-      backgroundImage: `url(${placeImgUrl[imageIndex]})`,
+      backgroundImage: `url(${itemImgUrl[imageIndex]})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
@@ -83,8 +83,8 @@ class ImageCard extends React.Component {
         <div style={imageStyles}>
           {/* <div>
               <Tooltip
-                title={`${viewCount} people viewed this place`}
-                placement="right"
+                title={`${viewCount} people viewed this item`}
+                itemment="right"
               >
                 <Button size="small" color="primary" startIcon={<GroupIcon />}>
                   {viewCount}
@@ -92,7 +92,7 @@ class ImageCard extends React.Component {
               </Tooltip>
               <div style={catagoryStyle}>{catagoryItem}</div>
             </div> */}
-          <Link to={`/place/${placeId}`}>
+          <Link to={`/item/${itemId}`}>
             <div
               style={{
                 width: '100%',

@@ -4,7 +4,7 @@ import React from 'react';
 import _ from 'lodash';
 
 //import
-import Place from '../places/Place';
+import Item from '../items/Item';
 import Skeleton from '../loading/Skeleton';
 import Pagination from '../pagination/Pagination';
 
@@ -38,7 +38,7 @@ const styles = {
 
 class Page extends React.Component {
   state = {
-    currentPlaces: {},
+    currentItems: {},
     currentPage: null,
     totalPages: null,
   };
@@ -47,7 +47,7 @@ class Page extends React.Component {
     const { currentPage, totalPages, pageLimit } = itemsData;
 
     const offset = (currentPage - 1) * pageLimit;
-    const currentPlaces = Object.keys(items)
+    const currentItems = Object.keys(items)
       .slice(offset, offset + pageLimit)
       .reduce((result, key) => {
         result[key] = items[key];
@@ -55,17 +55,19 @@ class Page extends React.Component {
         return result;
       }, {});
 
-    this.setState({ currentPage, currentPlaces, totalPages });
+    this.setState({ currentPage, currentItems, totalPages });
   };
 
   render() {
     const { items, loading, classes, pageName } = this.props;
-    const { currentPlaces, currentPage, totalPages } = this.state;
+    const { currentItems, currentPage, totalPages } = this.state;
+
     if (Object.keys(items).length === 0) return null;
-    let item = _.map(currentPlaces, (itemData) => {
+
+    let item = _.map(currentItems, (itemData) => {
       return (
-        <Grid item xs={12} sm={6} md={4} lg={3} key={itemData.placeId}>
-          <Place place={itemData} />
+        <Grid item xs={12} sm={6} md={4} lg={3} key={itemData.itemId}>
+          <Item item={itemData} />
         </Grid>
       );
     });

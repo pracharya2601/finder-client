@@ -4,11 +4,11 @@ import {
   SET_UNAUTHENTICATED,
   GET_USER,
   LOADING_USER,
-  LIKE_PLACE,
-  UNLIKE_PLACE,
+  LIKE_ITEM,
+  UNLIKE_ITEM,
   MARK_NOTIFICATIONS_READ,
-  SAVE_PLACE,
-  UNSAVE_PLACE,
+  SAVE_ITEM,
+  UNSAVE_ITEM,
 } from '../types';
 
 const INITIAL_STATE = {
@@ -45,22 +45,22 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         loading: true,
       };
-    case LIKE_PLACE:
+    case LIKE_ITEM:
       return {
         ...state,
         likes: [
           ...state.likes,
           {
             userHandle: state.credentials.handle,
-            placeId: action.payload.placeId,
+            itemId: action.payload.itemId,
           },
         ],
       };
-    case UNLIKE_PLACE:
+    case UNLIKE_ITEM:
       return {
         ...state,
         likes: state.likes.filter(
-          (like) => like.placeId !== action.payload.placeId
+          (like) => like.itemId !== action.payload.itemId
         ),
       };
     case MARK_NOTIFICATIONS_READ:
@@ -68,7 +68,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
       };
-    case SAVE_PLACE:
+    case SAVE_ITEM:
       return {
         ...state,
         saved: [
@@ -79,7 +79,7 @@ export default (state = INITIAL_STATE, action) => {
           },
         ],
       };
-    case UNSAVE_PLACE:
+    case UNSAVE_ITEM:
       return {
         ...state,
         saved: state.saved.filter(

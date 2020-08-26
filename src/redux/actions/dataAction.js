@@ -1,19 +1,19 @@
 import {
-  SET_PLACES,
-  SET_RENTAL_PLACES,
-  SET_SALE_PLACES,
-  SET_OTHER_PLACES,
-  SET_PLACE,
-  POST_PLACE,
-  UPDATE_PLACE,
+  SET_ITEMS,
+  SET_RENTAL_ITEMS,
+  SET_SALE_ITEMS,
+  SET_OTHER_ITEMS,
+  SET_ITEM,
+  POST_ITEM,
+  UPDATE_ITEM,
   LOADING_DATA,
-  LIKE_PLACE,
-  UNLIKE_PLACE,
-  SAVE_PLACE,
-  UNSAVE_PLACE,
+  LIKE_ITEM,
+  UNLIKE_ITEM,
+  SAVE_ITEM,
+  UNSAVE_ITEM,
   MARK_AVAILABLE,
   MARK_UNAVAILABLE,
-  DELETE_PLACE,
+  DELETE_ITEM,
   CLEAR_ERRORS,
   SET_ERRORS,
   LOADING_UI,
@@ -26,51 +26,51 @@ import axios from 'axios';
 import history from '../../history';
 
 // get all places
-export const getPlaces = () => (dispatch) => {
+export const getItems = () => (dispatch) => {
   dispatch({ type: LOADING_DATA });
-  axios.get('/places').then((res) => {
+  axios.get('/items').then((res) => {
     dispatch({
-      type: SET_PLACES,
+      type: SET_ITEMS,
       payload: res.data,
     });
   });
 };
 
 //get rental places
-export const getRentalPlace = () => (dispatch) => {
+export const getRentalItems = () => (dispatch) => {
   dispatch({ type: LOADING_DATA });
-  axios.get('/rentalPlaces').then((res) => {
+  axios.get('/rentalItems').then((res) => {
     dispatch({
-      type: SET_RENTAL_PLACES,
+      type: SET_RENTAL_ITEMS,
       payload: res.data,
     });
   });
 };
 
 //get sale places
-export const getSalePlace = () => (dispatch) => {
+export const getSaleItems = () => (dispatch) => {
   dispatch({ type: LOADING_DATA });
-  axios.get('/salePlaces').then((res) => {
+  axios.get('/saleItems').then((res) => {
     dispatch({
-      type: SET_SALE_PLACES,
+      type: SET_SALE_ITEMS,
       payload: res.data,
     });
   });
 };
 
 //get other catagory places
-export const getOtherPlace = () => (dispatch) => {
+export const getOtherItems = () => (dispatch) => {
   dispatch({ type: LOADING_DATA });
-  axios.get('/otherPlaces').then((res) => {
+  axios.get('/otherItems').then((res) => {
     dispatch({
-      type: SET_OTHER_PLACES,
+      type: SET_OTHER_ITEMS,
       payload: res.data,
     });
   });
 };
 
 //sort place by views
-export const sortPlacesViews = (placeItems, sort) => (dispatch) => {
+export const sortItemsViews = (placeItems, sort) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   let places = placeItems.slice();
   if (sort !== '') {
@@ -96,13 +96,13 @@ export const sortPlacesViews = (placeItems, sort) => (dispatch) => {
 };
 
 //get single place
-export const getPlace = (placeId) => (dispatch) => {
+export const getItem = (itemId) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
-    .get(`/place/${placeId}`)
+    .get(`/item/${itemId}`)
     .then((res) => {
       dispatch({
-        type: SET_PLACE,
+        type: SET_ITEM,
         payload: res.data,
       });
       dispatch({ type: STOP_LOADING_UI });
@@ -113,13 +113,13 @@ export const getPlace = (placeId) => (dispatch) => {
 };
 
 //post place
-export const postPlace = (placeData, callback) => (dispatch) => {
+export const postItem = (itemData, callback) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
-    .post('/place', placeData)
+    .post('/item', itemData)
     .then((res) => {
       dispatch({
-        type: POST_PLACE,
+        type: POST_ITEM,
         payload: res.data,
       });
       dispatch(clearErrors());
@@ -134,13 +134,13 @@ export const postPlace = (placeData, callback) => (dispatch) => {
 };
 
 //update place
-export const updatePlace = (placeId, placeData, callback) => (dispatch) => {
+export const updateItem = (itemId, itemData, callback) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
-    .post(`/place/${placeId}/update`, placeData)
+    .post(`/item/${itemId}/update`, itemData)
     .then((res) => {
       dispatch({
-        type: UPDATE_PLACE,
+        type: UPDATE_ITEM,
         payload: res.data,
       });
       dispatch(clearErrors());
@@ -155,12 +155,12 @@ export const updatePlace = (placeId, placeData, callback) => (dispatch) => {
 };
 
 //like a place
-export const likePlace = (placeId) => (dispatch) => {
+export const likeItem = (itemId) => (dispatch) => {
   axios
-    .get(`/place/${placeId}/like`)
+    .get(`/item/${itemId}/like`)
     .then((res) => {
       dispatch({
-        type: LIKE_PLACE,
+        type: LIKE_ITEM,
         payload: res.data,
       });
     })
@@ -168,22 +168,22 @@ export const likePlace = (placeId) => (dispatch) => {
 };
 
 //unlike place
-export const unLikePlace = (placeId) => (dispatch) => {
+export const unLikeItem = (itemId) => (dispatch) => {
   axios
-    .get(`/place/${placeId}/unlike`)
+    .get(`/item/${itemId}/unlike`)
     .then((res) => {
       dispatch({
-        type: UNLIKE_PLACE,
+        type: UNLIKE_ITEM,
         payload: res.data,
       });
     })
     .catch((err) => console.log(err));
 };
 
-//mark available place
-export const markAvailable = (placeId) => (dispatch) => {
+//mark available item
+export const markAvailable = (itemId) => (dispatch) => {
   axios
-    .get(`/place/${placeId}/available`)
+    .get(`/item/${itemId}/available`)
     .then((res) => {
       dispatch({
         type: MARK_AVAILABLE,
@@ -193,10 +193,10 @@ export const markAvailable = (placeId) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-//mark unavailable place
-export const markUnavailable = (placeId) => (dispatch) => {
+//mark unavailable item
+export const markUnavailable = (itemId) => (dispatch) => {
   axios
-    .get(`/place/${placeId}/unavailable`)
+    .get(`/item/${itemId}/unavailable`)
     .then((res) => {
       dispatch({
         type: MARK_UNAVAILABLE,
@@ -206,26 +206,26 @@ export const markUnavailable = (placeId) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-//save place
-export const savePlace = (placeId) => (dispatch) => {
+//save item
+export const saveItem = (itemId) => (dispatch) => {
   axios
-    .get(`/place/${placeId}/save`)
+    .get(`/item/${itemId}/save`)
     .then((res) => {
       dispatch({
-        type: SAVE_PLACE,
+        type: SAVE_ITEM,
         payload: res.data,
       });
     })
     .catch((err) => console.log(err));
 };
 
-//unlike place
-export const unSavePlace = (placeId) => (dispatch) => {
+//unlike item
+export const unSaveItem = (itemId) => (dispatch) => {
   axios
-    .get(`/place/${placeId}/unsave`)
+    .get(`/item/${itemId}/unsave`)
     .then((res) => {
       dispatch({
-        type: UNSAVE_PLACE,
+        type: UNSAVE_ITEM,
         payload: res.data,
       });
     })
@@ -233,9 +233,9 @@ export const unSavePlace = (placeId) => (dispatch) => {
 };
 
 //submitcomment
-export const submitComment = (placeId, commentData) => (dispatch) => {
+export const submitComment = (itemId, commentData) => (dispatch) => {
   axios
-    .post(`/place/${placeId}/comment`, commentData)
+    .post(`/item/${itemId}/comment`, commentData)
     .then((res) => {
       dispatch({
         type: SUBMIT_COMMENT,
@@ -251,9 +251,9 @@ export const submitComment = (placeId, commentData) => (dispatch) => {
     });
 };
 
-export const reportPost = (placeId, reportData) => (dispatch) => {
+export const reportPost = (itemId, reportData) => (dispatch) => {
   axios
-    .post(`/place/${placeId}/report`, reportData)
+    .post(`/item/${itemId}/report`, reportData)
     .then((res) => {
       dispatch({
         type: SUBMIT_REPORT,
@@ -268,11 +268,11 @@ export const reportPost = (placeId, reportData) => (dispatch) => {
     });
 };
 
-export const deletePlace = (placeId) => async (dispatch) => {
-  await axios.delete(`/place/${placeId}`);
+export const deleteItem = (itemId) => async (dispatch) => {
+  await axios.delete(`/item/${itemId}`);
   dispatch({
-    type: DELETE_PLACE,
-    payload: placeId,
+    type: DELETE_ITEM,
+    payload: itemId,
   });
   history.push('/');
   window.location.reload();
@@ -284,13 +284,13 @@ export const fetchUserData = (userHandle) => (dispatch) => {
     .get(`/user/${userHandle}`)
     .then((res) => {
       dispatch({
-        type: SET_PLACES,
+        type: SET_ITEMS,
         payload: res.data.places,
       });
     })
     .catch(() => {
       dispatch({
-        type: SET_PLACES,
+        type: SET_ITEMS,
         payload: null,
       });
     });

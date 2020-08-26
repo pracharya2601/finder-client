@@ -6,8 +6,8 @@ import jwtDecode from 'jwt-decode';
 import Navbar from './components/Navbar';
 import AuthRoute from './util/AuthRoute';
 import Home from './views/Home/Home';
-// import SinglePlace from './components/places/SinglePlace';
-import SinglePlace from './views/Items/SinglePlace';
+// import SingleItem from './components/items/SingleItem';
+import SingleItem from './views/Items/SingleItem';
 import Profile from './components/profile/Profile';
 
 import Saved from './views/User/Saved';
@@ -24,8 +24,8 @@ import All from './views/Items/All';
 //term
 import Term from './term';
 
-import PostNewPlace from './views/Post/PostNewPlace';
-import EditPlace from './views/Post/EditPlace';
+import PostNewItem from './views/Post/PostNewItem';
+import EditItem from './views/Post/EditItem';
 
 import ScrollMemory from 'react-router-scroll-memory';
 import axios from 'axios';
@@ -35,7 +35,6 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { SET_AUTHENTICATED } from './redux/types';
 import { logoutUser, getUserData } from './redux/actions/userAction';
-
 axios.defaults.baseURL = process.env.REACT_APP_PLACE_API_KEY;
 
 const token = localStorage.FBIdToken;
@@ -58,15 +57,11 @@ class App extends React.Component {
         <HashRouter>
           <Navbar />
           <ScrollMemory />
-          <div className="container">
+          <React.Fragment>
             <Switch>
               <Route path="/" exact component={Home} />
-              <Route
-                path="/place/newpost/place"
-                exact
-                component={PostNewPlace}
-              />
-              <Route path="/place/edit/:placeId" exact component={EditPlace} />
+              <Route path="/item/newpost/item" exact component={PostNewItem} />
+              <Route path="/item/edit/:itemId" exact component={EditItem} />
               <Route path="/user/profile" exact component={Profile} />
               <Route path="/user/saved" exact component={Saved} />
               <Route path="/user/profile/:handle" exact component={User} />
@@ -74,7 +69,7 @@ class App extends React.Component {
               <Route path="/rental" exact component={Rental} />
               <Route path="/sale" exact component={Sale} />
               <Route path="/other" exact component={Other} />
-              <Route path="/place/:placeId" exact component={SinglePlace} />
+              <Route path="/item/:itemId" exact component={SingleItem} />
               <AuthRoute path="/login" exact component={Login} />
               <AuthRoute path="/signup" exact component={Signup} />
               <AuthRoute path="/termandcondition" exact component={Term} />
@@ -84,7 +79,7 @@ class App extends React.Component {
                 component={ResetPassword}
               />
             </Switch>
-          </div>
+          </React.Fragment>
         </HashRouter>
       </Provider>
     );

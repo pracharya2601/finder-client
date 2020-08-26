@@ -63,20 +63,6 @@ const SkeletonLoading = (props) => {
           width={30}
           height={30}
         />
-        <Skeleton
-          className={classes.actionButton}
-          animation="wave"
-          variant="circle"
-          width={30}
-          height={30}
-        />
-        <Skeleton
-          className={classes.actionButton}
-          animation="wave"
-          variant="circle"
-          width={30}
-          height={30}
-        />
       </CardContent>
     </Card>
   );

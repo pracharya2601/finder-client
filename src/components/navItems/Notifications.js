@@ -86,7 +86,7 @@ class Notifications extends React.Component {
                 variant="body1"
                 to={`/user/profile/${userHandle}`}
               >
-                {not.sender} {verb} your place {time}
+                {not.sender} {verb} your post {time}
               </Typography>
             </MenuItem>
           );

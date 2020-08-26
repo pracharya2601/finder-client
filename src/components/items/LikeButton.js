@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 //redux
 import { connect } from 'react-redux';
-import { likePlace, unLikePlace } from '../../redux/actions/dataAction';
+import { likeItem, unLikeItem } from '../../redux/actions/dataAction';
 
 //mui
 import Tooltip from '@material-ui/core/Tooltip';
@@ -14,39 +14,39 @@ import StarsIcon from '@material-ui/icons/Stars';
 import StarIcon from '@material-ui/icons/Star';
 
 class LikeButton extends Component {
-  likedPlace = () => {
+  likedItem = () => {
     if (
       this.props.user.likes &&
-      this.props.user.likes.find((like) => like.placeId === this.props.placeId)
+      this.props.user.likes.find((like) => like.itemId === this.props.itemId)
     )
       return true;
     else return false;
   };
-  likePlace = () => {
-    this.props.likePlace(this.props.placeId);
+  likeItem = () => {
+    this.props.likeItem(this.props.itemId);
   };
-  unLikePlace = () => {
-    this.props.unLikePlace(this.props.placeId);
+  unLikeItem = () => {
+    this.props.unLikeItem(this.props.itemId);
   };
 
   render() {
     const { authenticated } = this.props.user;
 
     const likeBtn = !authenticated ? (
-      <Tooltip title="Star" placement="top">
+      <Tooltip title="Star" itemment="top">
         <IconButton fontSize="medium" component={Link} to="/login">
           <StarsIcon fontSize="inherit" color="primary" />
         </IconButton>
       </Tooltip>
-    ) : this.likedPlace() ? (
-      <Tooltip title="undo star" placement="top">
-        <IconButton fontSize="medium" onClick={this.unLikePlace}>
+    ) : this.likedItem() ? (
+      <Tooltip title="undo star" itemment="top">
+        <IconButton fontSize="medium" onClick={this.unLikeItem}>
           <StarIcon fontSize="inherit" color="primary" />
         </IconButton>
       </Tooltip>
     ) : (
-      <Tooltip title="Star" placement="top">
-        <IconButton fontSize="medium" onClick={this.likePlace}>
+      <Tooltip title="Star" itemment="top">
+        <IconButton fontSize="medium" onClick={this.likeItem}>
           <StarsIcon fontSize="inherit" color="primary" />
         </IconButton>
       </Tooltip>
@@ -57,13 +57,13 @@ class LikeButton extends Component {
 }
 
 LikeButton.propTypes = {
-  likePlace: PropTypes.func.isRequired,
-  unLikePlace: PropTypes.func.isRequired,
+  likeItem: PropTypes.func.isRequired,
+  unLikeItem: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
-  placeId: PropTypes.string,
+  itemId: PropTypes.string,
 };
 const mapStateToProps = (state) => ({
   user: state.user,
 });
 
-export default connect(mapStateToProps, { likePlace, unLikePlace })(LikeButton);
+export default connect(mapStateToProps, { likeItem, unLikeItem })(LikeButton);

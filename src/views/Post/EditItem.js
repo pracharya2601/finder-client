@@ -1,41 +1,41 @@
 import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { getPlace, updatePlace } from '../../redux/actions/dataAction';
+import { getItem, updateItem } from '../../redux/actions/dataAction';
 
-import PlaceForm from '../../components/placeForm/PlaceForm';
+import ItemForm from '../../components/itemForm/ItemForm';
 
 //title
 import withTitle from '../../util/withTitle';
 
-class EditPlace extends React.Component {
+class EditItem extends React.Component {
   componentWillMount() {
-    this.props.getPlace(this.props.match.params.placeId);
+    this.props.getItem(this.props.match.params.itemId);
   }
   onSubmit = (values) => {
-    this.props.updatePlace(this.props.match.params.placeId, values, () => {
-      this.props.history.push(`/place/${this.props.match.params.placeId}`);
+    this.props.updateItem(this.props.match.params.itemId, values, () => {
+      this.props.history.push(`/item/${this.props.match.params.itemId}`);
     });
   };
   render() {
-    if (!this.props.place) {
+    if (!this.props.item) {
       return <div>Loading</div>;
     }
     return (
-      <PlaceForm
+      <ItemForm
         initialValues={_.pick(
-          this.props.place,
-          'body',
+          this.props.item,
+          'name',
           'description',
           'catagory',
           'priceRange',
           'address',
           'contactNo',
-          'nearbyPlace',
+          'nearbyItem',
           'selectApply'
         )}
         onSubmit={this.onSubmit}
-        id={this.props.place.placeId}
+        id={this.props.item.itemId}
         header="Edit Item Info"
         loading={this.props.loading}
         addImg
@@ -46,11 +46,11 @@ class EditPlace extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
   loading: state.UI.loading,
-  place: state.data.place,
+  item: state.data.item,
 });
 
 const title = 'edit';
 
-export default connect(mapStateToProps, { getPlace, updatePlace })(
-  withTitle(EditPlace, title)
+export default connect(mapStateToProps, { getItem, updateItem })(
+  withTitle(EditItem, title)
 );

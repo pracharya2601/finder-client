@@ -116,7 +116,7 @@ class ResponsiveDrawer extends React.Component {
     const savedMarkup = (
       <>
         <List>
-          <ListItem button component={Link} to={`/place/newpost/place`}>
+          <ListItem button component={Link} to={`/item/newpost/item`}>
             <ListItemIcon>
               <AddIcon />
             </ListItemIcon>

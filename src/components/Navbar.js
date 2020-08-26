@@ -36,6 +36,7 @@ class Navbar extends React.Component {
     return (
       <Slide direction="down" in={true} mountOnEnter unmountOnExit>
         <AppBar>
+          {loading && <LinearProgress color="primary" />}
           <ToolBar className={classes.navItem}>
             <div className={classes.navItem}>
               <ResponsiveDrawer />
@@ -47,11 +48,11 @@ class Navbar extends React.Component {
             </div>
             {authenticated ? (
               <div className={classes.navItem}>
-                <Tooltip title="Post a place">
+                <Tooltip title="Post a item">
                   <Button
                     color="inherit"
                     component={Link}
-                    to="/place/newpost/place"
+                    to="/item/newpost/item"
                   >
                     <AddIcon />
                   </Button>

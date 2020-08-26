@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 const TitleComponent = (props) => {
   const {
     title,
-    place,
+    item,
     user: {
       credentials: { fullName },
     },
@@ -17,7 +17,7 @@ const TitleComponent = (props) => {
   var defaultTitle = 'EasyPezy';
 
   const titleFunction = (title) => {
-    if (title === 'singleplace' || title === 'edit') return place;
+    if (title === 'singleitem' || title === 'edit') return item;
     if (title === 'user') return fullName;
     if (title === 'saved') return `Saved Items ${fullName}`;
     return title;
@@ -31,7 +31,7 @@ const TitleComponent = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  place: state.data.place.body,
+  item: state.data.item.body,
   user: state.user,
 });
 

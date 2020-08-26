@@ -5,23 +5,23 @@ import uniqid from 'uniqid';
 import withTitle from '../../util/withTitle';
 
 import { connect } from 'react-redux';
-import { postPlace } from '../../redux/actions/dataAction';
+import { postItem } from '../../redux/actions/dataAction';
 
-//import placeform
-import PlaceForm from '../../components/placeForm/PlaceForm';
+//import itemform
+import ItemForm from '../../components/itemForm/ItemForm';
 
-class PostNewPlace extends React.Component {
+class PostNewItem extends React.Component {
   onSubmit = (values) => {
-    this.props.postPlace(values, () => {
+    this.props.postItem(values, () => {
       this.props.history.push('/all');
     });
   };
 
   render() {
-    let id = uniqid('place-') + uniqid();
+    let id = uniqid('item-') + uniqid();
     return (
       <>
-        <PlaceForm
+        <ItemForm
           onSubmit={this.onSubmit}
           header="Post New Stuff"
           id={id}
@@ -39,6 +39,6 @@ const mapStateToProps = (state) => ({
 
 const title = 'Post New Item EasyPezy';
 
-export default connect(mapStateToProps, { postPlace })(
-  withTitle(PostNewPlace, title)
+export default connect(mapStateToProps, { postItem })(
+  withTitle(PostNewItem, title)
 );

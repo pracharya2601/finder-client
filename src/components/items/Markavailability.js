@@ -13,13 +13,13 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 class Markavailability extends React.Component {
-  markPlaceAvailable = () => {
-    const { placeId } = this.props;
-    this.props.markAvailable(placeId);
+  markItemAvailable = () => {
+    const { itemId } = this.props;
+    this.props.markAvailable(itemId);
   };
-  markPlaceUnAvailable = () => {
-    const { placeId } = this.props;
-    this.props.markUnavailable(placeId);
+  markItemUnAvailable = () => {
+    const { itemId } = this.props;
+    this.props.markUnavailable(itemId);
   };
 
   render() {
@@ -30,14 +30,14 @@ class Markavailability extends React.Component {
       available,
     } = this.props;
     const markAvailabilityMarkup = available ? (
-      <MenuItem onClick={this.markPlaceUnAvailable}>
+      <MenuItem onClick={this.markItemUnAvailable}>
         <IconButton fontSize="medium">
           <CancelIcon fontSize="inherit" color="primary" />
         </IconButton>
         Mark Unavailable
       </MenuItem>
     ) : (
-      <MenuItem onClick={this.markPlaceAvailable}>
+      <MenuItem onClick={this.markItemAvailable}>
         <IconButton fontSize="medium">
           <CheckCircleIcon fontSize="inherit" color="primary" />
         </IconButton>
@@ -51,7 +51,7 @@ class Markavailability extends React.Component {
 const mapStateToProps = (state) => ({
   authenticated: state.user.authenticated,
   user: state.user.credentials,
-  places: state.data,
+  items: state.data,
 });
 
 export default connect(mapStateToProps, { markAvailable, markUnavailable })(

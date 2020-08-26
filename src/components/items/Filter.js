@@ -20,14 +20,14 @@ const styles = {
 
 class Filter extends Component {
   render() {
-    const { classes, places, filteredPlaces } = this.props;
+    const { classes, items, filteredPlaces } = this.props;
     return (
       <div>
         <FormControl className={classes.formControl}>
           <NativeSelect
             className={classes.selectEmpty}
             onChange={(e) =>
-              this.props.filterPlaces(_.values(places), e.target.value)
+              this.props.filterPlaces(_.values(items), e.target.value)
             }
           >
             <option value="">Select Catagory </option>
@@ -58,7 +58,7 @@ class Filter extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  places: state.data.places,
+  items: state.data.items,
   catagory: state.data.catagory,
   viewSort: state.data.viewSort,
   filteredPlaces: state.data.filteredPlaces,

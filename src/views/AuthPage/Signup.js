@@ -10,7 +10,7 @@ import Recaptcha from 'react-recaptcha';
 //title
 import withTitle from '../../util/withTitle';
 //image
-import AppIcon from '../../images/icon.png';
+import AppIcon from '../../images/iconn.png';
 
 import { signupUser } from '../../redux/actions/userAction';
 

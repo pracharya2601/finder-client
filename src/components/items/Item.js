@@ -2,12 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+//skeleton
+import Skeleton from '../loading/Skeleton';
+
 //components
 import ImageCard from './ImageCard';
 import LikeButton from './LikeButton';
 import SaveButton from './SaveButton';
 import Report from './Report';
-import DeletePlace from './DeletePlace';
+import DeleteItem from './DeleteItem';
 import Menus from '../Menu/Menus';
 import Markavailability from './Markavailability';
 
@@ -99,14 +102,14 @@ const styles = {
   popItem: {
     padding: '5px',
   },
-  placeHeading: {
+  itemHeading: {
     fontSize: '17px',
     height: '22px',
     overflow: 'hidden',
     color: '#003d87',
     padding: '20px 10px 0 10px',
   },
-  placeDesc: {
+  itemDesc: {
     fontSize: '14px',
     height: '35px',
     overflow: 'hidden',
@@ -118,18 +121,18 @@ const styles = {
   },
 };
 
-class Place extends React.Component {
+class Item extends React.Component {
   render() {
     const {
       classes,
-      place: {
-        body,
+      item: {
+        name,
         catagory,
         description,
-        placeImgUrl,
+        itemImgUrl,
         address,
         userHandle,
-        placeId,
+        itemId,
         createdAt,
         userImage,
         likeCount,
@@ -142,7 +145,6 @@ class Place extends React.Component {
         credentials: { handle },
       },
     } = this.props;
-
     const catagoryItem =
       catagory === 'sale'
         ? 'For Sale'
@@ -154,14 +156,21 @@ class Place extends React.Component {
 
     //delete markup
     const sameUser = userHandle === handle ? true : false;
+    if (!itemId) {
+      return (
+        <div style={{ position: 'relative', width: '100%' }}>
+          <Skeleton />
+        </div>
+      );
+    }
     return (
       <div
         className={`${available ? classes.available : classes.notAvailable}`}
       >
-        {placeImgUrl && (
+        {itemImgUrl && (
           <ImageCard
-            placeImgUrl={placeImgUrl}
-            placeId={placeId}
+            itemImgUrl={itemImgUrl}
+            itemId={itemId}
             imgHeight="250px"
           />
         )}
@@ -179,12 +188,12 @@ class Place extends React.Component {
           </a>
           <div className={classes.menuBtn}>
             <Menus>
-              <SaveButton placeId={placeId} />
-              <Report placeId={placeId} />
-              {sameUser && <DeletePlace placeId={placeId} del />}
-              {sameUser && <Markavailability placeId={placeId} />}
+              <SaveButton itemId={itemId} />
+              <Report itemId={itemId} />
+              {sameUser && <DeleteItem itemId={itemId} del />}
+              {sameUser && <Markavailability itemId={itemId} />}
               {sameUser && (
-                <MenuItem component={Link} to={`/place/edit/${placeId}`}>
+                <MenuItem component={Link} to={`/item/edit/${itemId}`}>
                   <IconButton>
                     <EditIcon color="secondary" />
                   </IconButton>
@@ -197,15 +206,15 @@ class Place extends React.Component {
             <div className={classes.price}>Rs: {priceRange}</div>
             <div className={classes.catagory}>{catagoryItem}</div>
           </div>
-          <Link to={`/place/${placeId}`}>
-            <div className={classes.placeHeading}>{body}</div>
-            <div className={classes.placeDesc}>{description}</div>
+          <Link to={`/item/${itemId}`}>
+            <div className={classes.itemHeading}>{name}</div>
+            <div className={classes.itemDesc}>{description}</div>
           </Link>
           <div className={classes.action}>
-            <LikeButton placeId={placeId} />
+            <LikeButton itemId={itemId} />
             {likeCount}
-            <Link to={`/place/${placeId}`}>
-              <Tooltip title="comment" placement="top">
+            <Link to={`/item/${itemId}`}>
+              <Tooltip title="comment" itemment="top">
                 <IconButton size="medium" aria-label="share">
                   <ChatIcon fontSize="small" />
                 </IconButton>
@@ -219,9 +228,9 @@ class Place extends React.Component {
   }
 }
 
-Place.propTypes = {
+Item.propTypes = {
   user: PropTypes.object.isRequired,
-  place: PropTypes.object.isRequired,
+  item: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
@@ -229,4 +238,4 @@ const mapStateToProps = (state) => ({
   user: state.user,
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(Place));
+export default connect(mapStateToProps)(withStyles(styles)(Item));

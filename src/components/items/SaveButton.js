@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { savePlace, unSavePlace } from '../../redux/actions/dataAction';
+import { saveItem, unSaveItem } from '../../redux/actions/dataAction';
 
 //mui
 import Tooltip from '@material-ui/core/Tooltip';
@@ -15,20 +15,20 @@ import MenuItem from '@material-ui/core/MenuItem';
 import SaveIcon from '@material-ui/icons/Save';
 
 class SaveButton extends React.Component {
-  savedPlace = () => {
+  savedItem = () => {
     if (
       this.props.user.saved &&
-      this.props.user.saved.find((save) => save.placeId === this.props.placeId)
+      this.props.user.saved.find((save) => save.itemId === this.props.itemId)
     )
       return true;
     else return false;
   };
-  savePlace = () => {
-    this.props.savePlace(this.props.placeId);
+  saveItem = () => {
+    this.props.saveItem(this.props.itemId);
   };
 
-  unSavePlace = () => {
-    this.props.unSavePlace(this.props.placeId);
+  unSaveItem = () => {
+    this.props.unSaveItem(this.props.itemId);
   };
 
   render() {
@@ -39,21 +39,21 @@ class SaveButton extends React.Component {
         <IconButton>
           <SaveAltIcon color="primary" />
         </IconButton>
-        Save Place
+        Save Item
       </MenuItem>
-    ) : this.savedPlace() ? (
-      <MenuItem onClick={this.unSavePlace}>
+    ) : this.savedItem() ? (
+      <MenuItem onClick={this.unSaveItem}>
         <IconButton>
           <SaveIcon color="primary" />
         </IconButton>
-        Unsave Place
+        Unsave Item
       </MenuItem>
     ) : (
-      <MenuItem onClick={this.savePlace}>
+      <MenuItem onClick={this.saveItem}>
         <IconButton>
           <SaveAltIcon color="primary" />
         </IconButton>
-        Save Place
+        Save Item
       </MenuItem>
     );
 
@@ -62,14 +62,14 @@ class SaveButton extends React.Component {
 }
 
 SaveButton.propTypes = {
-  savePlace: PropTypes.func.isRequired,
-  unSavePlace: PropTypes.func.isRequired,
+  saveItem: PropTypes.func.isRequired,
+  unSaveItem: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
-  placeId: PropTypes.string,
+  itemId: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
   user: state.user,
 });
 
-export default connect(mapStateToProps, { savePlace, unSavePlace })(SaveButton);
+export default connect(mapStateToProps, { saveItem, unSaveItem })(SaveButton);

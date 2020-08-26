@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getOtherPlace } from '../../redux/actions/dataAction';
+import { getOtherItems } from '../../redux/actions/dataAction';
 
 //title
 import withTitle from '../../util/withTitle';
+
+import Footer from '../../components/footer/Footer';
 
 //page
 import Page from '../../components/page/Page';
@@ -11,31 +13,43 @@ import LoadingPage from '../../components/loading/LoadingPage';
 
 class Other extends React.Component {
   componentDidMount() {
-    this.props.getOtherPlace();
+    this.props.getOtherItems();
   }
   render() {
-    const { loading, otherPlaces } = this.props;
+    const { loading, otherItems } = this.props;
     const renderMarkup = loading ? (
       <LoadingPage />
     ) : (
       <Page
         loading={loading}
-        items={otherPlaces}
+        items={otherItems}
         pageName="Other Catagory Items"
       />
     );
 
-    return <div>{renderMarkup}</div>;
+    return (
+      <>
+        <div
+          style={{
+            margin: '80px auto 50px auto',
+            maxWidth: '1200px',
+          }}
+        >
+          {renderMarkup}
+        </div>
+        <Footer />
+      </>
+    );
   }
 }
 
 const mapStateToProps = (state) => ({
   loading: state.data.loading,
-  otherPlaces: state.data.otherPlaces,
+  otherItems: state.data.otherItems,
 });
 
 const title = 'Other Catagories Items EazyPezy';
 
-export default connect(mapStateToProps, { getOtherPlace })(
+export default connect(mapStateToProps, { getOtherItems })(
   withTitle(Other, title)
 );

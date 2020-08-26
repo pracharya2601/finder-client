@@ -1,20 +1,20 @@
 import _, { omit } from 'lodash';
 import {
-  SET_PLACES,
-  SET_RENTAL_PLACES,
-  SET_SALE_PLACES,
-  SET_OTHER_PLACES,
-  SET_PLACE,
-  LIKE_PLACE,
-  UNLIKE_PLACE,
+  SET_ITEMS,
+  SET_RENTAL_ITEMS,
+  SET_SALE_ITEMS,
+  SET_OTHER_ITEMS,
+  SET_ITEM,
+  LIKE_ITEM,
+  UNLIKE_ITEM,
   MARK_AVAILABLE,
   MARK_UNAVAILABLE,
-  SAVE_PLACE,
-  UNSAVE_PLACE,
+  SAVE_ITEM,
+  UNSAVE_ITEM,
   LOADING_DATA,
-  DELETE_PLACE,
-  POST_PLACE,
-  UPDATE_PLACE,
+  DELETE_ITEM,
+  POST_ITEM,
+  UPDATE_ITEM,
   SUBMIT_COMMENT,
   SUBMIT_REPORT,
   // FILTER_BY_CATAGORY,
@@ -22,12 +22,12 @@ import {
 } from '../types';
 
 const INITIAL_STATE = {
-  places: {},
-  rentalPlaces: {},
-  salePlaces: {},
-  otherPlaces: {},
+  items: {},
+  rentalItems: {},
+  saleItems: {},
+  otherItems: {},
   viewSort: '',
-  place: {},
+  item: {},
   loading: false,
 };
 
@@ -35,70 +35,70 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case LOADING_DATA:
       return { ...state, loading: true };
-    case SET_PLACES:
+    case SET_ITEMS:
       return {
         ...state,
-        places: _.mapKeys(action.payload, 'placeId'),
-        // filteredPlaces: _.mapKeys(action.payload, 'placeId'),
+        items: _.mapKeys(action.payload, 'itemId'),
+        // filteredItems: _.mapKeys(action.payload, 'itemId'),
         loading: false,
       };
-    case SET_RENTAL_PLACES:
+    case SET_RENTAL_ITEMS:
       return {
         ...state,
-        rentalPlaces: _.mapKeys(action.payload, 'placeId'),
+        rentalItems: _.mapKeys(action.payload, 'itemId'),
         loading: false,
       };
-    case SET_SALE_PLACES:
+    case SET_SALE_ITEMS:
       return {
         ...state,
-        salePlaces: _.mapKeys(action.payload, 'placeId'),
+        saleItems: _.mapKeys(action.payload, 'itemId'),
         loading: false,
       };
-    case SET_OTHER_PLACES:
+    case SET_OTHER_ITEMS:
       return {
         ...state,
-        otherPlaces: _.mapKeys(action.payload, 'placeId'),
+        otherItems: _.mapKeys(action.payload, 'itemId'),
         loading: false,
       };
     case FILTER_BY_VIEWCOUNT:
       return {
         ...state,
-        filteredPlaces: _.mapKeys(action.payload.places, 'placeId'),
+        filteredItems: _.mapKeys(action.payload.items, 'itemId'),
         viewSort: action.payload.viewSort,
         loading: false,
       };
-    case SET_PLACE:
-      return { ...state, place: action.payload };
-    case LIKE_PLACE:
-    case UNLIKE_PLACE:
-      return { ...state, [action.payload.placeId]: action.payload };
+    case SET_ITEM:
+      return { ...state, item: action.payload };
+    case LIKE_ITEM:
+    case UNLIKE_ITEM:
+      return { ...state, [action.payload.itemId]: action.payload };
     case MARK_AVAILABLE:
     case MARK_UNAVAILABLE:
-      return { ...state, [action.payload.placeId]: action.payload };
-    case SAVE_PLACE:
-    case UNSAVE_PLACE:
-      return { ...state, [action.payload.placeId]: action.payload };
-    case DELETE_PLACE:
+      return { ...state, [action.payload.itemId]: action.payload };
+    case SAVE_ITEM:
+    case UNSAVE_ITEM:
+      return { ...state, [action.payload.itemId]: action.payload };
+    case DELETE_ITEM:
       return {
         ...state,
-        places: omit(state.places, action.payload),
+        items: omit(state.items, action.payload),
       };
-    case POST_PLACE:
+    case POST_ITEM:
       return {
         ...state,
-        [action.payload.placeId]: action.payload,
+        [action.payload.itemId]: action.payload,
       };
-    case UPDATE_PLACE:
+    case UPDATE_ITEM:
       return {
         ...state,
-        [action.payload.placeId]: action.payload,
+        [action.payload.itemId]: action.payload,
       };
     case SUBMIT_COMMENT:
       return {
         ...state,
-        place: {
-          ...state.place,
-          comments: [action.payload, ...state.place.comments],
+        item: {
+          ...state.item,
+          comments: [action.payload, ...state.item.comments],
         },
       };
     case SUBMIT_REPORT:
