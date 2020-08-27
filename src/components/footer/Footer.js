@@ -48,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     lineHeight: '30px',
   },
+  footGridRight: {
+    display: 'relative',
+  },
 }));
 
 const description = 'Follow us here';
@@ -63,15 +66,8 @@ const Footer = (props) => {
             <Avatar alt="logo" src={Icon} className={classes.avtr} />
             <div style={{ margin: '0 0 0 10px', color: 'white' }}>{title}</div>
           </Grid>
-          <Grid item xs={12} sm={6} className={classes.footGrid}>
-            <Typography
-              variant="subtitle1"
-              align="center"
-              color="textSecondary"
-              component="p"
-            >
-              {description}
-            </Typography>
+          <Grid item xs={12} sm={6} className={classes.footGridRight}>
+            <Typography style={{ float: 'right' }}>{description}</Typography>
           </Grid>
           <Grid item xs={12}>
             <Copyright />

@@ -5,8 +5,10 @@ import { getItems } from '../../redux/actions/dataAction';
 import withTitle from '../../util/withTitle';
 
 //page
+import Container from '../../components/container/Container';
+import Header from '../../components/container/Header';
 import Page from '../../components/page/Page';
-import LoadingPage from '../../components/loading/LoadingPage';
+import Skeleton from '../../components/loading/Skeleton';
 import Footer from '../../components/footer/Footer';
 
 class All extends React.Component {
@@ -15,24 +17,19 @@ class All extends React.Component {
   }
   render() {
     const { loading, items } = this.props;
-    const renderMarkup = loading ? (
-      <LoadingPage />
-    ) : (
+    const renderMarkup = (
       <Page loading={loading} items={items} pageName="All Items" />
     );
 
     return (
-      <>
-        <div
-          style={{
-            margin: '80px auto 50px auto',
-            maxWidth: '1200px',
-          }}
-        >
-          {renderMarkup}
+      <React.Fragment>
+        <div style={{ margin: '80px auto -50px auto', maxWidth: '1200px' }}>
+          <Header heading="All Post" />
         </div>
+
+        <Container direction="left">{renderMarkup}</Container>
         <Footer />
-      </>
+      </React.Fragment>
     );
   }
 }

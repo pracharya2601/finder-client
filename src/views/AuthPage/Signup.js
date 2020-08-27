@@ -9,6 +9,7 @@ import Term from '../../term';
 import Recaptcha from 'react-recaptcha';
 //title
 import withTitle from '../../util/withTitle';
+import Container from '../../components/container/Container';
 //image
 import AppIcon from '../../images/iconn.png';
 
@@ -16,7 +17,6 @@ import { signupUser } from '../../redux/actions/userAction';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 //material ui
-import Slide from '@material-ui/core/Slide';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
@@ -129,7 +129,7 @@ class Signup extends React.Component {
     const errotTextContactNo = errors ? errors.contactNo : null;
     const errorTextAge = errors ? errors.age : null;
     return (
-      <Slide direction="down" in={true} mountOnEnter unmountOnExit>
+      <Container direction="down">
         <Card className={classes.card}>
           <CardActions>
             <img src={AppIcon} alt="logo" className={classes.image} />
@@ -236,7 +236,7 @@ class Signup extends React.Component {
           </form>
           {loading && <LinearProgress />}
         </Card>
-      </Slide>
+      </Container>
     );
   }
 }

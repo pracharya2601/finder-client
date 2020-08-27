@@ -5,7 +5,8 @@ import LoadingPage from '../../components/loading/LoadingPage';
 
 //title
 import withTitle from '../../util/withTitle';
-
+import Container from '../../components/container/Container';
+import Header from '../../components/container/Header';
 import Footer from '../../components/footer/Footer';
 
 //page
@@ -17,24 +18,18 @@ class Rental extends React.Component {
   }
   render() {
     const { loading, rentalItems } = this.props;
-    const renderMarkup = loading ? (
-      <LoadingPage />
-    ) : (
+    const renderMarkup = (
       <Page loading={loading} items={rentalItems} pageName="Rental Items" />
     );
 
     return (
-      <>
-        <div
-          style={{
-            margin: '80px auto 50px auto',
-            maxWidth: '1200px',
-          }}
-        >
-          {renderMarkup}
+      <React.Fragment>
+        <div style={{ margin: '80px auto -50px auto', maxWidth: '1200px' }}>
+          <Header heading="For Rent" />
         </div>
+        <Container direction="left">{renderMarkup}</Container>
         <Footer />
-      </>
+      </React.Fragment>
     );
   }
 }

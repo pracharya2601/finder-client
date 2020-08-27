@@ -4,6 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 //image
 import AppIcon from '../../images/iconn.png';
+import Container from '../../components/container/Container';
 
 import { resetPassword } from '../../redux/actions/userAction';
 
@@ -12,7 +13,6 @@ import withTitle from '../../util/withTitle';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 //material ui
-import Slide from '@material-ui/core/Slide';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
@@ -102,7 +102,7 @@ class ReserPassword extends React.Component {
     console.log(message);
 
     return (
-      <Slide direction="down" in={true} mountOnEnter unmountOnExit>
+      <Container direction="down">
         <Card className={classes.card}>
           <CardActions>
             <img src={AppIcon} alt="logo" className={classes.image} />
@@ -166,7 +166,7 @@ class ReserPassword extends React.Component {
             </CardActions>
           </form>
         </Card>
-      </Slide>
+      </Container>
     );
   }
 }

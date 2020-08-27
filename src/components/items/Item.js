@@ -26,6 +26,9 @@ import ChatIcon from '@material-ui/icons/Chat';
 //redux
 import { connect } from 'react-redux';
 
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
 const styles = {
   available: {
     position: 'relative',
@@ -99,6 +102,15 @@ const styles = {
     marginLeft: '5px',
     fontSize: '14px',
   },
+  date: {
+    color: 'green',
+    padding: '5px',
+    borderRadius: '5px',
+    marginTop: '20px',
+    position: 'relative',
+    fontSize: '10px',
+    float: 'right',
+  },
   popItem: {
     padding: '5px',
   },
@@ -123,6 +135,7 @@ const styles = {
 
 class Item extends React.Component {
   render() {
+    dayjs.extend(relativeTime);
     const {
       classes,
       item: {
@@ -206,6 +219,7 @@ class Item extends React.Component {
             <div className={classes.price}>Rs: {priceRange}</div>
             <div className={classes.catagory}>{catagoryItem}</div>
           </div>
+          <div className={classes.date}>{dayjs(createdAt).fromNow()}</div>
           <Link to={`/item/${itemId}`}>
             <div className={classes.itemHeading}>{name}</div>
             <div className={classes.itemDesc}>{description}</div>

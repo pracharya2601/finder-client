@@ -9,6 +9,7 @@ import { postItem } from '../../redux/actions/dataAction';
 
 //import itemform
 import ItemForm from '../../components/itemForm/ItemForm';
+import Container from '../../components/container/Container';
 
 class PostNewItem extends React.Component {
   onSubmit = (values) => {
@@ -20,7 +21,7 @@ class PostNewItem extends React.Component {
   render() {
     let id = uniqid('item-') + uniqid();
     return (
-      <>
+      <Container direction="left">
         <ItemForm
           onSubmit={this.onSubmit}
           header="Post New Stuff"
@@ -28,7 +29,7 @@ class PostNewItem extends React.Component {
           loading={this.props.loading}
           resetBtn
         />
-      </>
+      </Container>
     );
   }
 }

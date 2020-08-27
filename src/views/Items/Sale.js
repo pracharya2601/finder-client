@@ -5,11 +5,13 @@ import { getSaleItems } from '../../redux/actions/dataAction';
 //title
 import withTitle from '../../util/withTitle';
 
+import Container from '../../components/container/Container';
+import Header from '../../components/container/Header';
 import Footer from '../../components/footer/Footer';
 
 //page
+
 import Page from '../../components/page/Page';
-import LoadingPage from '../../components/loading/LoadingPage';
 
 class Sale extends React.Component {
   componentDidMount() {
@@ -17,24 +19,18 @@ class Sale extends React.Component {
   }
   render() {
     const { loading, saleItems } = this.props;
-    const renderMarkup = loading ? (
-      <LoadingPage />
-    ) : (
+    const renderMarkup = (
       <Page loading={loading} items={saleItems} pageName="Sale Items" />
     );
 
     return (
-      <>
-        <div
-          style={{
-            margin: '80px auto 50px auto',
-            maxWidth: '1200px',
-          }}
-        >
-          {renderMarkup}
+      <React.Fragment>
+        <div style={{ margin: '80px auto -50px auto', maxWidth: '1200px' }}>
+          <Header heading="For Sale" />
         </div>
+        <Container direction="left">{renderMarkup}</Container>
         <Footer />
-      </>
+      </React.Fragment>
     );
   }
 }

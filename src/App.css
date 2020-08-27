@@ -1,12 +1,18 @@
-html,
+html {
+  height: 100%;
+  /* display: block; */
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   background-color: rgba(245, 245, 245);
   scroll-behavior: smooth;
+  box-sizing: border-box;
   height: '100%';
-  width: '100%';
+  /* width: '100%'; */
+  max-width: '2000px';
 }
 
 a {

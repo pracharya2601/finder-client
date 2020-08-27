@@ -59,7 +59,7 @@ class Page extends React.Component {
   };
 
   render() {
-    const { items, loading, classes, pageName } = this.props;
+    const { items, loading, classes } = this.props;
     const { currentItems, currentPage, totalPages } = this.state;
 
     if (Object.keys(items).length === 0) return null;
@@ -71,11 +71,24 @@ class Page extends React.Component {
         </Grid>
       );
     });
+
+    const nums = [1, 2, 3, 4, 5, 6, 7, 8];
+
+    const skeletonItem = nums.map((num) => (
+      <Grid item xs={12} sm={6} md={4} lg={3} key={num}>
+        <Skeleton key={num} />
+      </Grid>
+    ));
+    const itemMarkup = loading
+      ? skeletonItem
+      : Object.keys(items).length < 1
+      ? skeletonItem
+      : item;
+
     return (
       <div>
-        <div className={classes.pagename}>{pageName} :</div>
         <Grid container spacing={2}>
-          {item}
+          {itemMarkup}
         </Grid>
         <div className={classes.paginationCard}>
           {currentPage && (

@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 //import title
 import withTitle from '../../util/withTitle';
+import Container from '../../components/container/Container';
 
 import { connect } from 'react-redux';
 import { getItems, clearErrors } from '../../redux/actions/dataAction';
@@ -31,7 +32,11 @@ class Saved extends React.Component {
     ) : (
       <Page items={filtered} pageName="My Saved Items" />
     );
-    return <>{authenticated && <>{savedMarkup}</>}</>;
+    return (
+      <Container direction="right">
+        {authenticated && <>{savedMarkup}</>}
+      </Container>
+    );
   }
 }
 

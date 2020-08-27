@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 //title
 import withTitle from '../../util/withTitle';
+import Container from '../container/Container';
 
 //redux
 import { connect } from 'react-redux';
@@ -139,7 +140,11 @@ class Profile extends Component {
       <Loading />
     );
 
-    return <div className={classes.profileCard}>{profileMarkup}</div>;
+    return (
+      <Container direction="right">
+        <div className={classes.profileCard}>{profileMarkup}</div>
+      </Container>
+    );
   }
 }
 

@@ -8,6 +8,7 @@ import withTitle from '../../util/withTitle';
 
 import StaticProfile from '../../components/profile/StaticProfile';
 import Page from '../../components/page/Page';
+import Container from '../../components/container/Container';
 
 //mui
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -61,7 +62,7 @@ class User extends React.Component {
     );
 
     return (
-      <>
+      <Container direction="right">
         <div className={classes.profileCard}>
           <StaticProfile
             profile={this.state.profile}
@@ -69,7 +70,7 @@ class User extends React.Component {
           />
         </div>
         <div className={classes.placeCard}>{placeMarkup}</div>
-      </>
+      </Container>
     );
   }
 }

@@ -6,6 +6,8 @@ import _ from 'lodash';
 //title
 import withTitle from '../../util/withTitle';
 
+import Container from '../../components/container/Container';
+
 // import CardHead from '../../components/items/CardHead';
 import LikeButton from '../../components/items/LikeButton';
 import SaveButton from '../../components/items/SaveButton';
@@ -19,7 +21,6 @@ import Loading from '../../components/loading/Loading';
 
 //material ui
 import withStyles from '@material-ui/core/styles/withStyles';
-import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
 import Divider from '@material-ui/core/Divider';
 import TableHead from '@material-ui/core/TableHead';
@@ -179,7 +180,7 @@ class SingleItem extends React.Component {
         <Loading />
       </div>
     ) : (
-      <>
+      <div style={{ maxWidth: '700px', margin: 'auto' }}>
         {itemImgUrl && <ImgCarousel itemImgUrl={itemImgUrl} />}
         {/* <CardHead
           userHandle={userHandle}
@@ -318,10 +319,10 @@ class SingleItem extends React.Component {
           {nearbyPlaceMarkup}
         </Card>
         {commentSection}
-      </>
+      </div>
     );
 
-    return <Container maxWidth="md">{markupContent}</Container>;
+    return <Container direction="left">{markupContent}</Container>;
   }
 }
 

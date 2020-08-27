@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getItem, updateItem } from '../../redux/actions/dataAction';
 
 import ItemForm from '../../components/itemForm/ItemForm';
+import Container from '../../components/container/Container';
 
 //title
 import withTitle from '../../util/withTitle';
@@ -22,24 +23,26 @@ class EditItem extends React.Component {
       return <div>Loading</div>;
     }
     return (
-      <ItemForm
-        initialValues={_.pick(
-          this.props.item,
-          'name',
-          'description',
-          'catagory',
-          'priceRange',
-          'address',
-          'contactNo',
-          'nearbyItem',
-          'selectApply'
-        )}
-        onSubmit={this.onSubmit}
-        id={this.props.item.itemId}
-        header="Edit Item Info"
-        loading={this.props.loading}
-        addImg
-      />
+      <Container direction="left">
+        <ItemForm
+          initialValues={_.pick(
+            this.props.item,
+            'name',
+            'description',
+            'catagory',
+            'priceRange',
+            'address',
+            'contactNo',
+            'nearbyItem',
+            'selectApply'
+          )}
+          onSubmit={this.onSubmit}
+          id={this.props.item.itemId}
+          header="Edit Item Info"
+          loading={this.props.loading}
+          addImg
+        />
+      </Container>
     );
   }
 }

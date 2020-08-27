@@ -2,6 +2,7 @@ import React from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import jwtDecode from 'jwt-decode';
+import history from './history';
 
 import Navbar from './components/Navbar';
 import AuthRoute from './util/AuthRoute';
@@ -55,8 +56,9 @@ class App extends React.Component {
     return (
       <Provider store={store}>
         <HashRouter>
-          <Navbar />
           <ScrollMemory />
+          <Navbar />
+
           <React.Fragment>
             <Switch>
               <Route path="/" exact component={Home} />

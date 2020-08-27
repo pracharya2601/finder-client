@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import Recaptcha from 'react-recaptcha';
 //title
 import withTitle from '../../util/withTitle';
+import Container from '../../components/container/Container';
 
 //image
 import AppIcon from '../../images/iconn.png';
@@ -14,7 +15,6 @@ import { loginUser } from '../../redux/actions/userAction';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 //material ui
-import Slide from '@material-ui/core/Slide';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
@@ -122,7 +122,7 @@ class Login extends React.Component {
     } = this.props;
 
     return (
-      <Slide direction="down" in={true} mountOnEnter unmountOnExit>
+      <Container direction="down">
         <Card className={classes.card}>
           <CardActions>
             <img src={AppIcon} alt="logo" className={classes.image} />
@@ -193,7 +193,7 @@ class Login extends React.Component {
             </CardActions>
           </form>
         </Card>
-      </Slide>
+      </Container>
     );
   }
 }

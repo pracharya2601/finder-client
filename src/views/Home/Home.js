@@ -7,8 +7,9 @@ import withTitle from '../../util/withTitle';
 import Skeleton from '../../components/loading/Skeleton';
 import Item from '../../components/items/Item';
 
+import Container from '../../components/container/Container';
 import ItemCarousel from '../../components/carousel/ItemCarousel';
-import CarouselHeader from '../../components/carousel/CarouselHeader';
+import Header from '../../components/container/Header';
 import Footer from '../../components/footer/Footer';
 
 import { connect } from 'react-redux';
@@ -77,53 +78,36 @@ class Home extends React.Component {
 
     return (
       <>
-        <div
-          style={{
-            margin: '80px auto 50px auto',
-            maxWidth: '1200px',
-          }}
-        >
+        <Container direction="right">
           <div style={style}>
             {allItems && (
-              <CarouselHeader
-                heading="Recent Items"
-                goTo="/all"
-                goToText="See All"
-              />
+              <Header heading="Recent" goTo="/all" goToText="See All" />
             )}
             <ItemCarousel>{allItemsMarkup}</ItemCarousel>
           </div>
           <div style={style}>
             {rentalItems && (
-              <CarouselHeader
-                heading="Rental Items"
-                goTo="/rental"
-                goToText="See All"
-              />
+              <Header heading="For Rent" goTo="/rental" goToText="See All" />
             )}
             <ItemCarousel>{rentalItemsMarkup}</ItemCarousel>
           </div>
           <div style={style}>
             {saleItems && (
-              <CarouselHeader
-                heading="Sale Items"
-                goTo="/sale"
-                goToText="See All"
-              />
+              <Header heading="For Sale " goTo="/sale" goToText="See All" />
             )}
             <ItemCarousel>{saleItemMarkup}</ItemCarousel>
           </div>
           <div style={style}>
             {otherItems && (
-              <CarouselHeader
-                heading="Other Catagory Item"
+              <Header
+                heading="Other Catagory"
                 goTo="/other"
                 goToText="See All"
               />
             )}
             <ItemCarousel>{otherItemsMarkup}</ItemCarousel>
           </div>
-        </div>
+        </Container>
         <Footer />
       </>
     );
@@ -133,7 +117,6 @@ class Home extends React.Component {
 const style = {
   boxSizing: 'border-box',
   padding: '0 0 3% 0',
-  borderBottom: '3px solid lightgrey',
 };
 
 const mapStateToProps = (state) => ({
