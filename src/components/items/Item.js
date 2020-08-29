@@ -106,7 +106,7 @@ const styles = {
     color: 'green',
     padding: '5px',
     borderRadius: '5px',
-    marginTop: '20px',
+    margin: '20px 6px 0 0',
     position: 'relative',
     fontSize: '10px',
     float: 'right',
@@ -207,9 +207,6 @@ class Item extends React.Component {
               {sameUser && <Markavailability itemId={itemId} />}
               {sameUser && (
                 <MenuItem component={Link} to={`/item/edit/${itemId}`}>
-                  <IconButton>
-                    <EditIcon color="secondary" />
-                  </IconButton>
                   Edit
                 </MenuItem>
               )}

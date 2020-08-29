@@ -59,7 +59,7 @@ class App extends React.Component {
           <ScrollMemory />
           <Navbar />
 
-          <React.Fragment>
+          <div className="container">
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/item/newpost/item" exact component={PostNewItem} />
@@ -81,7 +81,7 @@ class App extends React.Component {
                 component={ResetPassword}
               />
             </Switch>
-          </React.Fragment>
+          </div>
         </HashRouter>
       </Provider>
     );

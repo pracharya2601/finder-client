@@ -17,6 +17,7 @@ import {
   UPDATE_ITEM,
   SUBMIT_COMMENT,
   SUBMIT_REPORT,
+  SUBMIT_MAIL,
   // FILTER_BY_CATAGORY,
   FILTER_BY_VIEWCOUNT,
 } from '../types';
@@ -29,6 +30,7 @@ const INITIAL_STATE = {
   viewSort: '',
   item: {},
   loading: false,
+  message: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -105,6 +107,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         message: 'we will review this post to make sure this is okay',
+      };
+    case SUBMIT_MAIL:
+      return {
+        ...state,
+        message: 'Your Message Has ben sent.',
       };
     default:
       return state;

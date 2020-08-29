@@ -33,7 +33,7 @@ class EditItem extends React.Component {
             'priceRange',
             'address',
             'contactNo',
-            'nearbyItem',
+            'nearbyPlace',
             'selectApply'
           )}
           onSubmit={this.onSubmit}

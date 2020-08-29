@@ -4,6 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
 import Term from '../../term';
+import RenderField from '../../components/form/RenderField';
 
 //react-recaptcha
 import Recaptcha from 'react-recaptcha';
@@ -146,48 +147,48 @@ class Signup extends React.Component {
             <Field
               name="fullName"
               type="text"
-              component={this.renderField}
+              component={RenderField}
               label="Full Name"
             />
             <Field
               name="email"
               type="email"
-              component={this.renderField}
+              component={RenderField}
               label="Email"
               helperText={errorTextEmail}
             />
             <Field
               name="handle"
               type="text"
-              component={this.renderField}
+              component={RenderField}
               label="Unique Username"
               helperText={errorTextHandle}
             />
             <Field
               name="password"
               type="password"
-              component={this.renderField}
+              component={RenderField}
               label="Password"
               helperText={errorTextPassword}
             />
             <Field
               name="confirmPassword"
               type="password"
-              component={this.renderField}
+              component={RenderField}
               label="Confirm Password"
               helperText={errorTextConfirmPassword}
             />
             <Field
               name="contactNo"
               type="number"
-              component={this.renderField}
+              component={RenderField}
               label="Contact Number"
               helperText={errotTextContactNo}
             />
             <Field
               name="age"
               type="number"
-              component={this.renderField}
+              component={RenderField}
               label="Age"
               helperText={errorTextAge}
             />

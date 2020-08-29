@@ -27,6 +27,8 @@ class Saved extends React.Component {
         return obj;
       }, {});
 
+    console.log(filtered);
+
     const savedMarkup = _.isEmpty(filtered) ? (
       <div>You dont have any saved Item</div>
     ) : (

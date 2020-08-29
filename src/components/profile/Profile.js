@@ -81,6 +81,7 @@ class Profile extends Component {
       classes,
       user: { credentials, loading, authenticated },
     } = this.props;
+    console.log(this.props);
 
     const profileMarkup = !loading ? (
       authenticated ? (

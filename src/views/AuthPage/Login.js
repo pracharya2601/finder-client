@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import RenderField from '../../components/form/RenderField';
 //recapta
 import Recaptcha from 'react-recaptcha';
 //title
@@ -71,28 +72,6 @@ class Login extends React.Component {
     isVerified: false,
   };
 
-  renderField = ({
-    input,
-    label,
-    type,
-    loading,
-    meta: { touched, error },
-    ...custom
-  }) => {
-    return (
-      <>
-        <TextField
-          {...input}
-          {...custom}
-          type={type}
-          label={label}
-          fullWidth
-          error={touched && error ? true : false}
-        />
-        {loading && <LinearProgress />}
-      </>
-    );
-  };
   verifyHuman = () => {
     console.log('Loaded');
   };
@@ -139,14 +118,14 @@ class Login extends React.Component {
             <Field
               name="email"
               type="email"
-              component={this.renderField}
+              component={RenderField}
               label="Email"
               loading={loading}
             />
             <Field
               name="password"
               type="password"
-              component={this.renderField}
+              component={RenderField}
               label="Password"
               loading={loading}
             />

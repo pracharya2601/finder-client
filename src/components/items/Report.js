@@ -96,12 +96,7 @@ class Report extends React.Component {
       <Fragment>
         {authenticated && (
           <>
-            <MenuItem onClick={this.handleClickOpen}>
-              <IconButton>
-                <ReportIcon color="secondary" />
-              </IconButton>
-              Report
-            </MenuItem>
+            <MenuItem onClick={this.handleClickOpen}>Report</MenuItem>
             {iconOnly && (
               <Button color="secondary" onClick={this.handleClickOpen}>
                 Report

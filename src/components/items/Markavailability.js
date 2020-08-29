@@ -30,19 +30,9 @@ class Markavailability extends React.Component {
       available,
     } = this.props;
     const markAvailabilityMarkup = available ? (
-      <MenuItem onClick={this.markItemUnAvailable}>
-        <IconButton fontSize="medium">
-          <CancelIcon fontSize="inherit" color="primary" />
-        </IconButton>
-        Mark Unavailable
-      </MenuItem>
+      <MenuItem onClick={this.markItemUnAvailable}>Mark Unavailable</MenuItem>
     ) : (
-      <MenuItem onClick={this.markItemAvailable}>
-        <IconButton fontSize="medium">
-          <CheckCircleIcon fontSize="inherit" color="primary" />
-        </IconButton>
-        Mark Available
-      </MenuItem>
+      <MenuItem onClick={this.markItemAvailable}>Mark Available</MenuItem>
     );
 
     return markAvailabilityMarkup;

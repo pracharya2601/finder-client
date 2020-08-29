@@ -3,11 +3,10 @@ import PopupMesg from '../popup/PopupMesg';
 
 //material ui
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
+
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Tooltip from '@material-ui/core/Tooltip';
 import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = {};
@@ -49,10 +48,7 @@ class Modal extends React.Component {
     // const content = report ? <ReportForm /> : null
     return (
       <Fragment>
-        <MenuItem onClick={this.handleClickOpen}>
-          <IconButton color="secondary">{btnMarkup}</IconButton>
-          Delete
-        </MenuItem>
+        <MenuItem onClick={this.handleClickOpen}>Delete</MenuItem>
         <Dialog open={this.state.open} onClose={this.handleClose}>
           {headingMarkup}
           <DialogActions>

@@ -31,7 +31,7 @@ const TitleComponent = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  item: state.data.item.body,
+  item: state.data.item.name,
   user: state.user,
 });
 

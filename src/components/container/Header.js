@@ -20,10 +20,12 @@ const Header = ({ heading, goTo, goToText }) => {
   );
 };
 const background = {
-  margin: '0 13px 0 13px',
+  // margin: '0 13px 0 13px',
   height: '50px',
   backgroundColor: '#adbdff',
-  clipPath: 'polygon(0 0, 35% 0, 39% 90%, 100% 90%, 100% 100%, 0 100%)',
+  backgroundImage: 'linear-gradient(-90deg, #4b62c9 30%, #adbdff 20%)',
+  clipPath:
+    'polygon(0 0, 45% 0, 55% 85%, 0 95%, 0 100%, 100% 80%, 100% 100%, 0 100%)',
   paddingBottom: '2px solid #adbdff',
 };
 

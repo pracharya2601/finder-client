@@ -36,6 +36,7 @@ class PostNewItem extends React.Component {
 
 const mapStateToProps = (state) => ({
   loading: state.UI.loading,
+  user: state.user.credentials,
 });
 
 const title = 'Post New Item EasyPezy';

@@ -2,16 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Swipeable } from 'react-swipeable';
 
-import IconButton from '@material-ui/core/IconButton';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import Button from '@material-ui/core/Button';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import Avatar from '@material-ui/core/Avatar';
-// import VisibilityIcon from '@material-ui/icons/Visibility';
-import GroupIcon from '@material-ui/icons/Group';
-import Tooltip from '@material-ui/core/Tooltip';
-
 const RIGHT = '-1';
 const LEFT = '+1';
 

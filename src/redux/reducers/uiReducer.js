@@ -9,7 +9,7 @@ import {
 const INITIAL_STATE = {
   loading: false,
   errors: null,
-  message: null,
+  message: '',
 };
 
 export default function (state = INITIAL_STATE, action) {

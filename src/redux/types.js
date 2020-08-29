@@ -30,6 +30,7 @@ export const UNSAVE_ITEM = 'UNSAVE_ITEM';
 export const DELETE_ITEM = 'DELETE_ITEM';
 export const SUBMIT_COMMENT = 'SUBMIT_COMMENT';
 export const SUBMIT_REPORT = 'SUBMIT_REPORT';
+export const SUBMIT_MAIL = 'SUBMIT_MAIL';
 
 //filter type
 export const FILTER_BY_CATAGORY = 'FILTER_BY_CATAGORY';

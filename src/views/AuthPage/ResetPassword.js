@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 //image
 import AppIcon from '../../images/iconn.png';
 import Container from '../../components/container/Container';
+import RenderField from '../../components/form/RenderField';
 
 import { resetPassword } from '../../redux/actions/userAction';
 
@@ -19,7 +20,6 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import LinearProgress from '@material-ui/core/LinearProgress';
 
 const styles = {
   card: {
@@ -65,29 +65,6 @@ const styles = {
 };
 
 class ReserPassword extends React.Component {
-  renderField = ({
-    input,
-    label,
-    type,
-    loading,
-    meta: { touched, error },
-    ...custom
-  }) => {
-    return (
-      <>
-        <TextField
-          {...input}
-          {...custom}
-          type={type}
-          label={label}
-          fullWidth
-          error={touched && error ? true : false}
-        />
-        {loading && <LinearProgress />}
-      </>
-    );
-  };
-
   onSubmit = (values) => {
     this.props.resetPassword(values, this.props.history);
   };
@@ -95,11 +72,9 @@ class ReserPassword extends React.Component {
   render() {
     const {
       handleSubmit,
-      message,
       classes,
-      loading: { loading, errors },
+      loading: { loading, errors, message },
     } = this.props;
-    console.log(message);
 
     return (
       <Container direction="down">
@@ -115,7 +90,11 @@ class ReserPassword extends React.Component {
               Enter your email address to reset your password.
             </Typography>
             {message && (
-              <Typography variant="body2" className={classes.customMessage}>
+              <Typography
+                variant="body2"
+                color="primary"
+                className={classes.customMessage}
+              >
                 {message}
               </Typography>
             )}
@@ -127,7 +106,7 @@ class ReserPassword extends React.Component {
             <Field
               name="email"
               type="email"
-              component={this.renderField}
+              component={RenderField}
               label="Email"
               loading={loading}
             />

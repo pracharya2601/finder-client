@@ -40,7 +40,7 @@ const mapStateToProps = (state) => ({
   saleItems: state.data.saleItems,
 });
 
-const title = 'All Items EazyPezy';
+const title = 'For Sale Easypezy ';
 
 export default connect(mapStateToProps, { getSaleItems })(
   withTitle(Sale, title)

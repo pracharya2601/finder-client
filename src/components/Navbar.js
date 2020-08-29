@@ -36,7 +36,6 @@ class Navbar extends React.Component {
     return (
       <Slide direction="down" in={true} mountOnEnter unmountOnExit>
         <AppBar>
-          {loading && <LinearProgress color="primary" />}
           <ToolBar className={classes.navItem}>
             <div className={classes.navItem}>
               <ResponsiveDrawer />

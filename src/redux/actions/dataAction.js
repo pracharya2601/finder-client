@@ -19,6 +19,7 @@ import {
   LOADING_UI,
   STOP_LOADING_UI,
   SUBMIT_COMMENT,
+  SUBMIT_MAIL,
   SUBMIT_REPORT,
   FILTER_BY_VIEWCOUNT,
 } from '../types';
@@ -234,6 +235,7 @@ export const unSaveItem = (itemId) => (dispatch) => {
 
 //submitcomment
 export const submitComment = (itemId, commentData) => (dispatch) => {
+  dispatch({ type: LOADING_DATA });
   axios
     .post(`/item/${itemId}/comment`, commentData)
     .then((res) => {
@@ -252,11 +254,30 @@ export const submitComment = (itemId, commentData) => (dispatch) => {
 };
 
 export const reportPost = (itemId, reportData) => (dispatch) => {
+  dispatch({ type: LOADING_DATA });
   axios
     .post(`/item/${itemId}/report`, reportData)
     .then((res) => {
       dispatch({
         type: SUBMIT_REPORT,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response,
+      });
+    });
+};
+
+export const sendMail = (mailData) => (dispatch) => {
+  dispatch({ type: LOADING_DATA });
+  axios
+    .post(`/sendMail`)
+    .then((res) => {
+      dispatch({
+        type: SUBMIT_MAIL,
         payload: res.data,
       });
     })

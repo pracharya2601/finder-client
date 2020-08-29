@@ -36,25 +36,12 @@ class SaveButton extends React.Component {
 
     const saveBtn = !authenticated ? (
       <MenuItem component={Link} to="/login">
-        <IconButton>
-          <SaveAltIcon color="primary" />
-        </IconButton>
-        Save Item
+        Save
       </MenuItem>
     ) : this.savedItem() ? (
-      <MenuItem onClick={this.unSaveItem}>
-        <IconButton>
-          <SaveIcon color="primary" />
-        </IconButton>
-        Unsave Item
-      </MenuItem>
+      <MenuItem onClick={this.unSaveItem}>Unsave</MenuItem>
     ) : (
-      <MenuItem onClick={this.saveItem}>
-        <IconButton>
-          <SaveAltIcon color="primary" />
-        </IconButton>
-        Save Item
-      </MenuItem>
+      <MenuItem onClick={this.saveItem}>Save</MenuItem>
     );
 
     return saveBtn;
