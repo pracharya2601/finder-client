@@ -33,7 +33,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default () => {
+export default (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -45,12 +45,16 @@ export default () => {
     setOpen(false);
   };
 
+  const { color, size } = props;
+
+  const style = {
+    fontSize: size === 'small' ? '10px' : '12px',
+    color: color ? color : 'primary',
+  };
+
   return (
     <div>
-      {/* <Button href="#text-buttons" color="primary">
-  Link
-</Button> */}
-      <Button onClick={handleClickOpen} size="small" color="primary">
+      <Button onClick={handleClickOpen} style={style}>
         Term and Condition
       </Button>
       <Dialog

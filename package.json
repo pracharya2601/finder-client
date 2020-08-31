@@ -44,6 +44,7 @@
     "react-router-dom": "^5.2.0",
     "react-router-scroll-memory": "^2.0.6",
     "react-scripts": "3.4.1",
+    "react-sharingbuttons": "^1.0.0",
     "react-swipeable": "^5.5.1",
     "react-widgets": "^4.5.0",
     "redux": "^4.0.5",

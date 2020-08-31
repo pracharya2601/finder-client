@@ -18,6 +18,7 @@ import DeleteItem from '../../components/items/DeleteItem';
 import ImgCarousel from '../../components/carousel/ImgCarousel';
 import AccordinMenu from '../../components/Menu/AccordinMenu';
 import Loading from '../../components/loading/Loading';
+import Mail from '../../components/items/Mail';
 
 //material ui
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -100,7 +101,7 @@ class SingleItem extends React.Component {
       item: {
         address,
         itemId,
-        body,
+        name,
         comments,
         contactNo,
         catagory,
@@ -116,12 +117,14 @@ class SingleItem extends React.Component {
         nearbyPlace,
         selectApply,
         available,
+        userData,
       },
       UI: { loading },
       user: {
         credentials: { handle },
       },
     } = this.props;
+    console.log(this.props);
     const sameUser = userHandle === handle ? true : false;
     const catagoryItem =
       catagory === 'sale'
@@ -187,7 +190,7 @@ class SingleItem extends React.Component {
           deleteBtn
           editBtn
           userImage={userImage}
-          body={body}
+          name={name}
           address={address}
           itemId={itemId}
           createdAt={createdAt}
@@ -210,6 +213,16 @@ class SingleItem extends React.Component {
             <AccordionDetails>
               <Report itemId={itemId} />
             </AccordionDetails>
+            {userData && (
+              <AccordionDetails>
+                <Mail
+                  itemId={itemId}
+                  catagory={catagory}
+                  item={name}
+                  userData={userData}
+                />
+              </AccordionDetails>
+            )}
             <AccordionDetails>
               {sameUser && <DeleteItem itemId={itemId} del />}
             </AccordionDetails>
@@ -219,9 +232,6 @@ class SingleItem extends React.Component {
             <AccordionDetails>
               {sameUser && (
                 <MenuItem component={Link} to={`/item/edit/${itemId}`}>
-                  <IconButton>
-                    <EditIcon color="secondary" />
-                  </IconButton>
                   Edit
                 </MenuItem>
               )}
@@ -233,7 +243,7 @@ class SingleItem extends React.Component {
               Item Info
             </Typography>
           </div>
-          <Typography color="textSecondary">{body}</Typography>
+          <Typography color="textSecondary">{name}</Typography>
           <div className={classes.aboutHeading}>
             <DescriptionTwoToneIcon />
             <Typography variant="subtitle1" className={classes.space}>

@@ -13,6 +13,8 @@ import Report from './Report';
 import DeleteItem from './DeleteItem';
 import Menus from '../Menu/Menus';
 import Markavailability from './Markavailability';
+import Mail from './Mail';
+import ShareBtns from '../buttons/ShareBtns';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import IconButton from '@material-ui/core/IconButton';
@@ -58,13 +60,19 @@ const styles = {
     right: '0',
     display: 'flex',
     marginTop: '10px',
+    fontSize: '14px',
     backgroundColor: '#cfd8ff',
     color: '#003d87',
-    padding: '0 5px 0 5px',
+    padding: '0',
     borderTopLeftRadius: '10px',
     borderBottomLeftRadius: '10px',
     cursor: 'pointer',
     zIndex: 300,
+    '&:hover': {
+      opacity: 1,
+      background: '#4b62c9',
+      color: 'white',
+    },
   },
   menuBtn: {
     position: 'absolute',
@@ -72,13 +80,11 @@ const styles = {
     left: '0',
     marginTop: '10px',
     marginLeft: '5px',
-    opacity: '0.8',
-    backgroundColor: '#cfd8ff',
-    borderRadius: '50px',
+    borderRadius: '5px',
     zIndex: '300',
     '&:hover': {
       opacity: 1,
-      background: '#4b62c9',
+      background: '#cfd8ff',
     },
   },
   itemBottom: {
@@ -153,6 +159,7 @@ class Item extends React.Component {
         viewCount,
         priceRange,
         available,
+        userData,
       },
       user: {
         credentials: { handle },
@@ -196,13 +203,25 @@ class Item extends React.Component {
             target="_/blank"
           >
             <LocationOnIcon style={{ color: '#5b4e94', marginTop: '2px' }} />
-            <div className={classes.popItem}>{address.city},</div>
-            <div className={classes.popItem}>{address.district}</div>
+            <div className={classes.popItem}>
+              {address.city}, {address.district}
+            </div>
+            {/* <div className={classes.popItem}>{address.district}</div> */}
           </a>
           <div className={classes.menuBtn}>
             <Menus>
+              <ShareBtns itemId={itemId} text={name} />
               <SaveButton itemId={itemId} />
               <Report itemId={itemId} />
+              {userData && (
+                <Mail
+                  itemId={itemId}
+                  catagory={catagory}
+                  item={name}
+                  userData={userData}
+                />
+              )}
+
               {sameUser && <DeleteItem itemId={itemId} del />}
               {sameUser && <Markavailability itemId={itemId} />}
               {sameUser && (

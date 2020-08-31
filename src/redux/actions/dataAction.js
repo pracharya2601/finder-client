@@ -274,7 +274,7 @@ export const reportPost = (itemId, reportData) => (dispatch) => {
 export const sendMail = (mailData) => (dispatch) => {
   dispatch({ type: LOADING_DATA });
   axios
-    .post(`/sendMail`)
+    .post(`/sendMail`, mailData)
     .then((res) => {
       dispatch({
         type: SUBMIT_MAIL,

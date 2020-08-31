@@ -107,11 +107,13 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         message: 'we will review this post to make sure this is okay',
+        loading: false,
       };
     case SUBMIT_MAIL:
       return {
         ...state,
         message: 'Your Message Has ben sent.',
+        loading: false,
       };
     default:
       return state;

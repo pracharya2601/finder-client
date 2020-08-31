@@ -216,7 +216,7 @@ class Signup extends React.Component {
                 className={classes.remainContent}
               >
                 By signup you agree to company
-                <Term />
+                <Term color="red" size="large" />
               </Typography>
               <Typography
                 variant="body1"

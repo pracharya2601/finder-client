@@ -13,6 +13,7 @@ const RenderField = (props) => {
     fieldArray,
     helperText,
     loading,
+    multiline,
     meta: { touched, error },
   } = props;
   return (
@@ -25,6 +26,8 @@ const RenderField = (props) => {
         rows={rows}
         helperText={helperText}
         fullWidth
+        multiline={multiline ? true : false}
+        rows={multiline ? rows : null}
         variant={outlined}
         error={(touched && error) || helperText ? true : false}
       />

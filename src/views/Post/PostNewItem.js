@@ -20,6 +20,7 @@ class PostNewItem extends React.Component {
 
   render() {
     let id = uniqid('item-') + uniqid();
+    console.log(this.props.user);
     return (
       <Container direction="left">
         <ItemForm

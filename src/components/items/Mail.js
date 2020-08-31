@@ -1,23 +1,24 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router-dom';
+import uniqid from 'uniqid';
 
 import RenderField from '../form/RenderField';
 import RenderSelectField from '../form/RenderSelectField';
 
 //redux
 import { connect } from 'react-redux';
-import { reportPost } from '../../redux/actions/dataAction';
+import { sendMail } from '../../redux/actions/dataAction';
 
 //material ui
 import withStyles from '@material-ui/core/styles/withStyles';
+import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
-import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = {};
 
@@ -25,6 +26,20 @@ class Report extends React.Component {
   state = {
     open: false,
   };
+
+  mailingData = (form, id, itemId, catagory, item, email, handle, fullName) => {
+    return {
+      ...form,
+      id: id,
+      itemId: itemId,
+      catagory: catagory,
+      item: item,
+      receiverEmail: email,
+      handle: handle,
+      receiverName: fullName,
+    };
+  };
+
   handleClickOpen = () => {
     this.setState({ open: true });
   };
@@ -34,7 +49,28 @@ class Report extends React.Component {
   };
 
   onSubmit = (values) => {
-    this.props.reportPost(this.props.itemId, values);
+    const {
+      itemId,
+      catagory,
+      item,
+      userData: { fullName, email },
+      user: {
+        credentials: { handle },
+      },
+    } = this.props;
+    let id = uniqid('mail-') + uniqid();
+    const mailData = this.mailingData(
+      values,
+      id,
+      itemId,
+      catagory,
+      item,
+      email,
+      handle,
+      fullName
+    );
+    this.props.sendMail(mailData);
+    console.log(mailData);
     this.handleClose();
   };
 
@@ -43,50 +79,60 @@ class Report extends React.Component {
       handleSubmit,
       reset,
       classes,
-      iconOnly,
+      userData: { fullName },
       user: { authenticated },
     } = this.props;
 
-    const reportBtn = !authenticated ? (
+    const mailBtn = !authenticated ? (
       <MenuItem component={Link} to="/login">
-        Report
+        Send Mail
       </MenuItem>
     ) : (
-      <MenuItem onClick={this.handleClickOpen}>Report</MenuItem>
+      <MenuItem onClick={this.handleClickOpen}>Send Mail</MenuItem>
     );
     return (
       <Fragment>
-        <>{reportBtn}</>
+        <>{mailBtn}</>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">
-            Please select the following applied to the post:
+            You are sending Mail to "{fullName}". Please write a discriptive
+            message.
           </DialogTitle>
           <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
             <DialogContent>
               <Field
-                name="type"
-                component={RenderSelectField}
-                label="Reason for report"
-              >
-                <MenuItem value={'spam'}>Its suspicious or spam</MenuItem>
-                <MenuItem value={'sensative'}>
-                  It display sensative information
-                </MenuItem>
-                <MenuItem value={'abusive'}>It is abusive or harmful</MenuItem>
-                <MenuItem value={'misleading'}>Misleading information</MenuItem>
-                <MenuItem value={'harmful'}>Harmful intentionals</MenuItem>
-              </Field>
-              <Field
-                name="body"
-                multiline
+                name="senderName"
                 type="text"
                 component={RenderField}
-                label="Write your comment to report"
-                rows="2"
+                label="Full Name"
+                itemholder="Write your name"
+              />
+              <Field
+                name="senderEmail"
+                type="email"
+                component={RenderField}
+                label="Email"
+                itemholder="Email is required"
+              />
+              <Field
+                name="contactNo"
+                type="number"
+                component={RenderField}
+                label="Phone Number"
+                itemholder="Phone Number to contact you"
+              />
+              <Field
+                name="message"
+                type="text"
+                multiline
+                component={RenderField}
+                label="Message"
+                itemholder="Write a message"
+                rows="3"
               />
             </DialogContent>
             <DialogActions>
@@ -99,7 +145,7 @@ class Report extends React.Component {
                 color="primary"
                 className={classes.button}
               >
-                Report
+                Send Mail
               </Button>
             </DialogActions>
           </form>
@@ -109,17 +155,11 @@ class Report extends React.Component {
   }
 }
 
-Report.propTypes = {
-  classes: PropTypes.object.isRequired,
-  reportPlace: PropTypes.func,
-  itemId: PropTypes.string,
-};
-
 const mapStateToProps = (state) => ({
   user: state.user,
 });
 
 export default reduxForm({
-  form: 'reportForm',
+  form: 'mailForm',
   // validate,
-})(connect(mapStateToProps, { reportPost })(withStyles(styles)(Report)));
+})(connect(mapStateToProps, { sendMail })(withStyles(styles)(Report)));
