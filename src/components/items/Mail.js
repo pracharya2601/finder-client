@@ -25,6 +25,8 @@ const styles = {};
 class Report extends React.Component {
   state = {
     open: false,
+    oldPath: '',
+    newPath: '',
   };
 
   mailingData = (form, id, itemId, catagory, item, email, handle, fullName) => {
@@ -41,10 +43,15 @@ class Report extends React.Component {
   };
 
   handleClickOpen = () => {
-    this.setState({ open: true });
+    let oldPath = window.location.pathname;
+    const newPath = `/item/${this.props.itemId}/sendmail`;
+    if (oldPath === newPath) oldPath = `/`;
+    window.history.pushState(null, null, newPath);
+    this.setState({ open: true, oldPath, newPath });
   };
 
   handleClose = () => {
+    window.history.pushState(null, null, this.state.oldPath);
     this.setState({ open: false });
   };
 

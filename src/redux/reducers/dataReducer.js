@@ -17,6 +17,7 @@ import {
   UPDATE_ITEM,
   SUBMIT_COMMENT,
   SUBMIT_REPORT,
+  CONTACT_US,
   SUBMIT_MAIL,
   // FILTER_BY_CATAGORY,
   FILTER_BY_VIEWCOUNT,
@@ -113,6 +114,12 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         message: 'Your Message Has ben sent.',
+        loading: false,
+      };
+    case CONTACT_US:
+      return {
+        ...state,
+        message: 'Your Message has been sent',
         loading: false,
       };
     default:

@@ -1,13 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import Term from '../../term';
+import ContactForm from '../ContactForm';
 
 import Icon from '../../images/iconn.png';
 
@@ -22,11 +23,7 @@ function Copyright() {
         style={{ textAlign: 'center', color: 'white' }}
       >
         {'Copyright © '}
-        <Link
-          color="inherit"
-          href="https://www.easypezy.com"
-          style={{ color: 'red' }}
-        >
+        <Link href="https://www.easypezy.com" style={{ color: 'red' }}>
           EasyPezy
         </Link>{' '}
         {new Date().getFullYear()}
@@ -72,6 +69,14 @@ const useStyles = makeStyles((theme) => ({
   },
   footGridRight: {
     // display: 'relative',
+  },
+  textBtn: {
+    color: 'white',
+    cursor: 'pointer',
+    '&:hover': {
+      color: '#faf2c8',
+      textDecoration: 'underline',
+    },
   },
 }));
 
@@ -138,10 +143,12 @@ const Footer = (props) => {
                 </div>
               </Grid>
               <Grid item xs={12}>
-                Contact Us
+                <ContactForm />
               </Grid>
               <Grid item xs={12}>
-                About Us
+                <Link to="/aboutus">
+                  <div className={classes.textBtn}>About Us</div>
+                </Link>
               </Grid>
             </Grid>
           </Grid>

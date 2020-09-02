@@ -20,6 +20,7 @@ import Other from './views/Items/Other';
 import Sale from './views/Items/Sale';
 import Rental from './views/Items/Rental';
 import All from './views/Items/All';
+import About from './views/About/About';
 // import withTitle from './util/withTitle';
 
 //term
@@ -71,6 +72,7 @@ class App extends React.Component {
               <Route path="/rental" exact component={Rental} />
               <Route path="/sale" exact component={Sale} />
               <Route path="/other" exact component={Other} />
+              <Route path="/aboutus" exaxt component={About} />
               <Route path="/item/:itemId" exact component={SingleItem} />
               <AuthRoute path="/login" exact component={Login} />
               <AuthRoute path="/signup" exact component={Signup} />

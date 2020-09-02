@@ -21,6 +21,7 @@ import {
   SUBMIT_COMMENT,
   SUBMIT_MAIL,
   SUBMIT_REPORT,
+  CONTACT_US,
   FILTER_BY_VIEWCOUNT,
 } from '../types';
 import axios from 'axios';
@@ -278,6 +279,24 @@ export const sendMail = (mailData) => (dispatch) => {
     .then((res) => {
       dispatch({
         type: SUBMIT_MAIL,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response,
+      });
+    });
+};
+
+export const contactUs = (contactData) => (dispatch) => {
+  dispatch({ type: LOADING_DATA });
+  axios
+    .post(`/contactUs`, contactData)
+    .then((res) => {
+      dispatch({
+        type: CONTACT_US,
         payload: res.data,
       });
     })

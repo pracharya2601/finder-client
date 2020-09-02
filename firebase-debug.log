@@ -1,0 +1,27 @@
+[debug] [2020-09-02T00:35:01.150Z] ----------------------------------------------------------------------
+[debug] [2020-09-02T00:35:01.152Z] Command:       /usr/local/Cellar/node/13.8.0/bin/node /usr/local/bin/firebase deploy
+[debug] [2020-09-02T00:35:01.152Z] CLI Version:   8.0.2
+[debug] [2020-09-02T00:35:01.153Z] Platform:      darwin
+[debug] [2020-09-02T00:35:01.153Z] Node Version:  v13.8.0
+[debug] [2020-09-02T00:35:01.154Z] Time:          Tue Sep 01 2020 17:35:01 GMT-0700 (Pacific Daylight Time)
+[debug] [2020-09-02T00:35:01.154Z] ----------------------------------------------------------------------
+[debug] [2020-09-02T00:35:01.154Z] 
+[debug] [2020-09-02T00:35:01.168Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-09-02T00:35:01.169Z] > authorizing via signed-in user
+[debug] [2020-09-02T00:35:01.169Z] [iam] checking project easypezy-39664 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-09-02T00:35:01.172Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-09-02T00:35:01.172Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-09-02T00:35:01.379Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 02 Sep 2020 00:35:02 GMT","server":"scaffolding on HTTPServer2","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-02T00:35:01.440Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/easypezy-39664:testIamPermissions  
+ {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2020-09-02T00:35:01.942Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 02 Sep 2020 00:35:02 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=152","alt-svc":"h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-09-02T00:35:01.943Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/easypezy-39664  
+ 
+[debug] [2020-09-02T00:35:02.766Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Wed, 02 Sep 2020 00:35:03 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-27=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Deploying to 'easypezy-39664'...
+[info] 
+[info] i  deploying hosting
+[debug] [2020-09-02T00:35:02.769Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/easypezy-39664/versions  
+ {"config":{},"labels":{"deployment-tool":"cli-firebase"}}

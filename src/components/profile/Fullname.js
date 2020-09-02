@@ -8,7 +8,7 @@ const Fullname = (props) => {
     <MuiLink
       variant="h5"
       color="primary"
-      component={Link}
+      component={handle ? Link : null}
       to={`/user/profile/${handle}`}
     >
       {fullName}
