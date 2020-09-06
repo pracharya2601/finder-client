@@ -80,7 +80,7 @@ const styles = {
     left: '0',
     marginTop: '10px',
     marginLeft: '5px',
-    borderRadius: '5px',
+    borderRadius: '50%',
     zIndex: '300',
     '&:hover': {
       opacity: 1,

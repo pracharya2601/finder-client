@@ -90,11 +90,13 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         [action.payload.itemId]: action.payload,
+        loading: false,
       };
     case UPDATE_ITEM:
       return {
         ...state,
         [action.payload.itemId]: action.payload,
+        loading: false,
       };
     case SUBMIT_COMMENT:
       return {
@@ -103,6 +105,7 @@ export default (state = INITIAL_STATE, action) => {
           ...state.item,
           comments: [action.payload, ...state.item.comments],
         },
+        loading: false,
       };
     case SUBMIT_REPORT:
       return {

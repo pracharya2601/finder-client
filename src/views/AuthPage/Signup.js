@@ -191,6 +191,7 @@ class Signup extends React.Component {
               component={RenderField}
               label="Age"
               helperText={errorTextAge}
+              min="0"
             />
             <CardActions className={classes.cardAction}>
               <Recaptcha
