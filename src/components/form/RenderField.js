@@ -12,6 +12,8 @@ const RenderField = (props) => {
     outlined,
     fieldArray,
     helperText,
+    inputProps,
+    min,
     loading,
     multiline,
     meta: { touched, error },
@@ -26,6 +28,7 @@ const RenderField = (props) => {
         rows={rows}
         helperText={helperText}
         fullWidth
+        InputProps={{ inputProps: { min: 0 } }}
         multiline={multiline ? true : false}
         rows={multiline ? rows : null}
         variant={outlined}

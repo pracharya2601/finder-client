@@ -124,7 +124,6 @@ class SingleItem extends React.Component {
         credentials: { handle },
       },
     } = this.props;
-    console.log(this.props);
     const sameUser = userHandle === handle ? true : false;
     const catagoryItem =
       catagory === 'sale'
@@ -232,12 +231,18 @@ class SingleItem extends React.Component {
               )}
             </AccordionDetails>
             <AccordionDetails>
-              {sameUser && (
+            {sameUser && (
+              <AccordionDetails>
+                <DeleteItem itemId={itemId} del />
+              </AccordionDetails>
+            )}
+            {sameUser && (
+              <AccordionDetails>
                 <MenuItem component={Link} to={`/item/edit/${itemId}`}>
                   Edit
                 </MenuItem>
-              )}
-            </AccordionDetails>
+              </AccordionDetails>
+            )}
           </AccordinMenu>
           <div className={classes.aboutHeading}>
             <InfoIcon />
@@ -287,6 +292,20 @@ class SingleItem extends React.Component {
             <Typography variant="subtitle1" className={classes.space}>
               Location
             </Typography>
+            {address && (
+              <a
+                className={classes.popItems}
+                href={`https://www.google.com/maps/search/?api=1&query=${
+                  address.address
+                }${' '}${address.city}${' '}${address.district}`}
+                target="_/blank"
+                style={{ margin: '10px 0 0 auto' }}
+              >
+                <Typography variant="caption" display="block" gutterBottom>
+                  Open in map
+                </Typography>
+              </a>
+            )}
           </div>
           <Table>
             <TableHead>
@@ -308,20 +327,20 @@ class SingleItem extends React.Component {
               )}
             </TableHead>
           </Table>
-          <div className={classes.aboutHeading}>
+          {/* <div className={classes.aboutHeading}>
             <ContactsIcon />
             <Typography variant="subtitle1" className={classes.space}>
               Contact Info
             </Typography>
-          </div>
-          <Table>
+          </div> */}
+          {/* <Table>
             <TableHead>
               <TableRow>
                 <TableCell>Phone number</TableCell>
                 <TableCell> {contactNo}</TableCell>
               </TableRow>
             </TableHead>
-          </Table>
+          </Table> */}
           <div className={classes.aboutHeading}>
             <ContactsIcon />
             <Typography variant="subtitle1" className={classes.space}>

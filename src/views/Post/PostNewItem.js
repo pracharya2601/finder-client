@@ -14,13 +14,12 @@ import Container from '../../components/container/Container';
 class PostNewItem extends React.Component {
   onSubmit = (values) => {
     this.props.postItem(values, () => {
-      this.props.history.push('/all');
+      this.props.history.push('/');
     });
   };
 
   render() {
     let id = uniqid('item-') + uniqid();
-    console.log(this.props.user);
     return (
       <Container direction="left">
         <ItemForm

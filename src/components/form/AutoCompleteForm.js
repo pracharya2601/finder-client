@@ -20,15 +20,17 @@ const AutoCompleteForm = (props) => {
     multiline,
     meta: { touched, error },
   } = props;
+  const { onFocus, onBlur, ...myInput } = input;
   return (
     <Autocomplete
       id="autocomplete"
       freeSolo
       options={options.map((option) => option)}
+      {...input}
       renderInput={(params) => (
         <TextField
-          {...params}
           {...input}
+          {...params}
           name={name}
           type={type}
           variant={outlined}
