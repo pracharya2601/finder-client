@@ -1,18 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import MuiLink from '@material-ui/core/Link';
+import Typography from '@material-ui/core/Typography';
 
 const Fullname = (props) => {
   const { fullName, handle } = props;
   return (
-    <MuiLink
-      variant="h5"
-      color="primary"
-      component={handle ? Link : null}
-      to={`/user/profile/${handle}`}
-    >
+    <Typography variant="h5" color="primary">
       {fullName}
-    </MuiLink>
+    </Typography>
   );
 };
 

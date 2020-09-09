@@ -69,7 +69,9 @@ class Notifications extends React.Component {
         notifications.map((not) => {
           const verb = not.type === 'like' ? 'liked' : 'commented on';
           const time = dayjs(not.createdAt).fromNow();
-          const iconColor = not.red ? 'primary' : 'secondary';
+          const iconColor = not.read ? 'primary' : 'secondary';
+          const userHandle = not.sender;
+          const senderName = not.senderName;
 
           const icon =
             not.type === 'like' ? (
@@ -77,7 +79,6 @@ class Notifications extends React.Component {
             ) : (
               <ChatIcon color={iconColor} style={{ marginRight: 10 }} />
             );
-          const userHandle = not.sender;
           return (
             <MenuItem key={not.createdAt} onClick={this.handleClose}>
               {icon}
@@ -86,7 +87,7 @@ class Notifications extends React.Component {
                 variant="body1"
                 to={`/user/profile/${userHandle}`}
               >
-                {not.sender} {verb} your post {time}
+                {senderName} {verb} your post {time}
               </Typography>
             </MenuItem>
           );

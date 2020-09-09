@@ -1,10 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import TabPanel from '../tabs/TabPanel';
 
 //title
 import withTitle from '../../util/withTitle';
 import Container from '../container/Container';
+import TabComp from '../tabs/TabComp';
 
 //redux
 import { connect } from 'react-redux';
@@ -79,9 +81,15 @@ class Profile extends Component {
   render() {
     const {
       classes,
-      user: { credentials, loading, authenticated },
+      user: {
+        credentials,
+        loading,
+        authenticated,
+        availableItem,
+        unavailableItem,
+        saved,
+      },
     } = this.props;
-    console.log(this.props);
 
     const profileMarkup = !loading ? (
       authenticated ? (
@@ -144,6 +152,11 @@ class Profile extends Component {
     return (
       <Container direction="right">
         <div className={classes.profileCard}>{profileMarkup}</div>
+        <TabComp
+          availableItem={availableItem}
+          unavailableItem={unavailableItem}
+          savedItem={saved}
+        />
       </Container>
     );
   }

@@ -53,7 +53,7 @@ class ShareBtns extends React.Component {
           <DialogTitle id="form-dialog-title">Share this post on:</DialogTitle>
           <DialogContent>
             <div>
-              <Facebook url={url} shareText={shareText} />
+              <Facebook url={url} />
               <Email url={url} shareText={shareText} />
               <Twitter url={url} shareText={shareText} />
               <Button

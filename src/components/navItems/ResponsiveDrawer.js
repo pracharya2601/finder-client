@@ -61,19 +61,21 @@ class ResponsiveDrawer extends React.Component {
   render() {
     const {
       classes,
-      user: { authenticated },
+      user: { authenticated, credentials },
     } = this.props;
 
     const signedInList = (
       <div>
         <Divider />
         <List>
-          <ListItem button component={Link} to={`/user/profile`}>
-            <ListItemIcon>
-              <AccountCircleIcon />
-            </ListItemIcon>
-            <ListItemText>Profile</ListItemText>
-          </ListItem>
+          {credentials && (
+            <ListItem button component={Link} to={`/user/profile/`}>
+              <ListItemIcon>
+                <AccountCircleIcon />
+              </ListItemIcon>
+              <ListItemText>Profile</ListItemText>
+            </ListItem>
+          )}
         </List>
         <List>
           <ListItem
@@ -120,7 +122,7 @@ class ResponsiveDrawer extends React.Component {
             <ListItemIcon>
               <AddIcon />
             </ListItemIcon>
-            <ListItemText>Add New Place</ListItemText>
+            <ListItemText>Post New</ListItemText>
           </ListItem>
         </List>
         <List>

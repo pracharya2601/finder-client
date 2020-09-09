@@ -34,10 +34,12 @@ const DetailContent = (props) => {
           <span>{location}</span>
         </div>
       )}
-      <div className={classes.userItem}>
-        <PhoneIcon />
-        <span>{contactNo}</span>
-      </div>
+      {contactNo && (
+        <div className={classes.userItem}>
+          <PhoneIcon />
+          <span>{contactNo}</span>
+        </div>
+      )}
       <div className={classes.userItem}>
         <MailIcon />
         <span>{email}</span>

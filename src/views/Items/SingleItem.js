@@ -222,14 +222,18 @@ class SingleItem extends React.Component {
                 />
               </AccordionDetails>
             )}
+            <AccordionDetails>
+              {sameUser && <DeleteItem itemId={itemId} del />}
+            </AccordionDetails>
+            <AccordionDetails>
+              {sameUser && (
+                <Markavailability itemId={itemId} available={available} />
+              )}
+            </AccordionDetails>
+            <AccordionDetails>
             {sameUser && (
               <AccordionDetails>
                 <DeleteItem itemId={itemId} del />
-              </AccordionDetails>
-            )}
-            {sameUser && (
-              <AccordionDetails>
-                <Markavailability itemId={itemId} />
               </AccordionDetails>
             )}
             {sameUser && (

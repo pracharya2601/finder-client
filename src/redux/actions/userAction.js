@@ -8,12 +8,13 @@ import {
   SET_UNAUTHENTICATED,
   LOADING_USER,
   ALERT_MESSAGE,
+  GET_USER_DETAIL,
   GET_USER,
   MARK_NOTIFICATIONS_READ,
 } from '../types';
 import axios from 'axios';
 
-export const loginUser = (userData, history) => (dispatch) => {
+export const loginUser = (userData) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
     .post('/login', userData)
@@ -21,7 +22,6 @@ export const loginUser = (userData, history) => (dispatch) => {
       setAuthorizationHeader(res.data.token);
       dispatch(getUserData());
       dispatch({ type: CLEAR_ERRORS });
-      history.push('/');
     })
     .catch((err) => {
       dispatch({
@@ -31,7 +31,7 @@ export const loginUser = (userData, history) => (dispatch) => {
     });
 };
 
-export const signupUser = (newUserData, history) => (dispatch) => {
+export const signupUser = (newUserData) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
     .post('/signup', newUserData)
@@ -39,7 +39,6 @@ export const signupUser = (newUserData, history) => (dispatch) => {
       setAuthorizationHeader(res.data.token);
       dispatch(getUserData());
       dispatch({ type: CLEAR_ERRORS });
-      history.push('/');
     })
     .catch((err) => {
       dispatch({
@@ -81,21 +80,6 @@ export const getUserData = () => (dispatch) => {
     .then((res) => {
       dispatch({
         type: SET_USER,
-        payload: res.data,
-      });
-    })
-    .catch((err) => console.log(err));
-};
-
-//fetch User
-
-export const fetchUserInfo = (userHandle) => (dispatch) => {
-  dispatch({ type: LOADING_USER });
-  axios
-    .get(`/user/${userHandle}`)
-    .then((res) => {
-      dispatch({
-        type: GET_USER,
         payload: res.data,
       });
     })

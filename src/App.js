@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch, BrowserRouter } from 'react-router-dom';
 import './App.css';
 import jwtDecode from 'jwt-decode';
 import history from './history';
@@ -56,7 +56,7 @@ class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <HashRouter>
+        <BrowserRouter>
           <ScrollMemory />
           <Navbar />
 
@@ -83,7 +83,7 @@ class App extends React.Component {
               />
             </Switch>
           </React.Fragment>
-        </HashRouter>
+        </BrowserRouter>
       </Provider>
     );
   }

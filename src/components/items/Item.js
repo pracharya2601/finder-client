@@ -223,7 +223,9 @@ class Item extends React.Component {
               )}
 
               {sameUser && <DeleteItem itemId={itemId} del />}
-              {sameUser && <Markavailability itemId={itemId} />}
+              {sameUser && (
+                <Markavailability itemId={itemId} available={available} />
+              )}
               {sameUser && (
                 <MenuItem component={Link} to={`/item/edit/${itemId}`}>
                   Edit
