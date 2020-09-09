@@ -124,8 +124,8 @@ function About() {
               name="Ankita Acharya"
               position="Social Media Manager"
               company="Student"
-              linkedin="https://www.linkedin.com/in/prakash-ac/"
-              github="https://github.com/pracharya2601"
+              // linkedin="https://www.linkedin.com/in/prakash-ac/"
+              // github="https://github.com/pracharya2601"
               email="aacharyaankita@gmail.com"
               ank
             />

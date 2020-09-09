@@ -184,17 +184,6 @@ class SingleItem extends React.Component {
     ) : (
       <div style={{ maxWidth: '700px', margin: 'auto' }}>
         {itemImgUrl && <ImgCarousel itemImgUrl={itemImgUrl} />}
-        {/* <CardHead
-          userHandle={userHandle}
-          deleteBtn
-          editBtn
-          userImage={userImage}
-          name={name}
-          address={address}
-          itemId={itemId}
-          createdAt={createdAt}
-          className={classes.header}
-        /> */}
         <Card className={classes.card}>
           <div>
             <LikeButton itemId={itemId} />
@@ -230,7 +219,7 @@ class SingleItem extends React.Component {
                 <Markavailability itemId={itemId} available={available} />
               )}
             </AccordionDetails>
-            <AccordionDetails>
+
             {sameUser && (
               <AccordionDetails>
                 <DeleteItem itemId={itemId} del />
