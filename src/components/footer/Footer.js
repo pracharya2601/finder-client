@@ -23,9 +23,13 @@ function Copyright() {
         style={{ textAlign: 'center', color: 'white' }}
       >
         {'Copyright © '}
-        <Link href="https://www.easypezy.com" style={{ color: 'red' }}>
+        <a
+          href="https://www.easypezy.com"
+          target="_/blank"
+          style={{ color: 'red' }}
+        >
           EasyPezy
-        </Link>{' '}
+        </a>{' '}
         {new Date().getFullYear()}
         {'.'}
       </Typography>

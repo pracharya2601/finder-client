@@ -10,16 +10,19 @@ const TitleComponent = (props) => {
   const {
     title,
     item,
-    user: {
-      credentials: { fullName },
-    },
+    user,
+    // user: {
+    //   // credentials: { fullName },
+    // },
+    // console.log
   } = props;
+  console.log(user);
   var defaultTitle = 'EasyPezy';
 
   const titleFunction = (title) => {
     if (title === 'singleitem' || title === 'edit') return item;
-    if (title === 'user') return fullName;
-    if (title === 'saved') return `Saved Items ${fullName}`;
+    if (title === 'user') return defaultTitle;
+    if (title === 'saved') return `Saved Items ${defaultTitle}`;
     return title;
   };
 

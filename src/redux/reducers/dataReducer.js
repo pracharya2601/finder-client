@@ -8,6 +8,7 @@ import {
   LIKE_ITEM,
   UNLIKE_ITEM,
   MARK_AVAILABLE,
+  GET_USER_DETAIL,
   MARK_UNAVAILABLE,
   SAVE_ITEM,
   UNSAVE_ITEM,
@@ -28,6 +29,7 @@ const INITIAL_STATE = {
   rentalItems: {},
   saleItems: {},
   otherItems: {},
+  userDetail: {},
   viewSort: '',
   item: {},
   loading: false,
@@ -63,6 +65,12 @@ export default (state = INITIAL_STATE, action) => {
         otherItems: _.mapKeys(action.payload, 'itemId'),
         loading: false,
       };
+    case GET_USER_DETAIL:
+      return {
+        ...state,
+        userDetail: action.payload,
+        loading: false,
+      };
     case FILTER_BY_VIEWCOUNT:
       return {
         ...state,
@@ -90,12 +98,15 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         [action.payload.itemId]: action.payload,
+        loading: false,
       };
     case UPDATE_ITEM:
       return {
         ...state,
         [action.payload.itemId]: action.payload,
+        loading: false,
       };
+
     case SUBMIT_COMMENT:
       return {
         ...state,
@@ -103,6 +114,7 @@ export default (state = INITIAL_STATE, action) => {
           ...state.item,
           comments: [action.payload, ...state.item.comments],
         },
+        loading: false,
       };
     case SUBMIT_REPORT:
       return {

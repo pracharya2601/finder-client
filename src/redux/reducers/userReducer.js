@@ -7,6 +7,7 @@ import {
   LIKE_ITEM,
   UNLIKE_ITEM,
   MARK_NOTIFICATIONS_READ,
+  GET_USER_DETAIL,
   SAVE_ITEM,
   UNSAVE_ITEM,
 } from '../types';
@@ -32,13 +33,13 @@ export default (state = INITIAL_STATE, action) => {
     case SET_USER:
       return {
         authenticated: true,
-        loading: false,
         ...action.payload,
+        loading: false,
       };
     case GET_USER:
       return {
-        loading: false,
         ...action.payload,
+        loading: false,
       };
     case LOADING_USER:
       return {

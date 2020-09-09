@@ -29,6 +29,7 @@ class Markavailability extends React.Component {
       userHandle,
       available,
     } = this.props;
+    console.log(this.props);
     const markAvailabilityMarkup = available ? (
       <MenuItem onClick={this.markItemUnAvailable}>Mark Unavailable</MenuItem>
     ) : (
@@ -41,7 +42,6 @@ class Markavailability extends React.Component {
 const mapStateToProps = (state) => ({
   authenticated: state.user.authenticated,
   user: state.user.credentials,
-  items: state.data,
 });
 
 export default connect(mapStateToProps, { markAvailable, markUnavailable })(

@@ -96,10 +96,38 @@ function About() {
             <AboutCard
               name="Prakash Acharya"
               position="Fullstack Software Engineer"
+              company="Software Engineer/ Instructor at Bigminds Un School"
               linkedin="https://www.linkedin.com/in/prakash-ac/"
               github="https://github.com/pracharya2601"
               email="pracharya2601@gmail.com"
-              prakash
+              pra
+            />
+            <AboutCard
+              name="Sulav Prasai"
+              position="Advisor"
+              company="CEO/Founder of Guangzhou  Infinity Trading Co. Limited 广州英飞贸易有限公司"
+              linkedin="https://www.linkedin.com/in/sulav-prasai/"
+              wechat="Sulav2017"
+              email="prasaisulav@gmail.com"
+              sul
+            />
+            <AboutCard
+              name="Asim Acharya"
+              position="Content Manager"
+              company="Student"
+              // linkedin="https://www.linkedin.com/in/prakash-ac/"
+              // github="https://github.com/pracharya2601"
+              email="aacharyaasim880@gmail.com"
+              asi
+            />
+            <AboutCard
+              name="Ankita Acharya"
+              position="Social Media Manager"
+              company="Student"
+              linkedin="https://www.linkedin.com/in/prakash-ac/"
+              github="https://github.com/pracharya2601"
+              email="aacharyaankita@gmail.com"
+              ank
             />
           </Grid>
         </Container>

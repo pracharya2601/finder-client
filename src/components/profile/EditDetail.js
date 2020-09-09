@@ -21,6 +21,7 @@ class EditDetail extends React.Component {
     bio: '',
     website: '',
     location: '',
+    contactNo: '',
     open: false,
   };
 
@@ -29,6 +30,7 @@ class EditDetail extends React.Component {
       bio: credentials.bio ? credentials.bio : '',
       website: credentials.website ? credentials.website : '',
       location: credentials.location ? credentials.location : '',
+      contactNo: credentials.contactNo ? credentials.contactNo : '',
     });
   };
 
@@ -57,13 +59,13 @@ class EditDetail extends React.Component {
       bio: this.state.bio,
       website: this.state.website,
       location: this.state.location,
+      contactNo: this.state.contactNo,
     };
     this.props.editUserDetails(userDetail);
     this.handleClose();
   };
 
   render() {
-    console.log(this.state.bio);
     return (
       <Fragment>
         <Button
@@ -106,6 +108,15 @@ class EditDetail extends React.Component {
                 label="Your Location"
                 type="text"
                 placeholder="Your adderess"
+                fullWidth
+                value={this.state.location}
+                onChange={this.handleChange}
+              />
+              <TextField
+                name="contactNo"
+                label="Phone Number"
+                type="tel"
+                placeholder="Your phone number"
                 fullWidth
                 value={this.state.location}
                 onChange={this.handleChange}

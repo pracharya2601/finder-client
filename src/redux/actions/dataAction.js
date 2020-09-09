@@ -9,6 +9,7 @@ import {
   LOADING_DATA,
   LIKE_ITEM,
   UNLIKE_ITEM,
+  GET_USER_DETAIL,
   SAVE_ITEM,
   UNSAVE_ITEM,
   MARK_AVAILABLE,
@@ -182,6 +183,20 @@ export const unLikeItem = (itemId) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
+//fetch other user
+export const getUserDetail = (userHandle) => (dispatch) => {
+  dispatch({ type: LOADING_DATA });
+  axios
+    .get(`/userData/${userHandle}`)
+    .then((res) => {
+      dispatch({
+        type: GET_USER_DETAIL,
+        payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+
 //mark available item
 export const markAvailable = (itemId) => (dispatch) => {
   axios
@@ -191,6 +206,7 @@ export const markAvailable = (itemId) => (dispatch) => {
         type: MARK_AVAILABLE,
         payload: res.data,
       });
+      window.location.reload();
     })
     .catch((err) => console.log(err));
 };
@@ -204,6 +220,7 @@ export const markUnavailable = (itemId) => (dispatch) => {
         type: MARK_UNAVAILABLE,
         payload: res.data,
       });
+      window.location.reload();
     })
     .catch((err) => console.log(err));
 };

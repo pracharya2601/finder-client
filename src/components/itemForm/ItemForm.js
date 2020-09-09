@@ -174,7 +174,7 @@ class ItemForm extends React.Component {
           onClick={() => fields.push()}
           style={{ marginTop: '5px' }}
         >
-          Add nearby item
+          Add nearby Places
         </Button>
       </Grid>
     </div>

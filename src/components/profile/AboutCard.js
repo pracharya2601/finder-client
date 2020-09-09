@@ -19,10 +19,14 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import EmailIcon from '@material-ui/icons/Email';
+import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 
 import find from '../../images/find.jpg';
 import mountain from '../../images/mounteverest.png';
 import prakash from '../../images/prakash.JPG';
+import sulav from '../../images/sulav.png';
+import asim from '../../images/asim.png';
+import ankita from '../../images/ankita.png';
 import Fullname from '../../components/profile/Fullname';
 
 const useStyles = makeStyles((theme) => ({
@@ -49,6 +53,17 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     padding: '5px 10px 5px 10px',
   },
+  wechatid: {
+    display: 'none',
+  },
+  iconwechat: {
+    padding: '5px 10px 5px 10px',
+    '&:hover': {
+      wechatid: {
+        display: 'block',
+      },
+    },
+  },
   author: {
     display: 'flex',
   },
@@ -60,8 +75,20 @@ const useStyles = makeStyles((theme) => ({
 
 const AboutCard = (props) => {
   const classes = useStyles();
-  const { name, position, email, linkedin, github } = props;
-  const imgSrc = prakash ? prakash : null;
+  const {
+    name,
+    position,
+    email,
+    linkedin,
+    github,
+    pra,
+    sul,
+    asi,
+    ank,
+    company,
+    wechat,
+  } = props;
+  const imgSrc = pra ? prakash : sul ? sulav : asi ? asim : ank ? ankita : null;
   return (
     <Grid item xs={12} sm={6} md={4}>
       <Card className={classes.card}>
@@ -73,7 +100,7 @@ const AboutCard = (props) => {
             <a className={classes.icon} href={linkedin} target="_/blank">
               <LinkedInIcon />
             </a>
-            {/* "https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=someone@gmail.com" */}
+
             <a
               className={classes.icon}
               href={`https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=${email}`}
@@ -81,10 +108,18 @@ const AboutCard = (props) => {
             >
               <EmailIcon />
             </a>
-            <a className={classes.icon} href={github} target="_/blank">
-              <GitHubIcon />
-            </a>
+            {github && (
+              <a className={classes.icon} href={github} target="_/blank">
+                <GitHubIcon />
+              </a>
+            )}
+            {wechat && (
+              <a className={classes.icon} href="#" target="_/blank">
+                <ChatBubbleIcon />
+              </a>
+            )}
           </div>
+          <div style={{ textAlign: 'center' }}>{company}</div>
         </CardContent>
       </Card>
     </Grid>

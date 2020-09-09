@@ -80,7 +80,7 @@ const styles = {
     left: '0',
     marginTop: '10px',
     marginLeft: '5px',
-    borderRadius: '5px',
+    borderRadius: '50%',
     zIndex: '300',
     '&:hover': {
       opacity: 1,
@@ -223,7 +223,9 @@ class Item extends React.Component {
               )}
 
               {sameUser && <DeleteItem itemId={itemId} del />}
-              {sameUser && <Markavailability itemId={itemId} />}
+              {sameUser && (
+                <Markavailability itemId={itemId} available={available} />
+              )}
               {sameUser && (
                 <MenuItem component={Link} to={`/item/edit/${itemId}`}>
                   Edit

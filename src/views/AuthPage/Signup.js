@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import Term from '../../term';
 import RenderField from '../../components/form/RenderField';
+import CheckboxInput from '../../components/form/CheckboxInput';
 
 //react-recaptcha
 import Recaptcha from 'react-recaptcha';
@@ -157,13 +158,13 @@ class Signup extends React.Component {
               label="Email"
               helperText={errorTextEmail}
             />
-            <Field
+            {/* <Field
               name="handle"
               type="text"
               component={RenderField}
               label="Unique Username"
               helperText={errorTextHandle}
-            />
+            /> */}
             <Field
               name="password"
               type="password"
@@ -171,26 +172,36 @@ class Signup extends React.Component {
               label="Password"
               helperText={errorTextPassword}
             />
-            <Field
+            {/* <Field
               name="confirmPassword"
               type="password"
               component={RenderField}
               label="Confirm Password"
               helperText={errorTextConfirmPassword}
-            />
-            <Field
+            /> */}
+            {/* <Field
               name="contactNo"
-              type="number"
+              type="tel"
               component={RenderField}
               label="Contact Number"
               helperText={errotTextContactNo}
-            />
-            <Field
+            /> */}
+            {/* <Field
               name="age"
               type="number"
               component={RenderField}
               label="Age"
               helperText={errorTextAge}
+            /> */}
+            <Field
+              name="age"
+              component={CheckboxInput}
+              label="I am over 18 years."
+            />
+            <Field
+              name="term"
+              component={CheckboxInput}
+              label="I accept term and condition."
             />
             <CardActions className={classes.cardAction}>
               <Recaptcha
@@ -208,14 +219,14 @@ class Signup extends React.Component {
                 <div className={classes.errorText}>{errors.general}</div>
               )}
               <Button color="primary" variant="contained" type="submit">
-                Sign Up
+                Create Account
               </Button>
               <Typography
                 variant="caption"
                 color="textSecondary"
                 className={classes.remainContent}
               >
-                By signup you agree to company
+                Signing up signifies that you have read and agree to the
                 <Term color="red" size="large" />
               </Typography>
               <Typography

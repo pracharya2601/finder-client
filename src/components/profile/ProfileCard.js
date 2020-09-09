@@ -1,47 +1,43 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
 import _ from 'lodash';
 
-//import title
+//title
 import withTitle from '../../util/withTitle';
-
-import Container from '../../components/container/Container';
-import Item from '../../components/items/Item';
-import Fullname from '../../components/profile/Fullname';
-import CreatedAt from '../../components/profile/CreatedAt';
-import EditDetail from '../../components/profile/EditDetail';
-import DetailContent from '../../components/profile/DetailContent';
-import Loading from '../../components/loading/Loading';
-import TabPanel from '../../components/tabs/TabPanel';
-
-//mui
-
-import withStyles from '@material-ui/core/styles/withStyles';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Divider from '@material-ui/core/Divider';
-import Slide from '@material-ui/core/Slide';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Tooltip from '@material-ui/core/Tooltip';
-import Avatar from '@material-ui/core/Avatar';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-
-//icon
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import Container from '../container/Container';
 
 //redux
 import { connect } from 'react-redux';
-import { getUserDetail } from '../../redux/actions/dataAction';
+import { logoutUser, uploadImage } from '../../redux/actions/userAction';
 
+//component
+import EditDetail from './EditDetail';
+import Fullname from './Fullname';
+import CreatedAt from './CreatedAt';
+import DetailContent from './DetailContent';
+import TabPanel from '../tabs/TabPanel';
+import Item from '../items/Item';
+
+//loding page
+import Loading from '../loading/Loading';
+
+//MUI
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Grid from '@material-ui/core/Grid';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Card from '@material-ui/core/Card';
+import Divider from '@material-ui/core/Divider';
+import CardContent from '@material-ui/core/CardContent';
+import Avatar from '@material-ui/core/Avatar';
+import Tooltip from '@material-ui/core/Tooltip';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import IconButton from '@material-ui/core/IconButton';
+
+import { fetchUserData } from '../../redux/actions/dataAction';
+
+//MUI icons
 const styles = {
   profileCard: {
     display: 'flex',
@@ -86,20 +82,20 @@ const a11yProps = (index) => {
   };
 };
 
-class User extends React.Component {
+class ProfileCard extends Component {
   state = {
     value: 1,
   };
+  _isMounted = false;
 
   componentDidMount() {
-    const handle = this.props.match.params.handle;
+    this._isMounted = true;
+    const handle = this.props.handle;
     this.props.getUserDetail(handle);
   }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.match.params.handle !== this.props.match.params.handle) {
-      const handle = nextProps.match.params.handle;
-      this.props.getUserDetail(handle);
-    }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   handleImageChange = (event) => {
@@ -123,14 +119,13 @@ class User extends React.Component {
 
   render() {
     const {
-      classes,
       userPage,
       profilePage,
+      classes,
       user: { credentials, loading, authenticated },
       userDetail: { user, availableItem, unavailableItem },
     } = this.props;
-    console.log(credentials);
-    console.log(user);
+    console.log(this.props);
 
     const itemMarkupFunc = (items) => {
       return items.map((item) => (
@@ -145,18 +140,34 @@ class User extends React.Component {
       ? itemMarkupFunc(unavailableItem)
       : null;
 
+    const title = userPage ? '' : 'Edit profile Picture';
+
     const profileMarkup = !loading ? (
       <Card className={classes.card}>
-        {user && credentials && (
+        {user && (
           <CardContent className={classes.cardHeader}>
-            <Avatar
-              alt={user.handle}
-              src={user.imageUrl}
-              className={classes.imageProfile}
+            <Tooltip title={title}>
+              <Avatar
+                alt={user.handle}
+                src={user.imageUrl}
+                className={classes.imageProfile}
+                onClick={userPage ? null : this.handleEditPicture}
+              />
+            </Tooltip>
+            <input
+              type="file"
+              id="imageInput"
+              hidden="hidden"
+              onChange={this.handleImageChange}
             />
             <Fullname fullName={user.fullName} />
             <div className={classes.userItem}>{user.bio}</div>
             <CreatedAt createdAt={credentials.createdAt} />
+            {profilePage && (
+              <div className={classes.userItem}>
+                <EditDetail />
+              </div>
+            )}
           </CardContent>
         )}
         <Divider light />
@@ -167,6 +178,19 @@ class User extends React.Component {
             email={user.email}
             website={user.website}
           />
+        )}
+        {authenticated && (
+          <CardContent className={classes.cardHeader}>
+            <Tooltip title="Logout" placement="top">
+              <IconButton
+                onClick={this.handleLogout}
+                component={Link}
+                to={`/login`}
+              >
+                <ExitToAppIcon style={{ color: 'red' }} />
+              </IconButton>
+            </Tooltip>
+          </CardContent>
         )}
       </Card>
     ) : (
@@ -195,7 +219,7 @@ class User extends React.Component {
           </Container>
         </TabPanel>
         <TabPanel value={this.state.value} index={1}>
-          <Container direction="right">
+          <Container>
             <Grid container spacing={2}>
               {availableItems}
             </Grid>
@@ -210,7 +234,6 @@ class User extends React.Component {
         <div className={classes.itemCard}>{tabMarkup}</div>
       </Container>
     );
-    // return <Container>Hello</Container>;
   }
 }
 
@@ -221,6 +244,8 @@ const mapStateToProps = (state) => ({
 
 const title = 'user';
 
-export default connect(mapStateToProps, { getUserDetail })(
-  withStyles(styles)(withTitle(User, title))
-);
+export default connect(mapStateToProps, {
+  logoutUser,
+  uploadImage,
+  getUserDetail,
+})(withStyles(styles)(withTitle(ProfileCard, title)));
