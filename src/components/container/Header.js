@@ -4,9 +4,16 @@ import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-const Header = ({ heading, goTo, goToText }) => {
+const Header = ({ heading, goTo, goToText, home }) => {
+  const pad = '0 10px 0 10px';
+
+  const style = {
+    position: 'relative',
+    marginBottom: '10px',
+    boxSizing: 'border-box',
+  };
   return (
-    <div style={{ position: 'relative', marginBottom: '10px' }}>
+    <div style={style}>
       <div style={background}></div>
       <Typography variant="h6" gutterBottom style={headingItem}>
         {heading}

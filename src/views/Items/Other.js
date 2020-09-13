@@ -5,6 +5,9 @@ import { getOtherItems } from '../../redux/actions/dataAction';
 //title
 import withTitle from '../../util/withTitle';
 
+//navbar
+import Navbar from '../../components/Navbar';
+
 import Container from '../../components/container/Container';
 import Header from '../../components/container/Header';
 import Footer from '../../components/footer/Footer';
@@ -28,6 +31,7 @@ class Other extends React.Component {
 
     return (
       <React.Fragment>
+        <Navbar />
         <div style={{ margin: '80px auto -50px auto', maxWidth: '1200px' }}>
           <Header heading="Other Catagory" />
         </div>

@@ -5,6 +5,9 @@ import TabPanel from '../tabs/TabPanel';
 
 //title
 import withTitle from '../../util/withTitle';
+//navbar
+import Navbar from '../Navbar';
+
 import Container from '../container/Container';
 import TabComp from '../tabs/TabComp';
 
@@ -150,14 +153,17 @@ class Profile extends Component {
     );
 
     return (
-      <Container direction="right">
-        <div className={classes.profileCard}>{profileMarkup}</div>
-        <TabComp
-          availableItem={availableItem}
-          unavailableItem={unavailableItem}
-          savedItem={saved}
-        />
-      </Container>
+      <>
+        <Navbar />
+        <Container direction="right">
+          <div className={classes.profileCard}>{profileMarkup}</div>
+          <TabComp
+            availableItem={availableItem}
+            unavailableItem={unavailableItem}
+            savedItem={saved}
+          />
+        </Container>
+      </>
     );
   }
 }

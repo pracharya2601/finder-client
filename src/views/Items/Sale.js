@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getSaleItems } from '../../redux/actions/dataAction';
 
+//navbar
+import Navbar from '../../components/Navbar';
 //title
 import withTitle from '../../util/withTitle';
 
@@ -25,6 +27,7 @@ class Sale extends React.Component {
 
     return (
       <React.Fragment>
+        <Navbar />
         <div style={{ margin: '80px auto -50px auto', maxWidth: '1200px' }}>
           <Header heading="For Sale" />
         </div>

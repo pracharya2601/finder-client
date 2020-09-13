@@ -4,6 +4,10 @@ import uniqid from 'uniqid';
 //title
 import withTitle from '../../util/withTitle';
 
+//navbar
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/footer/Footer';
+
 import { connect } from 'react-redux';
 import { postItem } from '../../redux/actions/dataAction';
 
@@ -21,15 +25,19 @@ class PostNewItem extends React.Component {
   render() {
     let id = uniqid('item-') + uniqid();
     return (
-      <Container direction="left">
-        <ItemForm
-          onSubmit={this.onSubmit}
-          header="Post New Stuff"
-          id={id}
-          loading={this.props.loading}
-          resetBtn
-        />
-      </Container>
+      <>
+        <Navbar />
+        <Container direction="left">
+          <ItemForm
+            onSubmit={this.onSubmit}
+            header="Post New Stuff"
+            id={id}
+            loading={this.props.loading}
+            resetBtn
+          />
+        </Container>
+        <Footer />
+      </>
     );
   }
 }

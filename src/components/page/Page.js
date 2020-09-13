@@ -81,9 +81,9 @@ class Page extends React.Component {
     ));
     const itemMarkup = loading
       ? skeletonItem
-      : Object.keys(items).length < 1
-      ? skeletonItem
-      : item;
+      : // : Object.keys(items).length < 1
+        // ? skeletonItem
+        item;
 
     return (
       <div>

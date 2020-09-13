@@ -176,6 +176,7 @@ class Item extends React.Component {
 
     //delete markup
     const sameUser = userHandle === handle ? true : false;
+
     if (!itemId) {
       return (
         <div style={{ position: 'relative', width: '100%' }}>

@@ -56,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
     buttom: '0',
     left: '0',
     width: '100%',
+    boxSizing: 'border-box',
   },
   companyName: {
     position: 'relative',
@@ -68,8 +69,8 @@ const useStyles = makeStyles((theme) => ({
     background: 'white',
   },
   footGrid: {
-    display: 'flex',
-    lineHeight: '30px',
+    // display: 'flex',
+    // lineHeight: '30px',
   },
   footGridRight: {
     // display: 'relative',
@@ -128,44 +129,40 @@ const Footer = (props) => {
 
   return (
     <footer className={classes.footer}>
-      <Container maxWidth="lg">
-        <Grid container spacing={5}>
-          <Grid item xs={12} sm={6} className={classes.footGrid}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} className={classes.companyName}>
-                <Avatar alt="logo" src={Icon} className={classes.avtr} />
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    margin: '10px 0 0 50px',
-                    color: 'white',
-                  }}
-                >
-                  {title}
-                </div>
-              </Grid>
-              <Grid item xs={12}>
-                <ContactForm />
-              </Grid>
-              <Grid item xs={12}>
-                <Link to="/aboutus">
-                  <div className={classes.textBtn}>About Us</div>
-                </Link>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} sm={6} className={classes.footGridRight}>
-            <Typography style={{ float: 'right' }}>
-              {description} {icons}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Copyright />
-          </Grid>
+      <Grid container style={{ padding: '0 20px 0 20px' }}>
+        <Grid item xs={12} sm={6} className={classes.footGrid}>
+          <div className={classes.companyName}>
+            <Avatar alt="logo" src={Icon} className={classes.avtr} />
+            <div
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                margin: '10px 0 0 50px',
+                color: 'white',
+              }}
+            >
+              {title}
+            </div>
+          </div>
+          <div style={{ margin: '20px 0' }}>
+            <ContactForm />
+          </div>
+          <div>
+            <Link to="/aboutus">
+              <div className={classes.textBtn}>About Us</div>
+            </Link>
+          </div>
         </Grid>
-      </Container>
+        <Grid item xs={12} sm={6} className={classes.footGridRight}>
+          <Typography style={{ float: 'right' }}>
+            {description} {icons}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Copyright />
+        </Grid>
+      </Grid>
     </footer>
   );
 };

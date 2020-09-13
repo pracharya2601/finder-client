@@ -11,16 +11,15 @@ const Container = (props) => {
 
   return (
     <Slide direction={direction} in={true} mountOnEnter unmountOnExit>
-      {/* <Grid container style={style}>
-        <Grid item xs={12} sm={1}></Grid>
-        <Grid item xs={12} sm={10}> */}
-      <div style={{ maxWidth: '1200px', margin: '80px auto 50px auto' }}>
+      <div
+        style={{
+          maxWidth: '1200px',
+          margin: '80px auto 50px auto',
+          boxSizing: 'border-box',
+        }}
+      >
         {children}
       </div>
-
-      {/* </Grid>
-        <Grid item xs={12} sm={1}></Grid>
-      </Grid> */}
     </Slide>
   );
 };

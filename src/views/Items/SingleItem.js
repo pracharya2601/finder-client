@@ -6,7 +6,13 @@ import _ from 'lodash';
 //title
 import withTitle from '../../util/withTitle';
 
+//navbar
+import Navbar from '../../components/Navbar';
+
 import Container from '../../components/container/Container';
+
+//footer
+import Footer from '../../components/footer/Footer';
 
 // import CardHead from '../../components/items/CardHead';
 import LikeButton from '../../components/items/LikeButton';
@@ -342,7 +348,13 @@ class SingleItem extends React.Component {
       </div>
     );
 
-    return <Container direction="left">{markupContent}</Container>;
+    return (
+      <>
+        <Navbar />
+        <Container direction="left">{markupContent}</Container>
+        <Footer />
+      </>
+    );
   }
 }
 

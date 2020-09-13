@@ -30,7 +30,8 @@ class ItemsCarousel extends React.Component {
         tiltEasing="cubic-bezier(0.110, 1, 1.000, 0.210)"
         transitionMs={700}
         renderArrow={this.myArrow}
-        itemPadding={[5, 5]}
+        itemPadding={[5, 2]}
+        style={{ boxSizing: 'border-box' }}
         renderPagination={({ pages, activePage, onClick }) => {
           return (
             <div style={style}>

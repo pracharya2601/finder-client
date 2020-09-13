@@ -58,7 +58,7 @@ class App extends React.Component {
       <Provider store={store}>
         <BrowserRouter>
           <ScrollMemory />
-          <Navbar />
+          {/* <Navbar /> */}
 
           <React.Fragment>
             <Switch>

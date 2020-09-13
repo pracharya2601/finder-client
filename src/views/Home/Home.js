@@ -1,6 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
 
+//navbar
+import Navbar from '../../components/Navbar';
+
 //with title
 import withTitle from '../../util/withTitle';
 
@@ -13,19 +16,11 @@ import Header from '../../components/container/Header';
 import Footer from '../../components/footer/Footer';
 
 import { connect } from 'react-redux';
-import {
-  getItems,
-  getOtherItems,
-  getSaleItems,
-  getRentalItems,
-} from '../../redux/actions/dataAction';
+import { getItems } from '../../redux/actions/dataAction';
 
 class Home extends React.Component {
   componentDidMount() {
     this.props.getItems();
-    this.props.getOtherItems();
-    this.props.getSaleItems();
-    this.props.getRentalItems();
   }
 
   render() {
@@ -37,72 +32,72 @@ class Home extends React.Component {
       loading,
     } = this.props;
     const nums = [1, 2, 3, 4, 5];
-
     const skeleton = nums.map((num) => (
       <div key={num} style={{ position: 'relative', width: '100%' }}>
         <Skeleton />
       </div>
     ));
 
-    const slicedItem = (myObject) => {
-      const sliced = Object.keys(myObject)
-        .slice(0, 10)
-        .reduce((result, key) => {
-          result[key] = myObject[key];
-
-          return result;
-        }, {});
-      return sliced;
-    };
-
-    let allItemsMarkup = !allItems
+    let allItemsMarkup = loading
       ? skeleton
-      : _.map(slicedItem(allItems), (item) => {
+      : _.map(allItems, (item) => {
           return <Item item={item} key={item.itemId} />;
         });
     let rentalItemsMarkup = loading
       ? skeleton
-      : _.map(slicedItem(rentalItems), (item) => {
+      : _.map(rentalItems, (item) => {
           return <Item item={item} key={item.itemId} />;
         });
     let saleItemMarkup = loading
       ? skeleton
-      : _.map(slicedItem(saleItems), (item) => {
+      : _.map(saleItems, (item) => {
           return <Item item={item} key={item.itemId} />;
         });
     let otherItemsMarkup = loading
       ? skeleton
-      : _.map(slicedItem(otherItems), (item) => {
+      : _.map(otherItems, (item) => {
           return <Item item={item} key={item.itemId} margin />;
         });
 
     return (
       <>
-        <Container direction="right">
+        <Navbar />
+        <Container>
           <div style={style}>
-            {allItems && (
-              <Header heading="Recent" goTo="/all" goToText="See All" />
+            {!loading && (
+              <Header heading="Recent" goTo="/all" goToText="See All" home />
             )}
             <ItemCarousel>{allItemsMarkup}</ItemCarousel>
           </div>
           <div style={style}>
-            {rentalItems && (
-              <Header heading="For Rent" goTo="/rental" goToText="See All" />
+            {!loading && (
+              <Header
+                heading="For Rent"
+                goTo="/rental"
+                goToText="See All"
+                home
+              />
             )}
             <ItemCarousel>{rentalItemsMarkup}</ItemCarousel>
           </div>
           <div style={style}>
-            {saleItems && (
-              <Header heading="For Sale " goTo="/sale" goToText="See All" />
+            {!loading && (
+              <Header
+                heading="For Sale "
+                goTo="/sale"
+                goToText="See All"
+                home
+              />
             )}
             <ItemCarousel>{saleItemMarkup}</ItemCarousel>
           </div>
           <div style={style}>
-            {otherItems && (
+            {!loading && (
               <Header
                 heading="Other Catagory"
                 goTo="/other"
                 goToText="See All"
+                home
               />
             )}
             <ItemCarousel>{otherItemsMarkup}</ItemCarousel>
@@ -119,19 +114,45 @@ const style = {
   padding: '0 0 3% 0',
 };
 
+const slicedItem = (myObject) => {
+  const sliced = Object.keys(myObject)
+    .slice(0, 10)
+    .reduce((result, key) => {
+      result[key] = myObject[key];
+
+      return result;
+    }, {});
+  return sliced;
+};
+
 const mapStateToProps = (state) => ({
   loading: state.data.loading,
-  allItems: state.data.items,
-  rentalItems: state.data.rentalItems,
-  saleItems: state.data.saleItems,
-  otherItems: state.data.otherItems,
+  allItems: slicedItem(state.data.items),
+  rentalItems: _.slice(
+    _.filter(state.data.items, (item) => {
+      return item.catagory == 'rental';
+    }),
+    0,
+    10
+  ),
+  saleItems: _.slice(
+    _.filter(state.data.items, (item) => {
+      return item.catagory == 'sale';
+    }),
+    0,
+    10
+  ),
+  otherItems: _.slice(
+    _.filter(state.data.items, (item) => {
+      return item.catagory == 'other';
+    }),
+    0,
+    10
+  ),
 });
 
 const home = 'EazyPezy';
 
 export default connect(mapStateToProps, {
   getItems,
-  getOtherItems,
-  getSaleItems,
-  getRentalItems,
 })(withTitle(Home, home));

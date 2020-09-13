@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
+//navbar
+import Navbar from '../../components/Navbar';
+
 import Term from '../../term';
 import RenderField from '../../components/form/RenderField';
 import CheckboxInput from '../../components/form/CheckboxInput';
@@ -131,124 +134,127 @@ class Signup extends React.Component {
     const errotTextContactNo = errors ? errors.contactNo : null;
     const errorTextAge = errors ? errors.age : null;
     return (
-      <Container direction="down">
-        <Card className={classes.card}>
-          <CardActions>
-            <img src={AppIcon} alt="logo" className={classes.image} />
-          </CardActions>
-          <CardActions className={classes.cardAction}>
-            <Typography variant="h4" className={classes.text}>
-              Sign Up
-            </Typography>
-          </CardActions>
-          <form
-            className={classes.form}
-            onSubmit={handleSubmit(this.onSubmit.bind(this))}
-          >
-            <Field
-              name="fullName"
-              type="text"
-              component={RenderField}
-              label="Full Name"
-            />
-            <Field
-              name="email"
-              type="email"
-              component={RenderField}
-              label="Email"
-              helperText={errorTextEmail}
-            />
-            {/* <Field
+      <>
+        <Navbar />
+        <Container direction="down">
+          <Card className={classes.card}>
+            <CardActions>
+              <img src={AppIcon} alt="logo" className={classes.image} />
+            </CardActions>
+            <CardActions className={classes.cardAction}>
+              <Typography variant="h4" className={classes.text}>
+                Sign Up
+              </Typography>
+            </CardActions>
+            <form
+              className={classes.form}
+              onSubmit={handleSubmit(this.onSubmit.bind(this))}
+            >
+              <Field
+                name="fullName"
+                type="text"
+                component={RenderField}
+                label="Full Name"
+              />
+              <Field
+                name="email"
+                type="email"
+                component={RenderField}
+                label="Email"
+                helperText={errorTextEmail}
+              />
+              {/* <Field
               name="handle"
               type="text"
               component={RenderField}
               label="Unique Username"
               helperText={errorTextHandle}
             /> */}
-            <Field
-              name="password"
-              type="password"
-              component={RenderField}
-              label="Password"
-              helperText={errorTextPassword}
-            />
-            {/* <Field
+              <Field
+                name="password"
+                type="password"
+                component={RenderField}
+                label="Password"
+                helperText={errorTextPassword}
+              />
+              {/* <Field
               name="confirmPassword"
               type="password"
               component={RenderField}
               label="Confirm Password"
               helperText={errorTextConfirmPassword}
             /> */}
-            {/* <Field
+              {/* <Field
               name="contactNo"
               type="tel"
               component={RenderField}
               label="Contact Number"
               helperText={errotTextContactNo}
             /> */}
-            {/* <Field
+              {/* <Field
               name="age"
               type="number"
               component={RenderField}
               label="Age"
               helperText={errorTextAge}
             /> */}
-            <Field
-              name="age"
-              component={CheckboxInput}
-              label="I am over 18 years."
-            />
-            <Field
-              name="term"
-              component={CheckboxInput}
-              label="I accept term and condition."
-            />
-            <CardActions className={classes.cardAction}>
-              <Recaptcha
-                sitekey="6Lc0l8AZAAAAALujkZBq1yiL8mnC6ar0M1OsmoAL"
-                render="explicit"
-                onloadCallback={this.verifyHuman}
-                verifyCallback={this.verifyCallback}
+              <Field
+                name="age"
+                component={CheckboxInput}
+                label="I am over 18 years."
               />
-            </CardActions>
-            <CardActions className={classes.cardAction}>
-              {loading && (
-                <CircularProgress size={30} className={classes.progess} />
-              )}
-              {errors && (
-                <div className={classes.errorText}>{errors.general}</div>
-              )}
-              <Button color="primary" variant="contained" type="submit">
-                Create Account
-              </Button>
-              <Typography
-                variant="caption"
-                color="textSecondary"
-                className={classes.remainContent}
-              >
-                Signing up signifies that you have read and agree to the
-                <Term color="red" size="large" />
-              </Typography>
-              <Typography
-                variant="body1"
-                color="textSecondary"
-                className={classes.remainContent}
-              >
-                Already have an account?
-                <br />
-                <Button
-                  className={classes.gotoSignup}
-                  component={Link}
-                  to="/login"
-                >
-                  Login here
+              <Field
+                name="term"
+                component={CheckboxInput}
+                label="I accept term and condition."
+              />
+              <CardActions className={classes.cardAction}>
+                <Recaptcha
+                  sitekey="6Lc0l8AZAAAAALujkZBq1yiL8mnC6ar0M1OsmoAL"
+                  render="explicit"
+                  onloadCallback={this.verifyHuman}
+                  verifyCallback={this.verifyCallback}
+                />
+              </CardActions>
+              <CardActions className={classes.cardAction}>
+                {loading && (
+                  <CircularProgress size={30} className={classes.progess} />
+                )}
+                {errors && (
+                  <div className={classes.errorText}>{errors.general}</div>
+                )}
+                <Button color="primary" variant="contained" type="submit">
+                  Create Account
                 </Button>
-              </Typography>
-            </CardActions>
-          </form>
-          {loading && <LinearProgress />}
-        </Card>
-      </Container>
+                <Typography
+                  variant="caption"
+                  color="textSecondary"
+                  className={classes.remainContent}
+                >
+                  Signing up signifies that you have read and agree to the
+                  <Term color="red" size="large" />
+                </Typography>
+                <Typography
+                  variant="body1"
+                  color="textSecondary"
+                  className={classes.remainContent}
+                >
+                  Already have an account?
+                  <br />
+                  <Button
+                    className={classes.gotoSignup}
+                    component={Link}
+                    to="/login"
+                  >
+                    Login here
+                  </Button>
+                </Typography>
+              </CardActions>
+            </form>
+            {loading && <LinearProgress />}
+          </Card>
+        </Container>
+      </>
     );
   }
 }

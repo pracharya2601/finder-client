@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { getRentalItems } from '../../redux/actions/dataAction';
 import LoadingPage from '../../components/loading/LoadingPage';
 
+//navbar
+import Navbar from '../../components/Navbar';
+
 //title
 import withTitle from '../../util/withTitle';
 import Container from '../../components/container/Container';
@@ -24,6 +27,7 @@ class Rental extends React.Component {
 
     return (
       <React.Fragment>
+        <Navbar />
         <div style={{ margin: '80px auto -50px auto', maxWidth: '1200px' }}>
           <Header heading="For Rent" />
         </div>

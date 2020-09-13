@@ -190,6 +190,7 @@ class ItemForm extends React.Component {
       addImg,
       loading,
     } = this.props;
+    console.log(this.state.files);
     const imgLabel = !addImg
       ? `Drag & Drop your images or <span class="filepond--label-action">Browse</span>`
       : `<div>Add Image To Update</div> Drag & Drop your images or <span class="filepond--label-action">Browse</span>`;

@@ -9,6 +9,9 @@ import Container from '../../components/container/Container';
 //title
 import withTitle from '../../util/withTitle';
 
+//navbar
+import Navbar from '../../components/Navbar';
+
 class EditItem extends React.Component {
   componentWillMount() {
     this.props.getItem(this.props.match.params.itemId);
@@ -23,26 +26,29 @@ class EditItem extends React.Component {
       return <div>Loading</div>;
     }
     return (
-      <Container direction="left">
-        <ItemForm
-          initialValues={_.pick(
-            this.props.item,
-            'name',
-            'description',
-            'catagory',
-            'priceRange',
-            'address',
-            'contactNo',
-            'nearbyPlace',
-            'selectApply'
-          )}
-          onSubmit={this.onSubmit}
-          id={this.props.item.itemId}
-          header="Edit Item Info"
-          loading={this.props.loading}
-          addImg
-        />
-      </Container>
+      <>
+        <Navbar />
+        <Container direction="left">
+          <ItemForm
+            initialValues={_.pick(
+              this.props.item,
+              'name',
+              'description',
+              'catagory',
+              'priceRange',
+              'address',
+              'contactNo',
+              'nearbyPlace',
+              'selectApply'
+            )}
+            onSubmit={this.onSubmit}
+            id={this.props.item.itemId}
+            header="Edit Item Info"
+            loading={this.props.loading}
+            addImg
+          />
+        </Container>
+      </>
     );
   }
 }

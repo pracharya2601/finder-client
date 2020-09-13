@@ -7,6 +7,12 @@ import _ from 'lodash';
 //import title
 import withTitle from '../../util/withTitle';
 
+//navbar
+import Navbar from '../../components/Navbar';
+
+//footer
+import Footer from '../../components/footer/Footer';
+
 import Container from '../../components/container/Container';
 import Item from '../../components/items/Item';
 import Fullname from '../../components/profile/Fullname';
@@ -29,11 +35,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Tooltip from '@material-ui/core/Tooltip';
 import Avatar from '@material-ui/core/Avatar';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 
 //icon
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -205,10 +206,14 @@ class User extends React.Component {
     );
 
     return (
-      <Container direction="right">
-        <div className={classes.profileCard}>{profileMarkup}</div>
-        <div className={classes.itemCard}>{tabMarkup}</div>
-      </Container>
+      <>
+        <Navbar />
+        <Container direction="right">
+          <div className={classes.profileCard}>{profileMarkup}</div>
+          <div className={classes.itemCard}>{tabMarkup}</div>
+        </Container>
+        <Footer />
+      </>
     );
     // return <Container>Hello</Container>;
   }

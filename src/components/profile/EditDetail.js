@@ -118,7 +118,7 @@ class EditDetail extends React.Component {
                 type="tel"
                 placeholder="Your phone number"
                 fullWidth
-                value={this.state.location}
+                value={this.state.contactNo}
                 onChange={this.handleChange}
               />
             </DialogContent>

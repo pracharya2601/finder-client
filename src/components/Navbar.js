@@ -35,7 +35,7 @@ class Navbar extends React.Component {
     } = this.props;
     return (
       <Slide direction="down" in={true} mountOnEnter unmountOnExit>
-        <AppBar>
+        <AppBar style={{ boxSizing: 'border-box' }}>
           <ToolBar className={classes.navItem}>
             <div className={classes.navItem}>
               <ResponsiveDrawer />

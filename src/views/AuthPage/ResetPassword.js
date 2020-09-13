@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+
+//navbar
+import Navbar from '../../components/Navbar';
 //image
 import AppIcon from '../../images/iconn.png';
 import Container from '../../components/container/Container';
@@ -77,75 +80,78 @@ class ReserPassword extends React.Component {
     } = this.props;
 
     return (
-      <Container direction="down">
-        <Card className={classes.card}>
-          <CardActions>
-            <img src={AppIcon} alt="logo" className={classes.image} />
-          </CardActions>
-          <CardActions className={classes.cardAction}>
-            <Typography variant="h4" className={classes.text}>
-              Forgot your password?
-            </Typography>
-            <Typography variant="body2">
-              Enter your email address to reset your password.
-            </Typography>
-            {message && (
-              <Typography
-                variant="body2"
-                color="primary"
-                className={classes.customMessage}
-              >
-                {message}
-              </Typography>
-            )}
-          </CardActions>
-          <form
-            className={classes.form}
-            onSubmit={handleSubmit(this.onSubmit.bind(this))}
-          >
-            <Field
-              name="email"
-              type="email"
-              component={RenderField}
-              label="Email"
-              loading={loading}
-            />
-            <CardActions className={classes.cardAction}>
-              {loading && (
-                <CircularProgress size={30} className={classes.progess} />
-              )}
-              {errors && (
-                <div className={classes.errorText}>{errors.general}</div>
-              )}
-              <Button color="primary" variant="contained" type="submit">
-                Submit
-              </Button>
-              <Button
-                className={classes.gotoLogin}
-                component={Link}
-                to="/login"
-              >
-                Go to Login
-              </Button>
-              <Typography
-                variant="body1"
-                color="textSecondary"
-                className={classes.remainContent}
-              >
-                Don't have an account?
-                <br />
-                <Button
-                  className={classes.gotoSignup}
-                  component={Link}
-                  to="/signup"
-                >
-                  Sign up here
-                </Button>
-              </Typography>
+      <>
+        <Navbar />
+        <Container direction="down">
+          <Card className={classes.card}>
+            <CardActions>
+              <img src={AppIcon} alt="logo" className={classes.image} />
             </CardActions>
-          </form>
-        </Card>
-      </Container>
+            <CardActions className={classes.cardAction}>
+              <Typography variant="h4" className={classes.text}>
+                Forgot your password?
+              </Typography>
+              <Typography variant="body2">
+                Enter your email address to reset your password.
+              </Typography>
+              {message && (
+                <Typography
+                  variant="body2"
+                  color="primary"
+                  className={classes.customMessage}
+                >
+                  {message}
+                </Typography>
+              )}
+            </CardActions>
+            <form
+              className={classes.form}
+              onSubmit={handleSubmit(this.onSubmit.bind(this))}
+            >
+              <Field
+                name="email"
+                type="email"
+                component={RenderField}
+                label="Email"
+                loading={loading}
+              />
+              <CardActions className={classes.cardAction}>
+                {loading && (
+                  <CircularProgress size={30} className={classes.progess} />
+                )}
+                {errors && (
+                  <div className={classes.errorText}>{errors.general}</div>
+                )}
+                <Button color="primary" variant="contained" type="submit">
+                  Submit
+                </Button>
+                <Button
+                  className={classes.gotoLogin}
+                  component={Link}
+                  to="/login"
+                >
+                  Go to Login
+                </Button>
+                <Typography
+                  variant="body1"
+                  color="textSecondary"
+                  className={classes.remainContent}
+                >
+                  Don't have an account?
+                  <br />
+                  <Button
+                    className={classes.gotoSignup}
+                    component={Link}
+                    to="/signup"
+                  >
+                    Sign up here
+                  </Button>
+                </Typography>
+              </CardActions>
+            </form>
+          </Card>
+        </Container>
+      </>
     );
   }
 }
