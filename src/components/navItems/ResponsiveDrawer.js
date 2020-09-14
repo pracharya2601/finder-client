@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../redux/actions/userAction';
 
+import AddItem from '../items/AddItem';
+
 import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
 import Drawer from '@material-ui/core/Drawer';
@@ -117,14 +119,6 @@ class ResponsiveDrawer extends React.Component {
 
     const savedMarkup = (
       <>
-        <List>
-          <ListItem button component={Link} to={`/item/newpost/item`}>
-            <ListItemIcon>
-              <AddIcon />
-            </ListItemIcon>
-            <ListItemText>Post New</ListItemText>
-          </ListItem>
-        </List>
         <List>
           <ListItem button component={Link} to={`/user/saved`}>
             <ListItemIcon>

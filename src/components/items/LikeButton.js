@@ -33,19 +33,19 @@ class LikeButton extends Component {
     const { authenticated } = this.props.user;
 
     const likeBtn = !authenticated ? (
-      <Tooltip title="Star" itemment="top">
+      <Tooltip title="Star" placement="top">
         <IconButton fontSize="medium" component={Link} to="/login">
           <StarsIcon fontSize="inherit" color="primary" />
         </IconButton>
       </Tooltip>
     ) : this.likedItem() ? (
-      <Tooltip title="undo star" itemment="top">
+      <Tooltip title="undo star" placement="top">
         <IconButton fontSize="medium" onClick={this.unLikeItem}>
           <StarIcon fontSize="inherit" color="primary" />
         </IconButton>
       </Tooltip>
     ) : (
-      <Tooltip title="Star" itemment="top">
+      <Tooltip title="Star" placement="top">
         <IconButton fontSize="medium" onClick={this.likeItem}>
           <StarsIcon fontSize="inherit" color="primary" />
         </IconButton>

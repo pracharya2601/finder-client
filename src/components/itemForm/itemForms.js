@@ -5,8 +5,14 @@ import { states, districts } from '../../util/address';
 import { cities } from '../../util/cities';
 
 import { storage } from '../../base';
-
 import selectApply from '../../util/postRoomData';
+
+import {
+  rentalTypes,
+  saleTypes,
+  otherTypes,
+  jobTypes,
+} from '../../util/postUtils/itemTypes';
 
 //formfield
 import RenderField from '../form/RenderField';
@@ -14,11 +20,12 @@ import RenderSelectField from '../form/RenderSelectField';
 import MultiSelectField from '../form/MultiSelectField';
 import AutoCompleteForm from '../form/AutoCompleteForm';
 
+import RenderRadioBtn from '../form/RenderRadioBtn';
+
 //material ui
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -81,7 +88,7 @@ const styles = {
   },
 };
 
-class ItemForm extends React.Component {
+class ItemForms extends React.Component {
   state = {
     itemId: '',
     files: [],
@@ -110,14 +117,15 @@ class ItemForm extends React.Component {
     this.setState({ id: id });
     if (this.state.files.length > 0) {
       if (Object.keys(values).length !== 0) {
-        this.submitImage(id);
+        // this.submitImage(id);
         const newItem = this.newItemwithImgDocument(
           values,
           id,
           this.state.files,
           catagory
         );
-        setTimeout(this.props.onSubmit(newItem), 2000);
+        // setTimeout(this.props.onSubmit(newItem), 2000);
+        console.log(newItem);
       } else {
         window.scrollTo(0, 0);
         this.setState({ errorForm: 'Fillout all the form' });
@@ -191,8 +199,23 @@ class ItemForm extends React.Component {
       resetBtn,
       addImg,
       loading,
+      catagory,
     } = this.props;
-    console.log(this.state.files);
+    const rental = catagory == 'rental' ? true : undefined;
+    const sale = catagory == 'sale' ? true : undefined;
+    const other = catagory == 'other' ? true : undefined;
+    const jobpost = catagory == 'jobpost' ? true : undefined;
+    const types =
+      catagory == 'rental'
+        ? rentalTypes
+        : catagory == 'sale'
+        ? saleTypes
+        : catagory == 'other'
+        ? otherTypes
+        : catagory == 'jobpost'
+        ? jobTypes
+        : undefined;
+
     const imgLabel = !addImg
       ? `Drag & Drop your images or <span class="filepond--label-action">Browse</span>`
       : `<div>Add Image To Update</div> Drag & Drop your images or <span class="filepond--label-action">Browse</span>`;
@@ -206,6 +229,14 @@ class ItemForm extends React.Component {
           onSubmit={handleSubmit(this.onSubmit.bind(this))}
         >
           <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Field
+                name="type"
+                component={RenderRadioBtn}
+                radioValue={types}
+                type="Select Type"
+              />
+            </Grid>
             <Grid item xs={12} sm={6}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -264,16 +295,19 @@ class ItemForm extends React.Component {
                     itemholder="Location"
                   />
                 </Grid>
-                <Grid item xs={4}>
-                  <Field
-                    name="address.ward"
-                    type="number"
-                    component={RenderField}
-                    outlined="outlined"
-                    label="Ward"
-                    itemholder="Ward No. "
-                  />
-                </Grid>
+                {catagory == 'rental' || catagory == 'sale' ? (
+                  <Grid item xs={4}>
+                    <Field
+                      name="address.ward"
+                      type="number"
+                      component={RenderField}
+                      outlined="outlined"
+                      label="Ward"
+                      itemholder="Ward No. "
+                    />
+                  </Grid>
+                ) : null}
+
                 <Grid item xs={12}>
                   <Field
                     name="address.city"
@@ -405,4 +439,4 @@ export default reduxForm({
   form: 'itemForm',
   enableReinitialize: true,
   validate,
-})(withStyles(styles)(ItemForm));
+})(withStyles(styles)(ItemForms));

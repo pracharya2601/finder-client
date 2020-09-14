@@ -7,11 +7,16 @@ import Grid from '@material-ui/core/Grid';
 
 import find from '../../images/find.jpg';
 import mounteverest from '../../images/mounteverest.png';
-import Fullname from '../../components/profile/Fullname';
 
+import Title from '../../util/Title';
 import Navbar from '../../components/Navbar';
 import AboutCard from '../../components/profile/AboutCard';
 import Footer from '../../components/footer/Footer';
+
+import prakash from '../../images/prakash.JPG';
+import sulav from '../../images/sulav.png';
+import asim from '../../images/asim.png';
+import ankita from '../../images/ankita.png';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -79,6 +84,7 @@ function About() {
 
   return (
     <>
+      <Title title="About Us Easypezy" />
       <Navbar />
       <section style={{ marginTop: '70px' }}>
         <Box className={classes.hero}>
@@ -96,7 +102,7 @@ function About() {
               linkedin="https://www.linkedin.com/in/prakash-ac/"
               github="https://github.com/pracharya2601"
               email="pracharya2601@gmail.com"
-              pra
+              image={prakash}
             />
             <AboutCard
               name="Sulav Prasai"
@@ -105,7 +111,7 @@ function About() {
               linkedin="https://www.linkedin.com/in/sulav-prasai/"
               wechat="Sulav2017"
               email="prasaisulav@gmail.com"
-              sul
+              image={sulav}
             />
             <AboutCard
               name="Asim Acharya"
@@ -114,7 +120,7 @@ function About() {
               // linkedin="https://www.linkedin.com/in/prakash-ac/"
               // github="https://github.com/pracharya2601"
               email="aacharyaasim880@gmail.com"
-              asi
+              image={asim}
             />
             <AboutCard
               name="Ankita Acharya"
@@ -123,7 +129,7 @@ function About() {
               // linkedin="https://www.linkedin.com/in/prakash-ac/"
               // github="https://github.com/pracharya2601"
               email="aacharyaankita@gmail.com"
-              ank
+              image={ankita}
             />
           </Grid>
         </Container>

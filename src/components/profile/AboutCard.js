@@ -23,11 +23,7 @@ import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 
 import find from '../../images/find.jpg';
 import mountain from '../../images/mounteverest.png';
-import prakash from '../../images/prakash.JPG';
-import sulav from '../../images/sulav.png';
-import asim from '../../images/asim.png';
-import ankita from '../../images/ankita.png';
-import Fullname from '../../components/profile/Fullname';
+import Fullname from '../profile/Fullname';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -87,13 +83,15 @@ const AboutCard = (props) => {
     ank,
     company,
     wechat,
+    image,
   } = props;
-  const imgSrc = pra ? prakash : sul ? sulav : asi ? asim : ank ? ankita : null;
   return (
     <Grid item xs={12} sm={6} md={4}>
       <Card className={classes.card}>
         <CardContent className={classes.cardHeader}>
-          <Avatar alt="image" src={imgSrc} className={classes.imageProfile} />
+          {image && (
+            <Avatar alt="image" src={image} className={classes.imageProfile} />
+          )}
           <Fullname fullName={name} />
           <div>{position}</div>
           <div style={{ display: 'flex' }}>

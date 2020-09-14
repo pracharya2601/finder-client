@@ -211,7 +211,7 @@ class Item extends React.Component {
           </a>
           <div className={classes.menuBtn}>
             <Menus>
-              <ShareBtns itemId={itemId} text={name} />
+              <ShareBtns itemId={itemId} item={this.props.item} />
               <SaveButton itemId={itemId} />
               <Report itemId={itemId} />
               {userData && (
@@ -228,7 +228,7 @@ class Item extends React.Component {
                 <Markavailability itemId={itemId} available={available} />
               )}
               {sameUser && (
-                <MenuItem component={Link} to={`/item/edit/${itemId}`}>
+                <MenuItem component={Link} to={`/edit/${itemId}/${catagory}`}>
                   Edit
                 </MenuItem>
               )}

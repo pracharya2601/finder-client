@@ -4,6 +4,8 @@ import Facebook from 'react-sharingbuttons/dist/buttons/Facebook';
 import Twitter from 'react-sharingbuttons/dist/buttons/Twitter';
 import Email from 'react-sharingbuttons/dist/buttons/Email';
 
+import Title from '../../util/Title';
+
 //material ui
 import Button from '@material-ui/core/Button';
 
@@ -22,12 +24,21 @@ class ShareBtns extends React.Component {
     open: false,
     btntext: 'Copy Link',
     variant: 'contained',
+    oldPath: '',
+    newPath: '',
   };
+
   handleClickOpen = () => {
-    this.setState({ open: true });
+    let oldPath = window.location.pathname;
+    const newPath = `/share`;
+    if (oldPath === newPath) window.history.pushState(null, null, '/');
+    window.history.pushState(null, null, newPath);
+    this.setState({ open: true, oldPath, newPath });
+    // setTimeout(this.handleClose, 5000);
   };
 
   handleClose = () => {
+    window.history.pushState(null, null, this.state.oldPath);
     this.setState({ open: false });
   };
 
@@ -37,17 +48,19 @@ class ShareBtns extends React.Component {
   };
   copyLink = () => {
     navigator.clipboard.writeText(
-      `https://easypezy.com/#/item/${this.props.itemId}`
+      `https://easypezy.com/item/${this.props.itemId}`
     );
     this.setState({ btntext: 'copied', variant: 'outlined' });
   };
 
   render() {
-    const { itemId, text } = this.props;
-    const url = `https://easypezy.com/#/item/${itemId}`;
+    const { itemId, item, text } = this.props;
+    const url = `https://easypezy.com/item/${itemId}`;
     const shareText = text;
+    console.log(item);
     return (
       <Fragment>
+        <Title title={text} />
         <MenuItem onClick={this.handleClickOpen}>Share</MenuItem>
         <Dialog open={this.state.open} onClose={this.handleClose}>
           <DialogTitle id="form-dialog-title">Share this post on:</DialogTitle>

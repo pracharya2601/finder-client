@@ -64,7 +64,16 @@ class App extends React.Component {
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/item/newpost/item" exact component={PostNewItem} />
-              <Route path="/item/edit/:itemId" exact component={EditItem} />
+              <Route
+                path="/item/:itemId/:catagory"
+                exact
+                component={PostNewItem}
+              />
+              <Route
+                path="/edit/:itemId/:catagory"
+                exact
+                component={EditItem}
+              />
               <Route path="/user/profile" exact component={Profile} />
               <Route path="/user/saved" exact component={Saved} />
               <Route path="/user/profile/:handle" exact component={User} />

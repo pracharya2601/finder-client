@@ -1,6 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
 
+//title
+import Title from '../../util/Title';
+
 //navbar
 import Navbar from '../../components/Navbar';
 
@@ -61,6 +64,7 @@ class Home extends React.Component {
 
     return (
       <>
+        <Title title="easypezy" />
         <Navbar />
         <Container>
           <div style={style}>
@@ -155,4 +159,4 @@ const home = 'EazyPezy';
 
 export default connect(mapStateToProps, {
   getItems,
-})(withTitle(Home, home));
+})(Home);

@@ -13,25 +13,38 @@ import { postItem } from '../../redux/actions/dataAction';
 
 //import itemform
 import ItemForm from '../../components/itemForm/ItemForm';
+import ItemForms from '../../components/itemForm/itemForms';
 import Container from '../../components/container/Container';
 
 class PostNewItem extends React.Component {
   onSubmit = (values) => {
     this.props.postItem(values, () => {
-      this.props.history.push('/');
+      this.props.history.push(`/item/${this.props.match.params.itemId}`);
     });
   };
 
   render() {
-    let id = uniqid('item-') + uniqid();
+    const catagory = this.props.match.params.catagory;
+    const header =
+      catagory == 'rental'
+        ? 'Post Item for Rent'
+        : catagory == 'sale'
+        ? 'Post Item for Sale'
+        : catagory == 'other'
+        ? 'Post Item on Different Catagory'
+        : catagory == 'jobpost'
+        ? 'Post Job'
+        : undefined;
+
     return (
       <>
         <Navbar />
         <Container direction="left">
-          <ItemForm
+          <ItemForms
             onSubmit={this.onSubmit}
-            header="Post New Stuff"
-            id={id}
+            header={header}
+            id={this.props.match.params.itemId}
+            catagory={this.props.match.params.catagory}
             loading={this.props.loading}
             resetBtn
           />

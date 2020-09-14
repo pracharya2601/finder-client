@@ -22,6 +22,7 @@ class EditItem extends React.Component {
     });
   };
   render() {
+    console.log(this.props.item);
     if (!this.props.item) {
       return <div>Loading</div>;
     }
@@ -34,13 +35,13 @@ class EditItem extends React.Component {
               this.props.item,
               'name',
               'description',
-              'catagory',
               'priceRange',
               'address',
               'contactNo',
               'nearbyPlace',
               'selectApply'
             )}
+            catagory={this.props.item.catagory}
             onSubmit={this.onSubmit}
             id={this.props.item.itemId}
             header="Edit Item Info"
