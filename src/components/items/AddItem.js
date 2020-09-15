@@ -55,11 +55,6 @@ export default function AddItem(props) {
     setDpenDialog(false);
   };
 
-  let rentalId = uniqid('rental-') + uniqid() + -Math.floor(Date.now() / 1000);
-  let saleId = uniqid('sale-') + uniqid() + -Math.floor(Date.now() / 1000);
-  let otherId = uniqid('other-') + uniqid() + -Math.floor(Date.now() / 1000);
-  let jobId = uniqid('job-') + uniqid() + -Math.floor(Date.now() / 1000);
-
   return (
     <div>
       {props.icon ? (
@@ -106,7 +101,7 @@ export default function AddItem(props) {
             className={classes.button}
             startIcon={<RecentActorsIcon />}
             component={Link}
-            to={`/item/${rentalId}/rental`}
+            to={`/postitem/rental`}
             onClick={handleClose}
           >
             Rental
@@ -117,7 +112,7 @@ export default function AddItem(props) {
             className={classes.button}
             startIcon={<LoyaltyIcon />}
             component={Link}
-            to={`/item/${saleId}/sale`}
+            to={`/postitem/sale`}
             onClick={handleClose}
           >
             For Sale
@@ -128,7 +123,7 @@ export default function AddItem(props) {
             className={classes.button}
             startIcon={<CategoryIcon />}
             component={Link}
-            to={`/item/${rentalId}/other`}
+            to={`/postitem/other`}
             onClick={handleClose}
           >
             Other Catagory
@@ -139,7 +134,7 @@ export default function AddItem(props) {
             className={classes.button}
             startIcon={<WorkIcon />}
             component={Link}
-            to={`/item/${rentalId}/jobpost`}
+            to={`/postitem/job`}
             onClick={handleClose}
           >
             Job Posting

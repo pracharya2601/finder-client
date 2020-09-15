@@ -7,17 +7,19 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const RenderRadioBtn = ({ type, input, radioValue, ...rest }) => {
-  const radio = radioValue.map((radio) => {
-    return (
-      <Tooltip title={radio.subtitle} placement="top" key={radio.value}>
-        <FormControlLabel
-          value={radio.value}
-          control={<Radio color="primary" />}
-          label={radio.name}
-        />
-      </Tooltip>
-    );
-  });
+  const radio =
+    radioValue &&
+    radioValue.map((radio) => {
+      return (
+        <Tooltip title={radio.subtitle} placement="top" key={radio.value}>
+          <FormControlLabel
+            value={radio.value}
+            control={<Radio color="primary" />}
+            label={radio.name}
+          />
+        </Tooltip>
+      );
+    });
   return (
     <FormControl>
       <FormLabel component="legend">{type}</FormLabel>

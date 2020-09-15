@@ -47,13 +47,23 @@ const saleTypes = [
 const otherTypes = [
   {
     name: 'Construction Contract',
-    value: 'realstate',
+    value: 'construction',
     subtitle: 'Building Construction, House Maintainence, Rebuilding, ...',
   },
   {
     name: 'Places',
     value: 'place',
     subtitle: 'Places to visit, Temple, Stupa, National Park, ...',
+  },
+  {
+    name: 'Events',
+    value: 'event',
+    subtitle: 'Event to attend, Seminar, Public Events, ...',
+  },
+  {
+    name: 'Miscellaneous',
+    value: 'misc',
+    subtitle: 'Other Different Catagories, ...',
   },
 ];
 

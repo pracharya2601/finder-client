@@ -1,5 +1,6 @@
 import React from 'react';
-import { Field, FieldArray, reduxForm } from 'redux-form';
+import { Field, FieldArray, reduxForm, formValueSelector } from 'redux-form';
+import { connect } from 'react-redux';
 
 import { states, districts } from '../../util/address';
 import { cities } from '../../util/cities';
@@ -19,6 +20,7 @@ import RenderField from '../form/RenderField';
 import RenderSelectField from '../form/RenderSelectField';
 import MultiSelectField from '../form/MultiSelectField';
 import AutoCompleteForm from '../form/AutoCompleteForm';
+import CheckboxInput from '../form/CheckboxInput';
 
 import RenderRadioBtn from '../form/RenderRadioBtn';
 
@@ -71,6 +73,9 @@ const styles = {
     right: '5px',
     zIndex: '1000',
   },
+  topGrid: {
+    marginTop: '0',
+  },
   btnContainer: {
     display: 'flex',
     justifyContent: 'space-around',
@@ -85,6 +90,22 @@ const styles = {
   progess: {
     position: 'absolute',
     color: 'white',
+  },
+  warning: {
+    padding: '7px 5px',
+    color: '#9e912e',
+    fontSize: '12px',
+    marginTop: '-20px',
+  },
+  multipleWarning: {
+    padding: '7px 5px',
+    color: '#9e912e',
+    fontSize: '12px',
+    marginTop: '-5px',
+  },
+  labelTop: {
+    padding: '7px 5px',
+    color: '#403f39',
   },
 };
 
@@ -152,41 +173,37 @@ class ItemForms extends React.Component {
     window.scrollTo(0, 0);
   };
 
-  renderField = ({ fields, meta: { error } }) => (
+  renderField = ({ fields, label, meta: { error } }) => (
     <div style={{ textAlign: 'center' }}>
-      {fields.map((nearbyPlace, index) => (
-        <Grid item xs={12} sm={6} key={index}>
-          <div key={index} style={{ marginTop: '-40px' }}>
-            <IconButton
-              type="button"
-              title="Remove Hobby"
-              onClick={() => fields.remove(index)}
-              className={this.props.classes.iconBtn}
-            >
-              <CancelIcon size="large" />
-            </IconButton>
-            <Field
-              name={nearbyPlace}
-              type="text"
-              component={RenderField}
-              label={`Nearby item- ${index + 1}`}
-              itemholder="Add School, Hospital or Any recognize item"
-              outlined="outlined"
-            />
-          </div>
-        </Grid>
+      {fields.map((item, index) => (
+        <div key={index} style={{ marginTop: '-40px' }}>
+          <IconButton
+            type="button"
+            title="Remove Item"
+            onClick={() => fields.remove(index)}
+            className={this.props.classes.iconBtn}
+          >
+            <CancelIcon size="large" />
+          </IconButton>
+          <Field
+            name={item}
+            type="text"
+            component={RenderField}
+            label={`${label} - ${index + 1}`}
+            placeholder=""
+            outlined="outlined"
+          />
+        </div>
       ))}
-      <Grid item xs={12} sm={6}>
-        <Button
-          variant="contained"
-          startIcon={<AddCircleIcon />}
-          type="button"
-          onClick={() => fields.push()}
-          style={{ marginTop: '5px' }}
-        >
-          Add nearby Places
-        </Button>
-      </Grid>
+      <Button
+        variant="contained"
+        startIcon={<AddCircleIcon />}
+        type="button"
+        onClick={() => fields.push()}
+        style={{ marginTop: '5px' }}
+      >
+        Add {label}
+      </Button>
     </div>
   );
 
@@ -200,11 +217,9 @@ class ItemForms extends React.Component {
       addImg,
       loading,
       catagory,
+      isRealstate,
+      hasPriceValue,
     } = this.props;
-    const rental = catagory == 'rental' ? true : undefined;
-    const sale = catagory == 'sale' ? true : undefined;
-    const other = catagory == 'other' ? true : undefined;
-    const jobpost = catagory == 'jobpost' ? true : undefined;
     const types =
       catagory == 'rental'
         ? rentalTypes
@@ -212,9 +227,25 @@ class ItemForms extends React.Component {
         ? saleTypes
         : catagory == 'other'
         ? otherTypes
-        : catagory == 'jobpost'
+        : catagory == 'job'
         ? jobTypes
         : undefined;
+
+    const form = (name, type, component, label, placeholder) => {
+      return (
+        <Field
+          name={name}
+          type={type}
+          component={component}
+          outlined="outlined"
+          label={label}
+          placeholder={placeholder}
+        />
+      );
+    };
+    const checkForm = (name, component, label) => {
+      return <Field name={name} component={component} label={label} />;
+    };
 
     const imgLabel = !addImg
       ? `Drag & Drop your images or <span class="filepond--label-action">Browse</span>`
@@ -237,18 +268,86 @@ class ItemForms extends React.Component {
                 type="Select Type"
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={4} sm={3} md={2}>
+              {isRealstate &&
+                form('realstate.bedroom', 'number', RenderField, 'Bedroom', '')}
+            </Grid>
+            <Grid item xs={4} sm={3} md={2}>
+              {isRealstate &&
+                form(
+                  'realstate.bathroom',
+                  'number',
+                  RenderField,
+                  'Bathroom',
+                  ''
+                )}
+            </Grid>
+            <Grid item xs={4} sm={3} md={2}>
+              {isRealstate &&
+                form('realstate.floor', 'number', RenderField, 'Floors', '')}
+            </Grid>
+            <Grid item xs={4} sm={3} md={2}>
+              {isRealstate &&
+                form('realstate.floor', 'number', RenderField, 'Area', '')}
+            </Grid>
+            {isRealstate && (
+              <Grid item xs={12}>
+                <div className={classes.warning}> &#9888; Mention number</div>{' '}
+              </Grid>
+            )}
+
+            <Grid item xs={12} sm={6} className={classes.topGrid}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  <Field
-                    name="name"
-                    type="text"
-                    component={RenderField}
-                    outlined="outlined"
-                    label="Heading For your item"
-                    itemholder="Eg: Room for rent, House for sale"
-                  />
+                  {form('name', 'text', RenderField, 'Short Catchy Name', '')}
                 </Grid>
+
+                <Grid item xs={12}>
+                  {checkForm(
+                    'hasPrice',
+                    CheckboxInput,
+                    'Mention Price! (Recommended)'
+                  )}
+                </Grid>
+                <Grid item xs={7}>
+                  {hasPriceValue &&
+                    form('priceRange', 'number', RenderField, 'Price', '')}
+                </Grid>
+                <Grid item xs={5}>
+                  {hasPriceValue &&
+                    checkForm('negotiable', CheckboxInput, 'negotiable')}
+                </Grid>
+                <Grid item xs={7}>
+                  {form('contactNo', 'tel', RenderField, 'Phone Number', '')}
+                </Grid>
+                <Grid item xs={5}>
+                  {checkForm('showNum', CheckboxInput, 'Show number')}
+                </Grid>
+                <Grid item xs={12}>
+                  {form('address.address', 'text', RenderField, 'Address', '')}
+                </Grid>
+                <Grid item xs={7}>
+                  {form(
+                    'address.city',
+                    'text',
+                    RenderField,
+                    'City',
+                    'Municipality or VDC"'
+                  )}
+                </Grid>
+                <Grid item xs={5}>
+                  {form(
+                    'address.district',
+                    'text',
+                    RenderField,
+                    'District',
+                    '"'
+                  )}
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={12} sm={6} className={classes.topGrid}>
+              <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <Field
                     name="description"
@@ -256,104 +355,41 @@ class ItemForms extends React.Component {
                     multiline
                     component={RenderField}
                     outlined="outlined"
-                    label="Description of your Item"
-                    itemholder="Tell us what's great about the your listed item, property and area"
+                    label="Short Description"
+                    placeholder=""
                     rows="3"
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <Field
-                    name="priceRange"
-                    type="number"
-                    component={RenderField}
-                    outlined="outlined"
-                    label="Estimated Price Range"
-                    itemholder="Give a Price in Number"
+                  <FieldArray
+                    name="pointDescription"
+                    label="Point Description"
+                    component={this.renderField}
                   />
                 </Grid>
-                <Grid item xs={12}>
-                  <Field
-                    name="contactNo"
-                    type="number"
-                    component={RenderField}
-                    outlined="outlined"
-                    label="Contact"
-                    itemholder="Add your contact Info"
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Grid container spacing={2}>
-                <Grid item xs={8}>
-                  <Field
-                    name="address.address"
-                    type="text"
-                    component={RenderField}
-                    outlined="outlined"
-                    label="Address"
-                    itemholder="Location"
-                  />
-                </Grid>
-                {catagory == 'rental' || catagory == 'sale' ? (
-                  <Grid item xs={4}>
+                <Grid item xs={12} style={{ marginTop: '20px' }}>
+                  <>
                     <Field
-                      name="address.ward"
-                      type="number"
-                      component={RenderField}
-                      outlined="outlined"
-                      label="Ward"
-                      itemholder="Ward No. "
+                      name="selectApply"
+                      component={MultiSelectField}
+                      label="Select that apply"
+                      data={selectApply}
                     />
-                  </Grid>
-                ) : null}
-
-                <Grid item xs={12}>
-                  <Field
-                    name="address.city"
-                    type="text"
-                    component={AutoCompleteForm}
-                    options={cities}
-                    outlined="outlined"
-                    label="City"
-                    itemholder="Municipality or VDC"
-                  />
-                </Grid>
-                <Grid item xs={7}>
-                  <Field
-                    name="address.district"
-                    type="text"
-                    component={AutoCompleteForm}
-                    options={districts}
-                    outlined="outlined"
-                    label="District"
-                    itemholder="District name"
-                  />
-                </Grid>
-                <Grid item xs={5}>
-                  <Field
-                    name="address.state"
-                    type="text"
-                    component={AutoCompleteForm}
-                    outlined="outlined"
-                    options={states}
-                    label="State"
-                    itemholder="Zone or State"
-                  />
+                    <div className={classes.multipleWarning}>
+                      {' '}
+                      &#9888; Select or create option (type word and press
+                      enter)
+                    </div>
+                  </>
                 </Grid>
                 <Grid item xs={12}>
-                  <Field
-                    name="selectApply"
-                    component={MultiSelectField}
-                    label="Select that apply"
-                    data={selectApply}
+                  <FieldArray
+                    name="nearbyPlace"
+                    label="Nearby Places"
+                    component={this.renderField}
                   />
                 </Grid>
               </Grid>
-            </Grid>
-
-            <Grid item xs={12}>
-              <FieldArray name="nearbyPlace" component={this.renderField} />
             </Grid>
             {this.state.error && (
               <div
@@ -435,8 +471,24 @@ const validate = (values) => {
   return errors;
 };
 
-export default reduxForm({
-  form: 'itemForm',
-  enableReinitialize: true,
-  validate,
-})(withStyles(styles)(ItemForms));
+ItemForms = reduxForm({
+  form: 'itemForm', // a unique identifier for this form
+})(ItemForms);
+
+const selector = formValueSelector('itemForm');
+ItemForms = connect((state) => {
+  const hasPriceValue = selector(state, 'hasPrice');
+  const isRealstate = selector(state, 'type') === 'realstate' ? true : false;
+  return {
+    hasPriceValue,
+    isRealstate,
+  };
+})(ItemForms);
+
+// export default reduxForm({
+//   form: 'itemForm',
+//   enableReinitialize: true,
+//   validate,
+// })(withStyles(styles)(ItemForms));
+
+export default withStyles(styles)(ItemForms);

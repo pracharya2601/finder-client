@@ -64,11 +64,7 @@ class App extends React.Component {
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/item/newpost/item" exact component={PostNewItem} />
-              <Route
-                path="/item/:itemId/:catagory"
-                exact
-                component={PostNewItem}
-              />
+              <Route path="/postitem/:catagory" exact component={PostNewItem} />
               <Route
                 path="/edit/:itemId/:catagory"
                 exact
