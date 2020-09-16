@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getItem, updateItem } from '../../redux/actions/dataAction';
 
 import ItemForm from '../../components/itemForm/ItemForm';
+import ItemForms from '../../components/itemForm/itemForms';
 import Container from '../../components/container/Container';
 
 //title
@@ -13,12 +14,15 @@ import withTitle from '../../util/withTitle';
 import Navbar from '../../components/Navbar';
 
 class EditItem extends React.Component {
+  componentDidMount() {
+    this.props.getItem(this.props.match.params.itemId);
+  }
   componentWillMount() {
     this.props.getItem(this.props.match.params.itemId);
   }
   onSubmit = (values) => {
     this.props.updateItem(this.props.match.params.itemId, values, () => {
-      this.props.history.push(`/item/${this.props.match.params.itemId}`);
+      this.props.history.push('/all');
     });
   };
   render() {
@@ -30,18 +34,24 @@ class EditItem extends React.Component {
       <>
         <Navbar />
         <Container direction="left">
-          <ItemForm
+          <ItemForms
             initialValues={_.pick(
               this.props.item,
+              'type',
               'name',
               'description',
+              'pointDescription',
+              'realstate',
               'priceRange',
               'address',
               'contactNo',
               'nearbyPlace',
-              'selectApply'
+              'selectApply',
+              'hasPrice',
+              'negotiable',
+              'showNum'
             )}
-            catagory={this.props.item.catagory}
+            catagory={this.props.match.params.catagory}
             onSubmit={this.onSubmit}
             id={this.props.item.itemId}
             header="Edit Item Info"

@@ -17,17 +17,10 @@ import ItemForms from '../../components/itemForm/itemForms';
 import Container from '../../components/container/Container';
 
 let id = uniqid() + Math.floor(Date.now() / 1000);
-// let rentalId = uniqid('rental-') + uniqid() + -Math.floor(Date.now() / 1000);
-// let saleId = uniqid('sale-') + uniqid() + -Math.floor(Date.now() / 1000);
-// let otherId = uniqid('other-') + uniqid() + -Math.floor(Date.now() / 1000);
-// let jobId = uniqid('job-') + uniqid() + -Math.floor(Date.now() / 1000);
-
 class PostNewItem extends React.Component {
   onSubmit = (values) => {
     this.props.postItem(values, () => {
-      this.props.history.push(
-        `/item/${id}-${this.props.match.params.catagory}`
-      );
+      this.props.history.push('/all');
     });
   };
 
@@ -44,7 +37,6 @@ class PostNewItem extends React.Component {
         ? 'Post Job'
         : undefined;
 
-    console.log(`${this.props.match.params.catagory}-${id}`);
     if (!header) {
       return null;
     }
@@ -55,7 +47,7 @@ class PostNewItem extends React.Component {
           <ItemForms
             onSubmit={this.onSubmit}
             header={header}
-            id={`${id}-${this.props.match.params.catagory}`}
+            id={`${this.props.match.params.catagory}-${id}`}
             catagory={this.props.match.params.catagory}
             loading={this.props.loading}
             resetBtn

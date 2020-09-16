@@ -6,14 +6,9 @@ import { states, districts } from '../../util/address';
 import { cities } from '../../util/cities';
 
 import { storage } from '../../base';
-import selectApply from '../../util/postRoomData';
 
-import {
-  rentalTypes,
-  saleTypes,
-  otherTypes,
-  jobTypes,
-} from '../../util/postUtils/itemTypes';
+import { job, sale, rent, other } from '../../util/postUtils/placeHolder';
+import { newItemwithImgDocument } from '../../util/postUtils/postHelper';
 
 //formfield
 import RenderField from '../form/RenderField';
@@ -26,6 +21,7 @@ import RenderRadioBtn from '../form/RenderRadioBtn';
 
 //material ui
 import withStyles from '@material-ui/core/styles/withStyles';
+import Radio from '@material-ui/core/Radio';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -117,35 +113,19 @@ class ItemForms extends React.Component {
     errorForm: '',
   };
 
-  newItemwithImgDocument = (form, id, imageName, catagory) => {
-    const images = imageName.map(
-      (file) =>
-        `https://firebasestorage.googleapis.com/v0/b/easypezy-39664.appspot.com/o/items%2F${id}%2F${file.name.replace(
-          / /g,
-          ''
-        )}?alt=media`
-    );
-    return {
-      ...form,
-      itemImgUrl: images,
-      itemId: id,
-      catagory: catagory,
-    };
-  };
-
   onSubmit = (values) => {
     let { id, catagory } = this.props;
     this.setState({ id: id });
     if (this.state.files.length > 0) {
       if (Object.keys(values).length !== 0) {
-        // this.submitImage(id);
-        const newItem = this.newItemwithImgDocument(
+        this.submitImage(id);
+        const newItem = newItemwithImgDocument(
           values,
           id,
           this.state.files,
           catagory
         );
-        // setTimeout(this.props.onSubmit(newItem), 2000);
+        setTimeout(this.props.onSubmit(newItem), 2000);
         console.log(newItem);
       } else {
         window.scrollTo(0, 0);
@@ -202,7 +182,7 @@ class ItemForms extends React.Component {
         onClick={() => fields.push()}
         style={{ marginTop: '5px' }}
       >
-        Add {label}
+        {label}
       </Button>
     </div>
   );
@@ -220,16 +200,18 @@ class ItemForms extends React.Component {
       isRealstate,
       hasPriceValue,
     } = this.props;
-    const types =
+    const formType =
       catagory == 'rental'
-        ? rentalTypes
+        ? rent
         : catagory == 'sale'
-        ? saleTypes
+        ? sale
         : catagory == 'other'
-        ? otherTypes
+        ? other
         : catagory == 'job'
-        ? jobTypes
+        ? job
         : undefined;
+
+    console.log(formType);
 
     const form = (name, type, component, label, placeholder) => {
       return (
@@ -264,9 +246,12 @@ class ItemForms extends React.Component {
               <Field
                 name="type"
                 component={RenderRadioBtn}
-                radioValue={types}
-                type="Select Type"
-              />
+                radioValue={formType.type}
+              >
+                {formType.type.map((item) => (
+                  <Radio value={item.value} label={item.name} key={item.name} />
+                ))}
+              </Field>
             </Grid>
             <Grid item xs={4} sm={3} md={2}>
               {isRealstate &&
@@ -288,7 +273,7 @@ class ItemForms extends React.Component {
             </Grid>
             <Grid item xs={4} sm={3} md={2}>
               {isRealstate &&
-                form('realstate.floor', 'number', RenderField, 'Area', '')}
+                form('realstate.area', 'number', RenderField, 'Area', '')}
             </Grid>
             {isRealstate && (
               <Grid item xs={12}>
@@ -299,19 +284,21 @@ class ItemForms extends React.Component {
             <Grid item xs={12} sm={6} className={classes.topGrid}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  {form('name', 'text', RenderField, 'Short Catchy Name', '')}
+                  {form('name', 'text', RenderField, formType.fieldName, '')}
                 </Grid>
 
                 <Grid item xs={12}>
-                  {checkForm(
-                    'hasPrice',
-                    CheckboxInput,
-                    'Mention Price! (Recommended)'
-                  )}
+                  {checkForm('hasPrice', CheckboxInput, formType.hasprice)}
                 </Grid>
                 <Grid item xs={7}>
                   {hasPriceValue &&
-                    form('priceRange', 'number', RenderField, 'Price', '')}
+                    form(
+                      'priceRange',
+                      'number',
+                      RenderField,
+                      formType.price,
+                      ''
+                    )}
                 </Grid>
                 <Grid item xs={5}>
                   {hasPriceValue &&
@@ -324,14 +311,20 @@ class ItemForms extends React.Component {
                   {checkForm('showNum', CheckboxInput, 'Show number')}
                 </Grid>
                 <Grid item xs={12}>
-                  {form('address.address', 'text', RenderField, 'Address', '')}
+                  {form(
+                    'address.address',
+                    'text',
+                    RenderField,
+                    formType.address,
+                    ''
+                  )}
                 </Grid>
                 <Grid item xs={7}>
                   {form(
                     'address.city',
                     'text',
                     RenderField,
-                    'City',
+                    formType.city,
                     'Municipality or VDC"'
                   )}
                 </Grid>
@@ -340,8 +333,8 @@ class ItemForms extends React.Component {
                     'address.district',
                     'text',
                     RenderField,
-                    'District',
-                    '"'
+                    formType.district,
+                    ''
                   )}
                 </Grid>
               </Grid>
@@ -355,7 +348,7 @@ class ItemForms extends React.Component {
                     multiline
                     component={RenderField}
                     outlined="outlined"
-                    label="Short Description"
+                    label={formType.description}
                     placeholder=""
                     rows="3"
                   />
@@ -363,7 +356,7 @@ class ItemForms extends React.Component {
                 <Grid item xs={12}>
                   <FieldArray
                     name="pointDescription"
-                    label="Point Description"
+                    label={formType.addDescription}
                     component={this.renderField}
                   />
                 </Grid>
@@ -373,7 +366,7 @@ class ItemForms extends React.Component {
                       name="selectApply"
                       component={MultiSelectField}
                       label="Select that apply"
-                      data={selectApply}
+                      data={formType.apply}
                     />
                     <div className={classes.multipleWarning}>
                       {' '}
@@ -385,7 +378,7 @@ class ItemForms extends React.Component {
                 <Grid item xs={12}>
                   <FieldArray
                     name="nearbyPlace"
-                    label="Nearby Places"
+                    label={formType.nearby}
                     component={this.renderField}
                   />
                 </Grid>
@@ -473,6 +466,7 @@ const validate = (values) => {
 
 ItemForms = reduxForm({
   form: 'itemForm', // a unique identifier for this form
+  enableReinitialize: true,
 })(ItemForms);
 
 const selector = formValueSelector('itemForm');
