@@ -12,7 +12,6 @@ import { connect } from 'react-redux';
 import { postItem } from '../../redux/actions/dataAction';
 
 //import itemform
-import ItemForm from '../../components/itemForm/ItemForm';
 import ItemForms from '../../components/itemForm/itemForms';
 import Container from '../../components/container/Container';
 

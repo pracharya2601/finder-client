@@ -9,6 +9,7 @@ import AuthRoute from './util/AuthRoute';
 import Home from './views/Home/Home';
 // import SingleItem from './components/items/SingleItem';
 import SingleItem from './views/Items/SingleItem';
+import SingleItemss from './views/Items/SingleItemss';
 import Profile from './components/profile/Profile';
 
 import Saved from './views/User/Saved';
@@ -63,7 +64,6 @@ class App extends React.Component {
           <React.Fragment>
             <Switch>
               <Route path="/" exact component={Home} />
-              <Route path="/item/newpost/item" exact component={PostNewItem} />
               <Route path="/postitem/:catagory" exact component={PostNewItem} />
               <Route
                 path="/edit/:itemId/:catagory"
@@ -79,6 +79,11 @@ class App extends React.Component {
               <Route path="/other" exact component={Other} />
               <Route path="/aboutus" exaxt component={About} />
               <Route path="/item/:itemId" exact component={SingleItem} />
+              <Route
+                path="/item/working/newpage"
+                exact
+                component={SingleItemss}
+              />
               <AuthRoute path="/login" exact component={Login} />
               <AuthRoute path="/signup" exact component={Signup} />
               <AuthRoute

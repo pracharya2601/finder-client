@@ -3,7 +3,6 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { getItem, updateItem } from '../../redux/actions/dataAction';
 
-import ItemForm from '../../components/itemForm/ItemForm';
 import ItemForms from '../../components/itemForm/itemForms';
 import Container from '../../components/container/Container';
 
