@@ -2,6 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+//icon
+import land from '../../images/icons/land.svg';
+import floor from '../../images/icons/floor.svg';
+import livingroom from '../../images/icons/livingroom.svg';
+import bathroom from '../../images/icons/bathroom.svg';
+
 //skeleton
 import Skeleton from '../loading/Skeleton';
 
@@ -15,6 +21,7 @@ import Menus from '../Menu/Menus';
 import Markavailability from './Markavailability';
 import Mail from './Mail';
 import ShareBtns from '../buttons/ShareBtns';
+import IconContainer from './IconContainer';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import IconButton from '@material-ui/core/IconButton';
@@ -74,6 +81,12 @@ const styles = {
       color: 'white',
     },
   },
+  realstate: {
+    position: 'absolute',
+    bottom: '0',
+    right: '0',
+    margin: '0 0 130px 0',
+  },
   menuBtn: {
     position: 'absolute',
     top: '0',
@@ -100,9 +113,17 @@ const styles = {
     borderRadius: '5px',
     fontSize: '14px',
   },
+  negotiable: {
+    background: '#b3a93e',
+    color: 'white',
+    padding: '5px',
+    borderRadius: '5px',
+    fontSize: '14px',
+    marginLeft: '5px',
+  },
   catagory: {
-    background: '#ff9191',
-    color: '#003d87',
+    // background: '#ff9191',
+    color: 'white',
     padding: '5px',
     borderRadius: '5px',
     marginLeft: '5px',
@@ -155,9 +176,12 @@ class Item extends React.Component {
         createdAt,
         userImage,
         likeCount,
+        negotiable,
         commentCount,
+        realstate,
         viewCount,
         priceRange,
+        hasPrice,
         available,
         userData,
       },
@@ -175,6 +199,16 @@ class Item extends React.Component {
         : null;
 
     //delete markup
+    const background = {
+      background:
+        catagory === 'sale'
+          ? '#4859a1'
+          : catagory === 'rental'
+          ? '#923296'
+          : catagory === 'other'
+          ? '#147568'
+          : '#2e3145',
+    };
     const sameUser = userHandle === handle ? true : false;
 
     if (!itemId) {
@@ -234,9 +268,30 @@ class Item extends React.Component {
               )}
             </Menus>
           </div>
+          {realstate && (
+            <div className={classes.realstate}>
+              <IconContainer
+                icon={livingroom}
+                value={realstate.livingroom}
+                itemcard
+              />
+              <IconContainer
+                icon={bathroom}
+                value={realstate.bathroom}
+                itemcard
+              />
+              <IconContainer icon={floor} value={realstate.floor} itemcard />
+              <IconContainer icon={land} value={realstate.area} itemcard />
+            </div>
+          )}
           <div className={classes.itemBottom}>
-            <div className={classes.price}>Rs: {priceRange}</div>
-            <div className={classes.catagory}>{catagoryItem}</div>
+            {hasPrice && <div className={classes.price}>Rs: {priceRange}</div>}
+            {hasPrice && negotiable && (
+              <div className={classes.negotiable}>Negotiable</div>
+            )}
+            <div className={classes.catagory} style={background}>
+              {catagoryItem}
+            </div>
           </div>
           <div className={classes.date}>{dayjs(createdAt).fromNow()}</div>
           <Link to={`/item/${itemId}`}>

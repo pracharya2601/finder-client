@@ -18,6 +18,7 @@ const job = {
     'Yearly paid vacation',
   ],
   nearby: 'Add Nearby Place',
+  isNew: 'This item is new',
 };
 
 const sale = {
@@ -39,6 +40,7 @@ const sale = {
     'New',
   ],
   nearby: 'Add Nearby Place',
+  isNew: 'This item is new',
 };
 const rent = {
   type: rentalTypes,
@@ -59,6 +61,7 @@ const rent = {
     'Internet Included',
   ],
   nearby: 'Add Nearby Place',
+  isNew: 'This item is new',
 };
 const other = {
   type: otherTypes,
@@ -73,6 +76,7 @@ const other = {
   addDescription: 'Add more Description',
   apply: ['Delivery Service'],
   nearby: 'Add Nearby Place',
+  isNew: 'This item is new',
 };
 
 export { job, sale, rent, other };

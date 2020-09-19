@@ -11,6 +11,8 @@
 # production
 /build
 
+/src/base
+
 # misc
 .DS_Store
 .env.local
@@ -30,4 +32,3 @@ yarn-error.log*
 .firebaserc
 build
 
-    #  const a = `https://firebasestorage.googleapis.com/v0/b/cocoontechlab.appspot.com/o/places%${imagegoeshere}?alt=media`

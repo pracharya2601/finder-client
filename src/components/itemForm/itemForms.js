@@ -40,6 +40,7 @@ import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orien
 import FilepondPluginImagePreview from 'filepond-plugin-image-preview';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+import { Grow } from '@material-ui/core';
 
 registerPlugin(
   FilePondPluginImageExifOrientation,
@@ -253,40 +254,47 @@ class ItemForms extends React.Component {
                 ))}
               </Field>
             </Grid>
-            <Grid item xs={4} sm={3} md={2}>
-              {isRealstate &&
-                form('realstate.bedroom', 'number', RenderField, 'Bedroom', '')}
-            </Grid>
-            <Grid item xs={4} sm={3} md={2}>
-              {isRealstate &&
-                form(
-                  'realstate.bathroom',
-                  'number',
-                  RenderField,
-                  'Bathroom',
-                  ''
-                )}
-            </Grid>
-            <Grid item xs={4} sm={3} md={2}>
-              {isRealstate &&
-                form('realstate.floor', 'number', RenderField, 'Floors', '')}
-            </Grid>
-            <Grid item xs={4} sm={3} md={2}>
-              {isRealstate &&
-                form('realstate.area', 'number', RenderField, 'Area', '')}
-            </Grid>
             {isRealstate && (
-              <Grid item xs={12}>
-                <div className={classes.warning}> &#9888; Mention number</div>{' '}
-              </Grid>
+              <>
+                <Grid item xs={4} sm={3} md={2}>
+                  {form(
+                    'realstate.bedroom',
+                    'number',
+                    RenderField,
+                    'Bedroom',
+                    ''
+                  )}
+                </Grid>
+                <Grid item xs={4} sm={3} md={2}>
+                  {form(
+                    'realstate.bathroom',
+                    'number',
+                    RenderField,
+                    'Bathroom',
+                    ''
+                  )}
+                </Grid>
+                <Grid item xs={4} sm={3} md={2}>
+                  {form('realstate.floor', 'number', RenderField, 'Floors', '')}
+                </Grid>
+                <Grid item xs={4} sm={3} md={2}>
+                  {form('realstate.area', 'number', RenderField, 'Area', '')}
+                </Grid>
+                <Grid item xs={12}>
+                  <div className={classes.warning}> &#9888; Mention number</div>{' '}
+                </Grid>
+              </>
             )}
-
             <Grid item xs={12} sm={6} className={classes.topGrid}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   {form('name', 'text', RenderField, formType.fieldName, '')}
                 </Grid>
-
+                {!isRealstate && catagory !== 'job' && (
+                  <Grid item xs={12}>
+                    {checkForm('isNew', CheckboxInput, 'This is New')}
+                  </Grid>
+                )}
                 <Grid item xs={12}>
                   {checkForm('hasPrice', CheckboxInput, formType.hasprice)}
                 </Grid>

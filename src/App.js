@@ -1,15 +1,13 @@
 import React from 'react';
-import { HashRouter, Route, Switch, BrowserRouter } from 'react-router-dom';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import './App.css';
 import jwtDecode from 'jwt-decode';
-import history from './history';
 
 import Navbar from './components/Navbar';
 import AuthRoute from './util/AuthRoute';
 import Home from './views/Home/Home';
 // import SingleItem from './components/items/SingleItem';
 import SingleItem from './views/Items/SingleItem';
-import SingleItemss from './views/Items/SingleItemss';
 import Profile from './components/profile/Profile';
 
 import Saved from './views/User/Saved';
@@ -23,9 +21,6 @@ import Rental from './views/Items/Rental';
 import All from './views/Items/All';
 import About from './views/About/About';
 // import withTitle from './util/withTitle';
-
-//term
-import Term from './term';
 
 import PostNewItem from './views/Post/PostNewItem';
 import EditItem from './views/Post/EditItem';
@@ -79,11 +74,6 @@ class App extends React.Component {
               <Route path="/other" exact component={Other} />
               <Route path="/aboutus" exaxt component={About} />
               <Route path="/item/:itemId" exact component={SingleItem} />
-              <Route
-                path="/item/working/newpage"
-                exact
-                component={SingleItemss}
-              />
               <AuthRoute path="/login" exact component={Login} />
               <AuthRoute path="/signup" exact component={Signup} />
               <AuthRoute
